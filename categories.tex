@@ -1,0 +1,2997 @@
+\documentclass[11pt,a4paper]{report}
+\usepackage[nonamelimits]{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage[german,french,english]{babel}
+\usepackage{unnumberedtotoc}
+\usepackage{csquotes}
+\usepackage[style=authortitle-icomp,dashed=false]{biblatex}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{cd}
+\usetikzlibrary{babel}
+\usepackage[tracking=true,spacing=true,kerning=true]{microtype}
+\usepackage{mathtools}
+\usepackage[prevent-all]{widows-and-orphans}
+\usepackage{hyphenat}
+\usepackage{hyperref}
+\usepackage[capitalise]{cleveref}
+
+\newtheorem*{thdef}{Definition}
+\newtheorem{axiom}{Axiom}
+\newtheorem{lemma}{Lemma}
+\newtheorem{theorem}{Theorem}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator{\map}{Map}
+\DeclareMathOperator{\hm}{Hom}
+\DeclareMathOperator{\lin}{Lin}
+\DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\dual}{Conj}
+\DeclareMathOperator{\ch}{Ch}
+\DeclareMathOperator{\chr}{Char}
+\DeclareMathOperator{\an}{Annih}
+\DeclareMathOperator{\ki}{Ki}
+\DeclareMathOperator{\fc}{Fact}
+\DeclareMathOperator{\tra}{Trans}
+\DeclareMathOperator{\ex}{Ext}
+\hypersetup{pageanchor=false}
+\addbibresource{biblio.bib}
+\crefname{case}{case}{cases}
+\crefname{cond}{condition}{conditions}
+\crefname{axiom}{axiom}{axioms}
+\crefformat{section}{\S#2#1#3} %mimick the original format.
+\frenchspacing
+\date{15 May 1945}
+
+
+\begin{document}
+\author{Samuel Eilenberg \and Saunders MacLane}
+\title{General Theory of Natural Equivalences}
+\maketitle
+\hypersetup{pageanchor=true}
+\tableofcontents
+
+\addchap{Introduction}\label{intro}
+
+The subject matter of this paper is best explained by an example, such
+as that of the relation between a vector space $L$ and its ``dual'' or
+``conjugate'' space $T(L)$. Let $L$ be a finite\hyp{}dimensional real vector
+space, while its conjugate $T(L)$ is, as is customary, the vector space
+of all real valued linear functions $t$ on $L$. Since this conjugate $T(L)$
+is in its turn a real vector space with the same dimension as $L$, it is
+clear that $L$ and $T(L)$ are isomorphic. But such an isomorphism cannot
+be exhibited until one choose a definite set of basis vectors for $L$,
+and furthermore the isomorphism which results will differ for different
+choices of this basis.
+
+For the iterated conjugate space $T(T(L))$, on the other hand, it is well
+known that one can exhibit an isomorphism between $L$ and $T(T(L))$ 
+\emph{without} using any special basis in $L$. This exhibition of the
+isomorphism $L\cong T(T(L))$ is ``natural'' in that it is given 
+\emph{simultaneously} for \emph{all} finite\hyp{}dimensional vector spaces $L$.
+
+This simultaneity can be further analyzed. Consider two finite\hyp{}dimensional
+vector spaces $L_1$ and $L_2$ and a linear transformation $\lambda_1$ of
+$L_1$ into $L_2$; in symbols
+\begin{equation}\label{eq:trans}
+	\lambda_1:L_1 \to L_2
+\end{equation}
+This transformation $\lambda_1$ induces a corresponding linear transformation
+of the second conjugate space $T(L_2)$ into the first one, $T(L_1)$. 
+Specifically, since each element $t_2$ in the conjugate space $T(L_2)$ is
+itself a mapping, one has two transformations
+\begin{equation*}
+	L_1 \xlongrightarrow{\lambda_1} L_2 \xlongrightarrow{t_2} \R;
+\end{equation*}
+their product $t_2\lambda_1$ is thus a linear transformation of $L_1$ into
+$\R$, hence an element $t_1$ in the conjugate space $T(L_1)$. We call this
+correspondence of $t_2$ to $t_1$ the mapping $T(\lambda_1)$ \emph{induced}
+by $\lambda_1$; thus $T(\lambda_1)$ is defined by setting 
+$[T(\lambda_1)]t_2= t_2\lambda_1$, so that
+\begin{equation}\label{eq:induced}
+	T(\lambda_1): T(L_2)\to T(L_1).
+\end{equation}
+In particular, this induced transformation $T(\lambda_1)$ is simply the
+identity when $\lambda_1$ is given as the identity transformation of
+$L_1$ into $L_1$. Furthermore the transformation induced by a product
+of $\lambda$'s is the product of the separately induced transformations,
+for if $\lambda_1$ maps $L_1$ into $L_2$ while $\lambda_2$ maps $L_2$
+into $L_3$, the definition of $T(\lambda)$ shows that
+\begin{equation*}
+	T(\lambda_2\lambda_1)=T(\lambda_1)T(\lambda_2).
+\end{equation*} 
+The process of forming the conjugate space thus actually
+involves two different operations or functions. The first associates with
+each space $L$ its conjugate space $T(L)$; the second associates with each
+linear transformation $\lambda$ between vector spaces its induced linear
+transformation $T(\lambda)$.\footnote{The two different functions $T(L)$
+and $T(\lambda)$ may be safely denoted by the same letter $T$ because 
+their arguments $L$ and $\lambda$ are always typographically distinct.}
+
+A discussion of the ``simultaneous'' or ``natural'' character of the
+isomorphism $L\cong T(T(L))$ clearly involves a simultaneous consideration
+of all spaces $L$ and all transformations $\lambda$ connecting them; this
+entails a simultaneous consideration of the conjugate space $T(L)$ and the
+induced transformations $T(\lambda)$ connecting them. Both functions $T(L)$
+and $T(\lambda)$ are thus involved; we regard them as the component parts
+of what we call a ``functor'' $T$. Since the induced mapping $T(\lambda_1)$
+of \cref{eq:induced} reversed the direction of the original $\lambda_1$ of \cref{eq:trans},
+this functor $T$ will be called ``contravariant''.
+
+The simultaneous isomorphisms
+\begin{equation*}
+	\tau(L): L\rightleftarrows T(T(L))
+\end{equation*}
+compare two \textsl{co}variant functors; the first is the identity functor
+$I$, composed of the two functions
+\begin{equation*}
+	I(L)=L,\qquad I(\lambda)=\lambda;
+\end{equation*}
+the second is the iterated conjugate functor $T^2$, with components
+\begin{equation*}
+	T^2(L)=T(T(L)),\qquad T^2(\lambda)=T(T(\lambda)).
+\end{equation*}
+For each $L$, $\tau(L)$ is constructed as follows. Each vector $x\in L$ and
+each functional $t\in T(L)$ determine a real number $t(x)$. If in this 
+expression $x$ is fixed while $t$ varies, we obtain a linear transformation
+of $T(L)$ into $\R$, hence an element $y$ in the double conjugate space
+$T^2(L)$. This mapping $\tau(L)$ of $x$ to $y$ ma also be defined formally
+by setting $[[\tau(L)]x]t= t(x)$.
+
+The connections between these isomorphisms $\tau(L)$ and the transformations
+$\lambda : L_1 \to L_2$ may be displayed thus:
+\begin{equation*}
+	\begin{tikzpicture}
+		\node (a) at (0,0)
+		{ \begin{tikzcd}[sep=huge]
+		L_1 \arrow[r,"\tau(L_1)"] \arrow[d, "I(\lambda)"] & T^2(L_1) 
+		\arrow[d,"T^2(\lambda)"] \\
+		L_2 \arrow[r,"\tau(L_2)"] & T^2(L_2)
+		\end{tikzcd}};
+	\end{tikzpicture}
+\end{equation*}
+The statement that the two possible paths from $L_1$ to $T^2(L_2)$ in this
+diagram are in effect identical is what we shall call the ``naturality''
+or ``simultaneity'' condition for $t$; explicitly, it reads
+\begin{equation}\label{eq:nat1}
+	\tau(L_2)I(\lambda)=T^2(\lambda)\tau(L_1).
+\end{equation}
+This equality can be verified from the above definitions of $t(L)$ and
+$T(\lambda)$ by straightforward substitution. A function $t$ satisfying this
+``naturality'' condition will be called a ``natural equivalence'' of the
+functors $I$ and $T^2$.
+
+On the other hand, the isomorphism of $L$ to its conjugate space $T(L)$ is a
+comparison of the covariant functor $I$ with the contravariant functor $T$.
+Suppose that we are given simultaneous isomorphisms
+\begin{equation*}
+	\sigma(L): L\rightleftarrows T(L)
+\end{equation*}
+for each $L$. For each linear transformation $\lambda:L_1 \rightarrow L_2$ we
+than have a diagram
+\begin{equation*}
+	\begin{tikzpicture}
+		\node (a) at (0,0)
+		{ \begin{tikzcd}[sep=huge]
+		L_1 \arrow[r,"\sigma(L_1)"] \arrow[d, "I(\lambda)"] & T^2(L_1)\\
+				L_2 \arrow[r,"\sigma(L_2)"] & T^2(L_2)\arrow[u,"T(\lambda)"]
+		\end{tikzcd}};
+	\end{tikzpicture}
+\end{equation*}
+The only ``naturality'' condition read from this diagram is $\sigma(L_1)\!=\!T(\lambda)\sigma(L_2)\lambda$. %negative space to avoid overfull box.
+Since $\sigma(L_1)$ is an isomorphism, this condition certainly cannot hold unless $\lambda$ is an
+isomorphism of $L_1$ into $L_2$. Even in the more restricted case in which $L_2=L_1=L$ is a single space
+there can be no isomorphism $\sigma:L\rightarrow T(L)$ which satisfies this naturality condition
+$\sigma=T(\lambda)\sigma\lambda$ for every non\hyp{}singular linear transformation $\lambda$.\footnote{For suppose $\sigma$
+has this property. Then $(x,y)=[\sigma(x)]y$ is a non-singular bilinear form (not necessarily symmetric) in the
+vectors $x,y$ of $L$, and we would have, for every $\lambda$,
+$(x,y)=[\sigma(x)](y)=[T(\lambda)\sigma\lambda x]y=[\sigma\lambda x]\lambda y=(\lambda x,\lambda y)$,
+so that the bilinear form is left invariant by every nonsingular linear transformation $\lambda$.
+This is clearly impossible.} Consequently, with our definition of $T(\lambda)$, there is no ``natural''
+isomorphism between the functors $I$ and $T$, even in a very restricted special case.
+
+Such a consideration of vector spaces and their linear transformations is but one example of many similar 
+mathematical situations; for instance, we may deal with groups and their homomorphisms, with topological
+spaces and their continuous mappings, with simplicial complexes and their simplicial transformations, with
+ordered sets and their order preserving transformations. In order to deal in a general way with such situations,
+we introduce the concept of a \emph{category}. Thus a category $\mathbf{A}$ will consist of abstract elements
+of two types: the objects $A$ (for example, vector spaces, groups) and the mappings $\alpha$ (for example, linear
+transformations, homomorphisms). For some pairs of mappings in the category there is defined a product (in the 
+examples, the product is the usual composite of two transformations). Certain of these mappings act as identities with
+respect to this product, and there is a  one\hyp{}to\hyp{}one correspondence between the objects of the category and these identities.
+A category is subject to certain simple axioms, so formulated as to include all examples of the character described above.
+
+Some of the mappings $\alpha$ of a category will have a formal inverse mapping in the category; such a mapping $\alpha$ is called
+and equivalence. In the examples quoted the equivalences turn out to be, respectively, the isomorphisms for vector spaces,
+the homeomorphisms for topological spaces, the isomorphism for groups and complexes, and so on.
+
+Most of the standard constructions of a new mathematical object from given objects (such as the construction of the
+direct product of two groups, the homology group of a complex, the Galois group of a field) furnish a function 
+$T(A,B,\dotsc)=C$ which assigns to given objects $A,B,\dotsc$ in definite categories $\mathbf{A,B},\dotsc$ a new object
+$C$ in a category $\mathbf{C}$. As in the special case of the conjugate $T(L)$ of a linear space, where there is a
+corresponding induced mapping $T(\lambda)$, we usually find that mappings $\alpha,\beta,\dotsc$ in the categories
+$\mathbf{A,B,\dotsc}$ also induce a definite mapping $T(\alpha,\beta,\dotsc)=\gamma$ in the category $\mathbf{C}$,
+properly acting on the object $T(A,B,\dotsc)$.
+
+These examples suggest the general concept of a functor $T$ on categories $\mathbf{A,B,\dotsc}$ to a category $\mathbf{C}$,
+defined as an appropriate pair of functions $T(A,B,\dotsc),T(\alpha,\beta,\dotsc)$. Such a functor may well be covariant in
+some of its arguments, contravariant in the others. The theory of categories and functors, with a few of the illustrations,
+constitutes \cref{ch:cat_funct}.
+
+The natural isomorphism $L\rightarrow T^2(L)$ is but one example of many natural equivalences occurring in mathematics.
+For instance, the isomorphism of a locally compact abelian group with its twice iterated character group, most of the
+general isomorphisms in group theory and in the homology theory of complexes and spaces, as well as many equivalences in
+set theory and in general topology satisfy a naturality condition resembling \cref{eq:nat1}.
+In \cref{ch:nat_equ}, we provide a general definition of equivalence between functors which includes there cases.
+A more general notion of a transformation of one functor into another provides a means of comparing functors which may not
+be equivalent. The general concepts are illustrated by several fairly elementary examples of equivalences and transformations
+for topological spaces, groups, and Banach spaces.
+
+The third chapter deals especially with groups. In the category of groups the concept of a subgroup establishes a natural
+partial order for the objects (groups) of the category. For a functor whose values are in the category of groups there is
+an induced partial order. The formation of a quotient group has as analogue the construction of the quotient functor of a
+given functor by any normal subfunctor. In the uses of group theory, most groups constructed are obtained as quotient groups
+of other groups; consequently the operation of building a quotient functor is directly helpful in the representation of such
+group constructions by functors. The first and second isomorphism theorems of group theory are then formulated for functors;
+incidentally, this is used to show that these isomorphisms are ``natural''. The latter part of the chapter establishes the 
+naturality of various known isomorphisms and homomorphisms in group theory.\footnote{A brief discussion of this case and of 
+the general theory of functors in the case of groups is given in the authors' note,~\cite{groups42}.\label{ft:groups42}}
+
+The fourth chapter starts with a discussion of functors on the category of partially ordered sets, and continues with the
+discussion of limits of direct and inverse systems of groups, which form the chief topic of this chapter. After suitable
+categories are introduced, the operations of forming direct and inverse limits of systems of groups are described as functors.
+
+In the fifth chapter we establish the homology and cohomology groups of complexes and spaces as functors and show the 
+naturality of various know isomorphisms of topology, especially those which arise in duality theorems. The treatment of
+the \u{C}ech homology theory utilizes the categories of direct and inverse systems, as discussed in \cref{ch:poset}.
+
+The introduction of this study of naturality is justified, in our opinion, both by its technical and by its conceptual
+advantages.
+
+In the technical sense, it provides the exact hypotheses necessary to apply to both sides of an isomorphism a passage
+to the limit, in the sense of direct or inverse limits for groups, rings or spaces.\footnote{Such limiting processes
+are essential in the transition from the homology theory of complexes to that of spaces. Indeed, the general theory
+developed here occurred to the authors as a result of the study of the admissibility of such a passage in a relatively
+involved theorem in homology theory (\cite[especially, p.~777 and p.~815]{eilenberg42}).} Indeed, our naturality
+condition is part of the standard isomorphism condition for two direct or two inverse systems.\footcite{freud37}
+
+The study of functors also provides a technical background for the intuitive notion of naturality and makes it
+possible to verify by straightforward computation the naturality of an isomorphism or of an equivalence in
+all those cases where it has intuitively recognized that the isomorphisms are indeed ``natural''. In many cases
+(for example, as in the above isomorphism of $L$ to $T(L)$) we can also assert that certain known isomorphisms are
+in fact ``unnatural'', relative to the class of mappings considered.
+
+In metamathematical sense our theory provides general concepts applicable to all branches of abstract mathematics,
+and so contributes to the current trend towards uniform treatment of different mathematical disciplines. In particular,
+it provides opportunities for the comparison of constructions and of the isomorphisms occurring in different branches
+of mathematics; in this way it may occasionally suggest new results by analogy.
+
+The theory also emphasizes that, whenever new abstract objects are constructed in a specified way out of given ones,
+it is advisable to regard the construction of the corresponding induced mappings on these new objects an an integral
+part of their definition. The pursuit of this program entails a simultaneous consideration of objects and their
+mappings (in our terminology, this means the consideration not of individual objects but of categories). This 
+emphasis on the specification of the type of mappings employed gives more insight int the degree of invariance of 
+the various concepts involved. For instance, we show in \cref{sec:ex_funct}, that the concept of the commutator
+subgroup of a group is in a sense a more invariant one than that of the center, which in its turn is more invariant
+than the concept of the automorphism group of a group, even though in the classical sense all three concepts are invariant.
+
+The invariant character of a mathematical discipline can be formulated in these terms. Thus, in group theory all
+basic constructions can be regarded as the definitions of co- or contravariant functors, so we may formulate the
+dictum: The subject of group theory is essentially the study of those constructions of groups which behave in a
+covariant or contravariant manner under induced homomorphisms. More precisely, group theory studies functors
+defined on well specified categories of groups, with values in another such category.
+
+This may be regarded as a continuation of the Klein Erlanger Programm, in the sense that a geometrical space with
+its group of transformations is generalized to a category with its algebra of mappings.
+
+\chapter{Categories and functors}\label{ch:cat_funct}
+\section{Definition of Categories}\label{sec:def_cat}
+These investigations will deal with aggregates such as a class of groups together with a class of homomorphisms,
+each of which maps one of the groups into another one, or such as a class of topological spaces together with 
+their continuous mappings, one into another. Consequently we introduce a notion of ``category'' which will
+embody the common formal properties of such aggregates.
+
+From the examples ``groups plus homomorphisms'' or ``spaces plus continuous mappings'' we are led to the following
+definition. A \emph{category} $\mathbf{A}=\{A,\alpha\}$ is aggregate of abstract elements $A$ (for example, groups),
+called the \emph{objects} of the category, and abstract elements $\alpha$ (for example, homomorphisms), called 
+\emph{mappings} of the category. Certain pair of mappings $\alpha_1,\alpha_2\in\mathbf{A}$ determine uniquely a
+product mapping $\alpha=\alpha_2\alpha_1\in\mathbf{A}$, subject to \crefrange{ax:c1}{ax:c3} below. Corresponding
+to each object $A\in\mathbf{A}$ there is a unique mapping, denoted by $e_A$ or by $e(A)$, and subject to the
+\cref{ax:c4,ax:c5}. The axioms are:
+\theoremstyle{definition}
+\begin{axiom}\label[axiom]{ax:c1}
+	The triple product $\alpha_3(\alpha_2\alpha_1)$ is defined if and only if $(\alpha_3\alpha_2)\alpha_1$
+	is defined. When either is defined, the associative law
+	\begin{displaymath}
+		\alpha_3(\alpha_2\alpha_1)=(\alpha_3\alpha_2)\alpha_1
+        \end{displaymath}
+	holds. This triple product will be written as $\alpha_3\alpha_2\alpha_1$.
+\end{axiom}
+
+\begin{axiom}\label[axiom]{ax:c2}
+	The triple product $\alpha_3\alpha_2\alpha_1$ is defined whenever both products $\alpha_3\alpha_2$ and
+	$\alpha_2\alpha_1$ are defined.
+\end{axiom}
+\begin{thdef}
+	A mapping $e\in\mathbf{A}$ will be called an \emph{identity} of $\mathbf{A}$ if and only if the
+	existence of any product $e\alpha$ or $\beta e$ implies that $e\alpha=\alpha$ or $\beta e =\beta$.
+\end{thdef}
+\begin{axiom}\label[axiom]{ax:c3}
+	For each mapping $\alpha\in\mathbf{A}$ there is at least on identity $e_1\in\mathbf{A}$ such that
+	$\alpha e_1$ is defined, and at least on identity $e_2\in\mathbf{A}$ such that $e_2\alpha$ is
+	defined.
+\end{axiom}
+\begin{axiom}\label[axiom]{ax:c4}
+	The mapping $e_A$ corresponding to each object $A$ is an identity.
+\end{axiom}
+\begin{axiom}\label[axiom]{ax:c5}
+	For each identity $e$ of $\mathbf{A}$ there is an unique object $A$ of $\mathbf{A}$ such that $e_A = e$.
+\end{axiom}
+\theoremstyle{plain}
+These two axioms assert that the rule $A \rightarrow e_A$ provides a one\hyp{}to\hyp{}one correspondence between the set of
+all objects of the category and the set of all its identities. 
+
+\begin{lemma}
+	For each mapping $\alpha\in\mathbf{A}$ there is exactly one object $A_1$ with the product $\alpha e(A_1)$
+	defined, and exactly one $A_2$ with $e(A_2)\alpha$ defined.
+\end{lemma}
+
+The objects $A_1,A_2$ will be called the \emph{domain} and the \emph{range} of $\alpha$, respectively. We also say
+that $\alpha$ acts on $A_1$ to $A_2$, and write
+\begin{equation*}
+	\alpha: A_1\rightarrow A_2 \text{ in }\mathbf{A}.
+\end{equation*}
+\begin{proof}
+	Suppose that $\alpha e(A_1)$ and $\alpha e(B_1)$ are both defined. By the properties of an identity,
+	$\alpha e(A_1)=\alpha$, so that \cref{ax:c1,ax:c2} insure that the product $e(A_1)e(B_1)$ is defined.
+	Since both are identities, $e(A_1)=e(A_1)e(B_1)=e(B_1)$, and consequently $A_1=B_1$. The uniqueness of
+	$A_2$ is similarly established.
+\end{proof}
+\begin{lemma}
+	The product $\alpha_2\alpha_1$ is defined if and only if the range of $\alpha_1$ is the domain of
+	$\alpha_2$. In other words, $\alpha_2\alpha_1$ is defined if and only if $\alpha_1 :A_1 \rightarrow
+	A_2$ and $\alpha_2 :A_2 \rightarrow A_3$. In that case $\alpha_1\alpha_2:A_1\rightarrow A_3$.
+\end{lemma}
+\begin{proof}
+	Let $\alpha_1:A_1\rightarrow A_2$. The product $e(A_2)\alpha_1$ is then defined and $e(A_2)\alpha_1=\alpha_1$.
+	Consequently $\alpha_2\alpha_1$ is defined if and only if $\alpha_2 e(A_2)\alpha_1$ is defined. By \cref{ax:c1,ax:c2}
+	this will hold precisely when $\alpha_2 e(A_2)$ is defined. Consequently $\alpha_2\alpha_1$ is 
+	defined if and only if $A_2$ is the domain of $\alpha_2$ so that $\alpha_2 :A_2\rightarrow A_3$. To prove
+	that $\alpha_2\alpha_1 :A_1 \rightarrow A_3$ note that since $\alpha_1 e(A_1)$ and $e(A_3)\alpha_2$ are defined
+	the products $(\alpha_2\alpha_1)e(A_1)$ and $e(A_3)(\alpha_2\alpha_1)$ are defined.
+\end{proof}
+\begin{lemma}
+	If $A$ is an object, $e_A:A\rightarrow A$.
+\end{lemma}
+\begin{proof}
+	If we assume that $e(A):A_1\rightarrow A_2$ then $e(A)e(A_1)$ and $e(A_2)e(A)$ are defined. Since they are all
+	identities it follows that $e(A)=e(A_1)e(A_2)$ and $A=A_1=A_2$
+\end{proof}
+
+A ``left identity'' $\beta$ is a mapping such that $\beta\alpha=\alpha$ whenever $\beta\alpha$ is defined. \Cref{ax:c3} shows
+that every left identity is an identity. Similarly each right identity is an identity. Furthermore, the product $e e^1$ of
+two identities is defined if and only if $e=e^1$.
+
+If $\beta\gamma$ is defined and is an identity, $\beta$ is called a \emph{left inverse} of $\gamma$, $\gamma$ is a
+\emph{right inverse} of $\beta$. A mapping $\alpha$ is called an \emph{equivalence} of $\mathbf{A}$ if it has in 
+$\mathbf{A}$ at least one left inverse and at least one right inverse.
+\begin{lemma}
+	An equivalence $\alpha$ has exactly one left inverse and exactly one right inverse. These inverses are equal,
+	so that the (unique) inverse may be denoted by $\alpha^{-1}$.
+\end{lemma}
+\begin{proof}
+	It suffices to show that any left inverse $\beta$ of $\alpha$ equals any right inverse $\gamma$. Since $\beta\alpha$
+	and $\alpha\gamma$ are both defined, $\beta\alpha\gamma$ is defined, by \cref{ax:c2}. But $\beta\alpha$ and $\alpha\gamma$
+	are identities, so that $\beta=\beta(\alpha\gamma)=(\beta\alpha)\gamma=\gamma$, as asserted.
+\end{proof}
+
+For equivalences $\alpha,\beta$ one easily proves that $\alpha^{-1}$ and $\alpha\beta$ (if defined) are equivalences, and that
+\begin{equation*}
+	{(\alpha^{-1})}^{-1}=a,\qquad {(\alpha\beta)}^{-1}=\beta^{-1}\alpha^{-1}.
+\end{equation*}
+Every identity $e$ is an equivalence, with $e^{-1}=e$.
+
+Two objects $A_1,A_2$ are called \emph{equivalent} if there is an equivalence $\alpha$ such that $\alpha:A_1\rightarrow A_2$.
+The relation of equivalence between objects is reflexive, symmetric and transitive.
+
+\section{Examples of Categories}\label{sec:ex_cat}
+In the construction of examples, it is convenient to use the concept of a subcategory. A subaggregate $\mathbf{A}_0$ of
+$\mathbf{A}$ will be called a \emph{subcategory} if the following conditions hold:
+\begin{enumerate}
+	\item If $\alpha_1,\alpha_2\in\mathbf{A}_0$ and $\alpha_2\alpha_1$ is defined in $\mathbf{A}$, then
+		$\alpha_2,\alpha_1\in\mathbf{A}_0$.\label{sub_closed}
+	\item If $A\in\mathbf{A}_0$, then $e_A\in\mathbf{A}_0$.\label{sub_id}
+	\item If $\alpha:A_1\rightarrow A_2$ in $\mathbf{A}$ with $\alpha\in\mathbf{A}_0$,
+		then $A_1,A_2\in\mathbf{A}_0$\label{sub_obj}
+\end{enumerate}
+Condition~\ref{sub_closed} insures that $\mathbf{A}_0$ is ``closed'' with respect to multiplication in $\mathbf{A}$;
+from conditions~\ref{sub_id} and~\ref{sub_obj} it then follows that $\mathbf{A}_0$ is itself a category. The intersection
+of any number of subcategories of $\mathbf{A}$ is again a subcategory of $\mathbf{A}$. Note, however, that an equivalence
+$\alpha\in\mathbf{A}_0$ of $\mathbf{A}$ need not remain an equivalence in a subcategory $\mathbf{A}_0$, because the
+inverse $\alpha^{-1}$ may not be in $\mathbf{A}_0$.
+
+For example, if $\mathbf{A}$ is any category, the aggregate $\mathbf{A}_e$ of all the objects and all the equivalences
+of $\mathbf{A}$ is a subcategory of $\mathbf{A}$. Also if  $\mathbf{A}$ is a category and $S$ a subclass of its objects,
+the aggregate $\mathbf{A}_S$ consisting of all objects of $S$ and all mappings of $\mathbf{A}$ with both range and domain
+in $S$ is a subcategory. In fact, every subcategory of $\mathbf{A}$  can be obtained in two steps: first, form a 
+subcategory $\mathbf{A}_S$; second, extract from $\mathbf{A}_S$ a subaggregate, consisting of all the objects of 
+$\mathbf{A}_S$ and a set of mappings of $\mathbf{A}_S$ which contains all the identities and is closed under multiplication.
+
+The category $\mathbf{S}$ of all sets has as its objects all sets $S$.\footnote{This category obviously leads to the
+paradoxes of set theory. A detailed discussion of this aspect of categories appears in \cref{sec:found}, below.}
+A mapping $\sigma$ of $\mathbf{S}$ is determined by a pair of sets $S_1$ and $S_2$ and a many\hyp{}one correspondence between
+$S_1$ and a subset of $S_2$, which assigns to each $x\in S_1$ a corresponding element $\sigma x\in S_2$; we then write
+$\sigma : S_1\rightarrow S_2$. (Note that any deletion of elements from $S_1$ or $S_2$ \emph{changes} the mapping $\sigma$.)
+The product of $\sigma_2: S_2^1\rightarrow S_3$ and $\sigma_1: S_1\rightarrow S_2$ is defined if and only if $S^1_2=S_2$;
+this product then maps $S_1$ to $S_3$ by the usual composite correspondence $(\sigma_2\sigma_1)x=\sigma_2(\sigma_1 x)$,
+for each $x\in S_1$.\footnote{This formal associative law allows us to write $\sigma_2\sigma_1 x$ without fear of ambiguity.
+In more complicated formulas, parentheses will be inserted to make the components stand out.} The mapping $e_S$ corresponding
+to the set $S$ is the identity mapping of $S$ onto itself, with $e_S x=x\text{ for }x\in S$. The \crefrange{ax:c1}{ax:c5}
+are clearly satisfied. An equivalence $\sigma:S_1\rightarrow S_2$ is simply a one\hyp{}to\hyp{}one mapping of $S_1$ \emph{onto} $S_2$.
+
+Subcategories of $\mathbf{S}$ include the category of all finite sets $S$, with their mappings as before. For any cardinal
+number $m$ there are two similar categories, consisting of all sets $S$ of power less than $m$ (or, of power less than or 
+equal to $m$), together with all their mappings. Subcategories of $\mathbf{S}$ can also be obtained by restricting the
+mappings; for instance we may require that each $\sigma$ is a mapping of $S_1$ \emph{onto} $S_2$, or that each $\sigma$ is a
+one\hyp{}to\hyp{}one mapping of $S_1$ into a subset of $S_2$.
+
+The category $\mathbf{X}$ of all topological spaces has as its objects all topological spaces $X$ and as its mappings all
+continuous transformations $\xi: X_1\rightarrow X_2$ of a space $X_1$ into a space $X_2$. The composition $\xi_2\xi_1$ and
+the identity $e_X$ are both defined as before. An equivalence in $\mathbf{X}$ is a homeomorphism ($=$topological equivalence).
+
+Various subcategories of $\mathbf{X}$ can again be obtained by restricting the type of topological space to be considered,
+or by restricting the mappings, say to open mappings or to closed mappings.\footnote{A mapping $\xi:x_1\rightarrow x_2$
+is \emph{open} (\emph{closed}) if the image under $\xi$ of every open (closed) subset of $X$ is open (closed) in $X_2$.}
+
+In particular,  $\mathbf{S}$ can be regarded as a subcategory of $\mathbf{X}$, namely, as that subcategory consisting of
+all spaces with a discrete topology.
+
+The category $\mathbf{G}$ of all topological groups\footnote{A \emph{topological group} $G$ is a group which is also a
+topological space in which the group composition and the group inverse are continuous functions (no separation axioms
+are assumed on the space). If, in addition, $G$ is a Hausdorff space, then all the separation axioms up to and including
+regularity are satisfied, so that we call $G$ a \emph{regular topological group}.} has as its objects all topological
+group $G$ and as its mappings $\gamma$ all those many\hyp{}one correspondences of a group $G_1$ into a group $G_2$ which are
+homomorphisms.\footnote{By homomorphism we always understand a continuous homomorphism.}
+
+Subcategories of $\mathbf{G}$ can be obtained by restricting the groups (discrete, abelian, regular, compact and so on)
+or by restricting the homomorphisms (open homomorphisms, homomorphisms ``onto'', and so on).
+
+The category $\mathbf{B}$ of all Banach spaces is similar; its objects are the Banach spaces $B$, its mappings all linear
+transformations $\beta$ of norm at most 1 of one Banach space into another.\footnote{For each linear transformation $\beta$
+of the Banach space $B_1$ into $B_2$, the norm $\|\beta\|$ is defined as the least upper bound $\|\beta b\|$, for all
+$b\in B_1$ with $\|b\|=1$.} Its equivalences between two Banach spaces (that is, one\hyp{}to\hyp{}one linear transformations which
+preserve the norm). The assumption above the the mappings of the category $\mathbf{B}$ all have norm at most 1 is 
+necessary in order to insure that the equivalences in $\mathbf{B}$ actually preserve the norm. If one admits arbitrary
+linear transformations as mappings of the category, one obtains a larger category in which the equivalences are isomorphisms
+(that is, one\hyp{}to\hyp{}one linear transformations)\footcite[180]{banach32}.
+
+For quick reference, we sometimes describe a category by specifying only the objects involved (for examples, the category of
+all discrete groups). In such a case, we imply the the mappings of this category are to be all mappings appropriate to the
+objects in questions (for example, all homomorphisms).
+	
+\section{Functors in two arguments}\label{sec:bifunct}
+For simplicity we define only the concept of a functor covariant in one argument and contravariant in another. The
+generalization to any number of arguments of each type will be immediate.
+
+Let $\mathbf{A}$, $\mathbf{B}$, and $\mathbf{C}$ be three categories. Let $T(A,B)$ be an \emph{object\hyp{}function}
+which associates with each pair of objects $A\in\mathbf{A}, B\in\mathbf{B}$ an object $T(A,B)=C\in\mathbf{C}$,
+and let $T(\alpha,\beta)$ be a \emph{mapping\hyp{}function} which associates with each pair of mappings $\alpha\in\mathbf{A},
+\beta\in\mathbf{B}$ a mapping $T(\alpha,\beta)=\gamma\in\mathbf{C}$. For these functions we formulate certain conditions
+already indicated in the example in the introduction.
+\begin{thdef}
+	The object\hyp{}function $T(A,B)$ and the mapping\hyp{}function $T(\alpha,\beta)$ form a \emph{functor} $T$, covariant in
+	$\mathbf{A}$ and contravariant in $\mathbf{B}$, with values in $\mathbf{C}$, if
+	\begin{equation}
+		T(e_A,e_B)=e_{T(A,B)},\label{eq:funct_id}
+	\end{equation}
+	if, whenever $\alpha:A_1\rightarrow A_2\in\mathbf{A}$ and $\beta:B_1\rightarrow B_2\in\mathbf{B}$
+	\begin{equation}
+		T(\alpha,\beta): T(A_1,B_2)\rightarrow T(A_2,B_1),\label{eq:funct_prod1}
+	\end{equation}
+	and if, whenever $\alpha_2\alpha_1\in\mathbf{A}$ and $\beta_2\beta_1\in\mathbf{B}$,
+	\begin{equation}
+		T(\alpha_2\alpha_1,\beta_2\beta_1)=T(\alpha_2,\beta_1)T(\alpha_1,\beta_2)\label{eq:funct_prod2}
+	\end{equation}
+\end{thdef}
+Condition \labelcref{eq:funct_prod1} guarantees the existence of the product of mappings appearing on the right of \cref{eq:funct_prod2}.
+
+The formulas \labelcref{eq:funct_prod1,eq:funct_prod2} display the distinction between co- and contravariance.
+The mapping $T(\alpha,\beta)=\gamma$ induced by $\alpha$ and $\beta$ from $T(A_1,-)$ to $T(A_2,-)$; that is, in the same
+direction as does $\alpha$ hence the \emph{co}variance of $T$ in the argument $\mathbf{A}$. The induced mapping
+$T(\alpha,\beta)$ at the same time operates in the direction opposite from that of $\beta$; thus it is contravariant
+in $\mathbf{B}$. Essentially the same shift in direction is indicated by the orders of factors in formula \labelcref{eq:funct_prod2}
+(the covariant $\alpha$'s appear in the same order on both sides; the contravariant $\beta$'s appear in on order
+on the left and in the opposite order on the right). With this observation, the requisite formulas for functors in more
+arguments can be set down.
+
+According to this definition, the functor $T$ is composed of an object function and a mapping function. The latter is the
+more important of the two; in fact, \cref{eq:funct_id} means that it determines the object function and 
+therefore the whole functor, as stated in the following theorem.
+\begin{theorem}\label{thm:functor}
+	A function $T(\alpha,\beta)$ which associates to each pair of mappings $\alpha$ and $\beta$ in the respective
+	categories $\mathbf{A}, \mathbf{B}$ a mapping $T(\alpha,\beta)=\gamma$ in a third category $\mathbf{C}$ is
+	the mapping function of a functor $T$ covariant in $\mathbf{A}$ and contravariant in $\mathbf{B}$ if and
+	only if the following two conditions hold:
+\begin{enumerate}
+		\item  $T(e_A,e_B)$ is an identity mapping in $\mathbf{C}$ for all identities $e_A,e_B$ of 
+			$\mathbf{A}$ and $\mathbf{B}$.\label{idmap}
+		\item  Whenever $\alpha_2\alpha_1\in\mathbf{A}$ and $\beta_2\beta_1\in\mathbf{B}$, then\label{func_map}
+			$T(\alpha_2,\beta_1)T(\alpha_1,\beta_2)$ is defined and satisfies the equation
+			\begin{equation}
+				T(\alpha_2\alpha_1,\beta_2\beta_1)=T(\alpha_2,\beta_1)T(\alpha_1,\beta_2).\label{eq:funct_comp}
+			\end{equation}
+\end{enumerate}
+	If  $T(\alpha,\beta)$ satisfies \cref{idmap,func_map}, the corresponding functor $T$ is uniquely determined, with
+	an object function $T(A,B)$ given by the formula
+	\begin{equation}\label{eq:id_map}
+		e_{T(A,B)}=T(e_A,e_B)
+	\end{equation}
+\end{theorem}
+\begin{proof}
+	The necessity of \cref{idmap} and \cref{func_map} and the second half of the theorem are obvious.
+
+	Conversely, let $T(\alpha,\beta)$ satisfy conditions~\ref{idmap} and~\ref{func_map}. Condition~\ref{idmap}
+	means that an object function $T(A,B)$ can be defined by \cref{eq:id_map}. We must
+	show that if $\alpha: A_1\rightarrow A_2$ and $\beta: B_1\rightarrow B_2$, then \cref{eq:funct_prod1}
+	holds. Since $e(A_2)\alpha$ and $\beta e(B_1)$ are defined, the product $T(\alpha,\beta)T(e(A_1),e(B_2))$
+	is defined.
+
+	In virtue of the definition \labelcref{eq:id_map}, the products
+	\begin{equation*}
+		e(T(A_2,B_1))T(\alpha,\beta),\qquad T(\alpha,\beta)T(e(A_1),e(B_2))
+	\end{equation*}
+	are defined. This implies \cref{eq:funct_prod1}. 
+\end{proof}
+
+In any functor, the replacement of the arguments $A,B$ by equivalent arguments $A',B'$ will replace the 
+value $T(A,B)$ by  an equivalent value $T(A',B')$. This fact may be alternatively stated as follows:
+\begin{theorem}\label{thm:nat_eq}
+	If $T$ is a functor on $\mathbf{A},\mathbf{B}$ to $\mathbf{C}$, and if $\alpha\in\mathbf{A}$
+	and $\beta\in\mathbf{B}$ are equivalences, then $T(\alpha,\beta)$ is an equivalence in $\mathbf{C}$,
+	with inverse $T{(\alpha,\beta)}^{-1}=T(\alpha^{-1},\beta^{-1})$.
+\end{theorem}
+\begin{proof}
+	For the proof we assume that $T$ is covariant in $\mathbf{A}$ and contravariant in $\mathbf{B}$.
+	The products $\alpha\alpha^{-1}$ and $\alpha^{-1}\alpha$ are then identities, and the definition
+	of a functor shows that
+	\begin{align*}
+		T(\alpha,\beta)T(\alpha^{-1},\beta^{-1})&=T(\alpha\alpha^{-1},\beta^{-1}\beta),\\
+		T(\alpha^{-1},\beta^{-1})T(\alpha,\beta)&=T(\alpha^{-1}\alpha,\beta\beta^{-1}).
+	\end{align*}
+	By \cref{eq:funct_id}, the terms on the right are both identities, which means
+	that $T(\alpha^{-1},\beta^{-1})$ is an inverse for $T(\alpha,\beta)$, as asserted.
+\end{proof}
+
+\section{Examples of functors}\label{sec:funct_examples}
+The same object function may appear in various functors, as is shown by the following example of one
+covariant and one contravariant functor both with the same object function. In the category $\mathbf{S}$
+of all set, the ``power'' functors $P^+$ and $P^-$ have the object function
+\begin{equation*}
+	P^+(S)=P^-(S)=\text{the set of all subsets of $S$.}
+\end{equation*}
+For any many\hyp{}one correspondence $\sigma:S_1\rightarrow S_2$ the respective mapping functions are defined
+for any subset $A_1\subset S_1$ (or $A_2\subset S_2$) as\footnote{Here $\sigma A_1$ is the set of all
+elements of $S_2$ of the form $\sigma x$ for $x\in A_1$, while $\sigma^{-1}A_2$ consists of all elements
+$x\in S_1$ with $\sigma x\in A_2$. When $\sigma$ is an equivalence, with and inverse $\tau$,
+$\tau A_2=\sigma^{-1}A_2$, so that no ambiguity as to the meaning of $\sigma^{-1}$ can arise.}
+\begin{equation*}
+	P^+(\sigma)A_1=\sigma A_1, \qquad P^-(\sigma)A_2=\sigma^{-1}A_2.
+\end{equation*}
+It is immediate that $P^+$ is a covariant functor and $P^-$ a contravariant one.
+
+The cartesian product $X\times Y$ of two topological spaces is the object function of a functor of two
+covariant variables $X$ and $Y$ in the category $\mathbf{X}$ of all topological spaces. For a continuous
+transformations $\xi:X_1\rightarrow X_2$ and $\eta:Y_1\rightarrow Y_2$ the corresponding mapping function
+$\xi\times\eta$ is defined for any point $(x_1,y_1)$ in the cartesian product $X_1\times Y_1$ as
+\begin{equation*}
+	\xi\times\eta(x_1,y_1)= (\xi x_1,\eta y_1).
+\end{equation*}
+One verifies that
+\begin{equation*}
+	\xi\times\eta:X_1\times Y_1\rightarrow X_2\times Y_2,
+\end{equation*}
+whenever the products $\xi_2\xi_1$ and $\eta_2\eta_1$ are defined. In virtue of these facts, the functions
+$X\times Y$ and $\xi\times\eta$ constitute a covariant functor of two variables on the category $\mathbf{X}$.
+
+The direct product of two groups is treated in exactly similar fashion; it gives a functor with the set function
+$G\times H$ and the mapping function $\gamma\times\eta$, defined for $\gamma:G_1\rightarrow G_2$ and 
+$\eta:H_1\rightarrow H_2$ exactly as was $\xi\times\eta$. The same applies to the category $\mathbf{B}$ of Banach
+spaces, provided one fixes one of the usual possible definite procedures of norming the cartesian product of two
+Banach spaces.
+
+For a topological space $Y$ and a locally compact ($=$locally bicompact) Hausdorff space $X$ one may construct the
+space $Y^X$ of all continuous mappings $f$ of the whole space $X$ into $Y$ ($f x\in Y$ for $x\in X$). A topology is
+assigned to $Y^X$ as follows. Let $C$ be any compact subset of $X$, $U$ any open set in $Y$. The the set $[C,U]$ of
+all $f\in Y^X$ with $f C\subset U$ is an open set in $Y^X$, and the most general open set in $Y^X$ is any union of 
+finite intersections $[C_1,U_1]\cap\dotsm\cap [C_n,U_n]$.
+
+This space $Y^X$ may be regarded as the object function of a suitable functor, $\map(X,Y)$. To construct a suitable
+mapping function, consider any continuous transformations $\xi:X_1\rightarrow X_2$, $\eta:Y_1\rightarrow Y_2$.
+For each $f\in Y_1^{X_2}$, one then has mappings acting thus:
+\begin{equation*}
+	X_1\xlongrightarrow{\xi} X_2\xlongrightarrow{f} Y_1\xlongrightarrow{\eta} Y_2,
+\end{equation*}
+so that one may derive a continuous transformation $\eta f\xi$ of $Y_2^{X_1}$. This correspondence 
+$f\rightarrow\eta f\xi$, may be shown to be a continuous mapping of $Y_1^{X_2}$ into $Y_2^{X_1}$.
+Hence we may define object and mapping functions ``Map'' by setting
+\begin{equation}
+	\map(X,Y)=Y^X,\qquad [\map(\xi,\eta)]f=\eta f\xi.\label{eq:map_func}
+\end{equation}
+The construction shows that
+\begin{equation*}
+	\map(\xi,\eta): \map(X_2,Y_1)\rightarrow\map(X_1,Y_2),
+\end{equation*}
+and hence suggests that this functor is contravariant in $X$ and covariant in $Y$. One observes at once
+that $\map(\xi,\eta)$ is an identity when bot $\xi$ and $\eta$ are identities. Furthermore, if the products
+$\xi_2\xi_1$ and $\eta_2\eta_1$ are defined, the definition of ``Map'' gives first,
+\begin{equation*}
+	[\map(\xi_2\xi_1,\eta_2\eta_1)] f = \eta_2\eta_1 f \xi_2\xi_1 = \eta_2(\eta_1 f \xi_2)\xi_1,
+\end{equation*}
+and second,
+\begin{equation*}
+	\map(\xi_1,\eta_2)\map(\xi_2,\eta_1) f = [\map(\xi_1,\eta_2)]\eta_1 f \xi_2 = \eta_2(\eta_1 f \xi_2)\xi_1.
+\end{equation*}
+Consequently
+\begin{equation*}
+	\map(\xi_2\xi_1,\eta_2\eta_1) = \map(\xi_1,\eta_2)\map(\xi_2,\eta_1),
+\end{equation*}
+which completes the verification that ``Map'', defined as in \cref{eq:map_func}, is a functor on
+$\mathbf{X}_{\mathrm{lc}},\mathbf{X}$ to $\mathbf{X}$, contravariant in the first variable, covariant in the 
+second, where $\mathbf{X}_{\mathrm{lc}}$ denotes the subcategory of $\mathbf{X}$ defined by the locally compact
+Hausdorff spaces.
+
+For abelian groups there is a similar functor ``Hom''. Specifically, let $G$ be a locally compact regular topological
+group, $H$ a topological abelian group. We construct the set $\hm(G,H)$ of all (continuous) homomorphisms  $\phi$ of $G$
+into $H$. The sum of two such homomorphisms $\phi_1$ and $\phi_2$ is defined by setting $(\phi_1+\phi_2)g =
+\phi_1 g + \phi_2 g$, for each $g\in G$;\footnote{The group operation in $G$,$H$, and so on, will be written as
+addition.} this sum is itself a homomorphism because $H$ is abelian.
+
+Under this addition $\hm(G,H)$ is an abelian group. It is topologized by the family of neighborhoods $[C,U]$ of zero
+defined as follows. Given $C$, any compact subset of $G$, and $U$, any open set in $H$ containing the zero of $H$,
+$[C;U]$ consists of all $\phi\in\hm(G,H)$ with $\phi C\subset U$. With these definitions, $\hm(G,H)$ is a topological
+group. If $H$ has a neighborhood of the identity containing no subgroup but the trivial one, one may prove that
+$\hm(G,H)$ is locally compact.
+
+This function of groups is the object function of a functor ``Hom''. For given $\gamma:G_1\rightarrow G_2$ and
+$\eta: H_1\rightarrow H_2$ the mapping function is defined by setting
+\begin{equation}\label{eq:func_grp}
+	[\hm(\gamma,\eta)]\phi =  \eta\phi\gamma
+\end{equation}
+for each $\phi\in\hm{G_2,H_1}$. Formally this definition is exactly like \cref{eq:map_func}. One may show that
+this definition \labelcref{eq:func_grp} does yield a continuous homomorphism
+\begin{equation*}
+	\hm(\gamma,\eta):\hm(G_2,H_1)\rightarrow\hm(G_1,H_2).
+\end{equation*}
+As in the previous case, Hom is a functor with values in the category $\mathbf{G}_\mathrm{a}$ of abelian groups,
+defined for arguments in two appropriate subcategories of $\mathbf{G}$, contravariant in the first argument, $G$,
+and covariant in the second, $H$.
+
+For Banach spaces there is a similar functor. If $B$ and $C$ are two Banach spaces, let $\lin(B,C)$ denote the Banach
+space of all linear transformation $\lambda$ of $B$ into $C$, with the usual definition of the norm of the transformation.
+To describe the corresponding mapping function, consider any linear transformations $\beta:B_1\rightarrow B_2$ and
+$\gamma:C_1\rightarrow C_2$ with $\|\beta\|\le 1$ and $\|\gamma\|\le 1$, and set, for each $\lambda\in\lin(B_2,C_1)$,
+\begin{equation}\label{eq:func_banach}
+	[\lin(\beta,\gamma)]\lambda= \gamma\lambda\beta.
+\end{equation}
+This is in fact a linear transformation
+\begin{equation*}
+	\lin(\beta,\gamma):\lin(B_2,C_1)\rightarrow\lin(B_1,C_2)
+\end{equation*}
+of norm at most 1. As in the previous cases, Lin is a functor on $\mathbf{B},\mathbf{B}$ to $\mathbf{B}$, contravariant
+in its first argument and covariant in the second.
+
+In case $C$ is fixed to be the Banach space $\R$ of all real numbers with the absolute value as norm, $\lin(B,C)$ is just
+the Banach space conjugate to $B$, in the usual sense. This leads at once to the functor
+\begin{equation*}
+	\dual(B)= \lin(b,\R),\qquad \dual(\beta)= \lin(\beta,e_\mathbf{R}).
+\end{equation*}
+This is a contravariant functor on $\mathbf{B}$ to $\mathbf{B}$.
+
+Another example of a functor on groups is the tensor product $G\otimes H$ of two abelian groups. This functor has been
+discussed in more detail in our Proceedings note cited above.
+
+\section{Slicing of functors}\label{sec:funct_slice}
+The last example involved the process of holding one of the arguments of a functor constant. This process occurs
+elsewhere (for example, in the character group theory, \cref{sec:char} below), and falls at once under the following
+theorem.
+\begin{theorem}\label{thm:currying}
+	If  $T$ is a functor covariant in $\mathbf{A}$, contravariant in $\mathbf{B}$, with values in $\mathbf{C}$,
+	then for each fixed $B\in\mathbf{B}$ the definitions
+	\begin{equation*}
+		S(A)= T(A,B),\qquad S(\alpha)= T(\alpha,e_B)
+	\end{equation*}
+	yield a functor $S$ on $\mathbf{A}$ to $\mathbf{C}$ with the same variance (in $\mathbf{A}$) as $T$.
+\end{theorem}
+
+This ``slicing'' of a functor may be partially inverted, in that the functor $T$ is determined by its object function
+and its two ``sliced'' mapping functions, in the following sense.
+\begin{theorem}\label{thm:func_comm}
+	Let $\mathbf{A}$, $\mathbf{B}$, $\mathbf{C}$ be three categories and $T(A,B)$, $T(\alpha,B)$, $T(A,\beta)$
+	three functions such that for each fixed $B\in\mathbf{B}$ the functions $T(A,B)$, $T(\alpha,B)$ form a
+	covariant functor on $\mathbf{A}$ to $\mathbf{C}$, while for each $A\in\mathbf{A}$ the functions $T(A,B)$
+	and $T(A,\beta)$ give a contravariant functor on $\mathbf{B}$ to $\mathbf{C}$. If in addition for each
+	$\alpha:A_1\rightarrow A_2$ in $\mathbf{A}$ and $\beta:B_1\rightarrow B_2$ in $\mathbf{B}$ we have
+	\begin{equation}\label{eq:func_comm1}
+		T(A_2,\beta) T(\alpha,B_2) = T(\alpha,B_1) T(A_1,\beta),
+	\end{equation}
+	then the functions $T(A,B)$ and
+	\begin{equation}\label{eq:func_comm2}
+		T(\alpha,\beta)=T(\alpha,B_1)T(A_1,\beta)
+	\end{equation}
+	from a functor covariant in $\mathbf{A}$, contravariant in $\mathbf{B}$, with values in $\mathbf{C}$
+\end{theorem}
+\begin{proof}
+	\Cref{eq:func_comm1} merely states the equivalence of the two paths about the following
+	commutative square:
+\begin{equation*}
+	\begin{tikzpicture}
+		\node (a) at (0,0)
+		{ \begin{tikzcd}[sep=huge]
+			T({A_1,B_2}) \arrow[r,"{T(\alpha,B_2)}"] \arrow[d, "{T(A_1,\beta)}"] & T(A_2,B_2) 
+			\arrow[d,"{T(A_2,\beta)}"] \\
+			T(A_1,B_1) \arrow[r,"{T(\alpha,B_1)}"] & T(A_2,B_1)
+		\end{tikzcd}};
+	\end{tikzpicture}
+\end{equation*}
+	The result of either path is then taken in \cref{eq:func_comm2} to define the mapping function,
+	which then certainly satisfies condition \labelcref{eq:funct_id,eq:funct_prod1} of the
+	definition of a functor. The proof of the basic product condition \labelcref{eq:funct_prod2} is best
+	visualized by writing out a $3\times 3$ array of values $T(A_i,B_j)$.
+\end{proof}
+\pagebreak[2]
+The significance of this theorem is essentially this: in verifying that a given object and mapping functions
+do yield a functor, one may replace the verification of the product condition \labelcref{eq:funct_prod2} in
+two variables by a separate verification, one variable at a time, provided one \emph{also} proves that the
+order of application of these one-variable mappings can be interchanged (condition \labelcref{eq:func_comm1}).
+
+\section{Foundations}\label{sec:found}
+We remarked in \cref{sec:ex_cat} that such examples as the ``category of \emph{all} sets'', the ``category
+of \emph{all} groups'' are illegitimate. The difficulties and antinomies here involved are exactly those of
+ordinary intuitive \textsl{\foreignlanguage{german}{Mengenlehre}}; no essentially new paradoxes are apparently
+involved. Any rigorous foundation capable of supporting the ordinary theory of classes would equally well 
+support our theory. Hence we have chosen to adopt the intuitive standpoint, leaving the reader free to insert
+whatever type of logical foundation (or absence thereof) he may prefer. These ideas will now be illustrated,
+with particular reference to the category of groups.
+
+It should be observed first that the whole concept of a category is essentially an auxiliary one; our basic
+concept are essentially those of a \emph{functor} and of a natural transformation (the latter is defined
+in the next chapter). The idea of a category is required only by the precept that every function should have
+a definite class as domain and a definite class as range, for the categories are provided as the domains and
+range of functors. Thus one could drop the category concept altogether and adopt an even more intuitive 
+standpoint, in which a functor such as ``Hom'' is not defined over the category of ``all'' groups, but for
+each particular pair of groups which may be given. The standpoint would suffice for the applications, inasmuch
+as none of our developments will involve elaborate constructions on the categories themselves.
+
+For a more careful treatment, we may regard a group $G$ as a pair, consisting of a set $G_0$ and a ternary
+relation $g\cdot h = k$ on this set, subject to the usual axioms of group theory. This makes explicit the
+usual tacit assumption that a group is not just the set of its elements (two groups can have the \emph{same}
+elements, yet different operations). If a pair is constructed in the usual manner as a certain class, this
+means that each subcategory of the category of ``all'' groups is a class of pairs; each pair being a class
+of groups with a class of mappings (binary relations). Any given system of foundations will then legitimize
+those subcategories which are allowable classes in the system in question.
+
+Perhaps the simplest precise device would be to speak not of \emph{the} category of groups, but of \emph{a}
+category of groups (meaning, any legitimate such category). A functor such as ``Hom'' is then a functor which
+can be defined for any two suitable categories of groups, $\mathbf{G}$ and $\mathbf{H}$. This procedure
+has the advantage of precision, the disadvantage of a multiplicity of categories and functors. This multiplicity
+would be embarrassing in the study of composite functors (\cref{sec:funct_comp} below).
+
+One might choose to adopt the (unramified) theory of types as a foundation for the theory of classes.
+One then can speak of the category $\mathbf{G}_m$ of all abelian groups of type $m$. The functor ``Hom''
+could then have both arguments in $\mathbf{G}_m$, while its values would be in the same category
+$\mathbf{G}_{m+k}$ of groups of higher type $m+k$. This procedure affects each functor with the same
+sort of typical ambiguity adhering to the arithmetical concepts in the Whitehead-Russell development.
+Isomorphisms between groups of different types would have to be considered, as in the simple isomorphism
+$\hm(\mathbf{F,G})\cong\mathbf{G}$ (see \cref{sec:trans_ex}); this would somewhat complicate the 
+natural isomorphisms treated below.
+
+One can also choose a set of axioms for classes as in the Fraenkel\hyp{}von Neumann\hyp{}Bernays system.
+A category is then any (legitimate) class in the sense of this axiomatics. Another device would be that
+of restricting the cardinal number, considering the category of all denumerable groups, of all groups of
+cardinal at most the cardinal of the continuum, and so on. The subsequent developments may be suitably
+interpreted under any on of these viewpoints.
+
+\chapter{Natural equivalence of functors}\label{ch:nat_equ}
+\section{Transformations of functors}\label{sec:nat_tra}
+Let $T$ and $S$ be two functors on $\mathbf{A,B}$ to $\mathbf{C}$ which are \emph{concordant}; that is,
+which have the same variance in $\mathbf{A}$ and the same variance in $\mathbf{B}$. To be specific,
+assume both $T$ and $S$ covariant in $\mathbf{A}$ and contravariant $\mathbf{B}$. Let $\tau$ be a
+function which associates to each pair of objects $A\in\mathbf{A},B\in\mathbf{B}$ a mapping 
+$\tau(A,B)=\gamma$ in $\mathbf{C}$.
+\begin{thdef}
+	The function $\tau$ is a ``natural'' transformation of the functor $T$, covariant in $\mathbf{A}$
+	and contravariant in $\mathbf{B}$, into the concordant functor $S$ provided that, for each pair
+	of objects $A\in\mathbf{A},B\in\mathbf{B}$,
+	\begin{equation}\label{eq:nat_trans}
+		\tau(A,B): T(A,B)\rightarrow S(A,B)\text{ in }\mathbf{C},
+	\end{equation}
+	and provided, whenever $\alpha:A_1\rightarrow A_2$ in $\mathbf{A}$ and $\beta:B_1\rightarrow B_2$
+	in $\mathbf{B}$, that
+	\begin{equation}\label{eq:nat_trans2}
+		\tau(A_2,B_1) T(\alpha,\beta) = S(\alpha,\beta)\tau(A_1,B_2).
+	\end{equation}
+	When these conditions hold, we write
+	\begin{equation*}
+		\tau:T\rightarrow S.
+	\end{equation*}
+\end{thdef}
+If in addition each $\tau(A,B)$ is an equivalence mapping of the category $\mathbf{C}$, we call $\tau$ a
+\emph{natural equivalence} of $T$ to $S$ (notation: $\tau: T\rightleftarrows S$) and say that the functors
+$T$ and $S$ are \emph{naturally equivalent}. In this case condition \labelcref{eq:nat_trans2} can be rewritten as
+\begin{equation}\label{eq:nat_eq}
+	\tau(A_2,B_1) T(\alpha,\beta){[\tau(A_1,B_2)]}^{-1}= S(\alpha,\beta).
+\end{equation}
+
+Condition \labelcref{eq:nat_trans} of this definition is equivalent to the requirement that both product in \cref{eq:nat_trans2}
+are always defined. Condition \labelcref{eq:nat_trans2} is illustrated by the equivalence
+of the two paths indicated in the following diagram:
+\begin{equation*}
+\begin{tikzpicture}
+	\node (a) at (0,0)
+	{ \begin{tikzcd}[sep=huge]
+		T({A_1,B_2}) \arrow[r,"{T(\alpha,\beta)}"] \arrow[d, "{\tau(A_1,B_2)}"] & T(A_2,B_1) 
+		\arrow[d,"{\tau(A_2,B_1)}"] \\
+		S(A_1,B_2) \arrow[r,"{S(\alpha,\beta)}"] & S(A_2,B_1)
+	\end{tikzcd}};
+\end{tikzpicture}
+\end{equation*}
+
+Given three concordant functors $T$, $S$, and $R$ on $\mathbf{A,B}$ to $\mathbf{C}$, with natural
+transformations $\tau:T\rightarrow S$ and $\sigma:S\rightarrow R$, the product
+\begin{equation*}
+	\rho(A,B)=\sigma(A,B)\tau(A,B)
+\end{equation*}
+is defined as a mapping in $\mathbf{C}$, and yields a natural transformation $\rho:T\rightarrow R$.
+If $\tau$ and $\sigma$ are natural equivalences, so is $\rho = \sigma\tau$.
+
+Observe also that if $\tau:T\rightarrow S$ is a natural equivalence, then the function $\tau^{-1}$
+is defined by $\tau^{-1}(A,B)={[\tau(A,B)]}^{-1}$ is a natural equivalence $\tau^{-1}:S\rightarrow T$.
+Given any functor $T$ on $\mathbf{A,B}$ to $\mathbf{C}$, the function
+\begin{equation*}
+	\tau_0(A,B) = e_{T(A,B)}
+\end{equation*}
+is a natural equivalence $\tau_0:T\rightleftarrows T$. These remarks imply that the concept of natural
+equivalence of functors is reflexive, symmetric and transitive.
+
+In demonstrating that a given mapping $\tau(A,B)$ is actually a natural transformation, it suffices to
+prove the rule \labelcref{eq:nat_trans2} only in these cases in which all except one of the mappings
+$\alpha,\beta,\dotsc$ is an identity. To state this result it is convenient to introduce a simplified 
+notation for the mapping function when one argument is an identity, by setting
+\begin{equation*}
+	T(\alpha,\beta) = T(\alpha,e_B),\qquad T(A,\beta)= T(e_A,\beta).
+\end{equation*}
+\begin{theorem}\label{thm:nat_trans}
+	Let $T$ and $S$ be functors covariant in $\mathbf{A}$ and contravariant in $\mathbf{B}$,
+	with values in $\mathbf{C}$, and let $\tau$ be a function which associates to each pair of
+	objects $A\in\mathbf{A}$, $B\in\mathbf{B}$ a mapping with \cref{eq:nat_trans}. A necessary
+	and sufficient condition that $\tau$ be a natural transformation $\tau:T\rightarrow S$ is
+	that for each mapping $\alpha:A_1\rightarrow A_2$ and each object $B\in\mathbf{B}$ one has
+	\begin{equation}\label{eq:nat_comm}
+		\tau(A_2,B) T(\alpha,B) = S(\alpha,B)\tau(A_1,B),
+	\end{equation}
+	and that, for each $A\in\mathbf{A}$ and each $\beta:B_1\rightarrow B_2$ one has
+	\begin{equation}\label{eq:nat_comm2}
+		\tau(A,B_1) T(A,\beta) = S(A,\beta)\tau(A,B_2).
+	\end{equation}
+\end{theorem}
+\begin{proof}
+	The necessity of these conditions is obvious, since they are simply the special case of \cref{eq:nat_trans2}
+	in which $\beta=e_B$ and $\alpha=e_A$, respectively. The sufficiency
+	can best be illustrated by the following diagram, applying to any mappings $\alpha:A_1\rightarrow A_2$
+	and $\beta:B_1\rightarrow B_2$:
+	\begin{equation*}
+	\begin{tikzpicture}
+	\node (a) at (0,0)
+	{ \begin{tikzcd}[sep=huge]
+		T({A_1,B_2}) \arrow[r,"{\tau(A_1,B_2)}"] \arrow[d, "{T(\alpha,B_2)}"] & S(A_1,B_2) 
+		\arrow[d,"{S(\alpha,B_2)}"] \\
+		T(A_2,B_2) \arrow[r,"{\tau(A_2,B_2)}"] \arrow[d, "{T(A_2,\beta)}"] & S(A_2,B_2)
+		\arrow[d,"{S(A_2,\beta)}"] \\
+		T(A_2,B_1) \arrow[r,"{\tau(A_2,B_1)}"] & S(A_2,B_1)
+	\end{tikzcd}};
+	\end{tikzpicture}
+	\end{equation*}
+	\Cref{eq:nat_comm} states the equivalence of the results found by following 
+	either path around the upper small rectangle, and \cref{eq:nat_comm2} makes
+	a similar assertion for the bottom rectangle. Combining these successive equivalences,
+	we have the equivalence of the two paths around the edges of the whole rectangle; this
+	is the requirement \labelcref{eq:nat_trans2}. This argument can be easily set down formally.
+	
+\end{proof}
+
+\section{Categories of functors}\label{sec:funct_cat}
+The functors may be made the objects of a category in which the mapping are natural transformation.
+Specifically, given three fixed categories $\mathbf{A}$, $\mathbf{B}$ and $\mathbf{C}$, form
+the category $\mathbf{F}$ for which the objects are the functors $T$ covariant in $\mathbf{A}$ and
+contravariant $\mathbf{B}$, with values in $\mathbf{C}$, and for which the mappings are the natural
+transformation $\tau:T\rightarrow S$. This requires some caution, because we may have $\tau:T\rightarrow
+S$ and $\tau:T'\rightarrow S'$ for the same function $\tau$ with different functors $T$, $T'$ (which
+would have the same object function but different mapping functions). To circumvent this difficulty
+we define a mapping in the category $T$ to be a triple $[\tau,T,S]$ with $\tau:T\rightarrow S$.
+The product of mappings $[\tau,T,S]$ and $[\sigma,S',R]$ is defined if and only if $S=S'$; in this
+case it is
+\begin{equation*}
+	[\sigma,S,R]\circ[\tau,T,S]=[\sigma\tau,T,R].
+\end{equation*}
+We verify that the \cref{ax:c1,ax:c2,ax:c3} of \cref{sec:def_cat} are satisfied. Furthermore we define, for each
+functor $T$
+\begin{equation*}
+	e_T = [\tau_T,T,T],\text{ with } \tau_T(A,B)=e_{T(A,B)},
+\end{equation*}
+and verify the remaining \cref{ax:c4,ax:c5}. Consequently $\mathbf{F}$ is a category. In this category it can
+be proved easily that $[\tau,T,S]$ is an equivalence mapping if and only if $\tau:T\rightleftarrows S$;
+consequently the concept of the natural equivalence of functors agrees with the concept of equivalence
+of objects in the category $\mathbf{T}$ of functors.
+
+This category $\mathbf{T}$ is useful chiefly in simplifying the statements and proofs of various facts
+about functors, as will appear subsequently.
+
+\section{Composition of functors}\label{sec:funct_comp}
+This process arises by the familiar ``function of a function'' procedure, in which for the argument of a
+functor we substitute the value of another functor. For example, let $T$ be a functor on $\mathbf{A,B}$
+to $\mathbf{C}$, $R$ a functor on $\mathbf{C,D}$ to $\mathbf{E}$. Then $S=R\circ (T,I)$, defined by
+setting
+\begin{equation*}
+	S(A,B,D) = R(T(A,B),D),\qquad S(\alpha,\beta,\gamma)= R(T(\alpha,\beta),\gamma),
+\end{equation*}
+for objects $A\in\mathbf{A}$, $B\in\mathbf{B}$, $D\in\mathbf{D}$ and mappings $\alpha\in\mathbf{A}$,
+$\beta\in\mathbf{B}$, $\gamma\in\mathbf{D}$, is a functor on $\mathbf{A,B,D}$ to $\mathbf{E}$.
+In the argument $\mathbf{D}$, the variance of $S$ is just the the variance of $R$. The variance of 
+$R$ in $\mathbf{A}$ (or $\mathbf{B}$) may be determined by the rule of signs (with $+$ for covariance,
+$-$ for contravariance): (variance of $S\in\mathbf{A})=(\text{variance of } R\in\mathbf{C})\times
+(\text{variance of } T\in\mathbf{A}$).
+
+Composition can also be applied to natural transformations. To simplify the notation, assume that $R$ is
+a functor in \emph{one} variable, contravariant on $\mathbf{C}$ to $\mathbf{E}$, and that $T$ is
+covariant in $\mathbf{A}$, contravariant in $\mathbf{B}$ with values in $\mathbf{C}$. The composite
+$R\circ T$ is then contravariant in $\mathbf{A}$, covariant in $\mathbf{B}$. Any pair of natural
+transformations
+\begin{equation*}
+	\rho:R\rightarrow R',\qquad \tau=T\rightarrow T'
+\end{equation*}
+give rise to a natural transformation
+\begin{equation*}
+	\rho\circ\tau : R\circ T'\rightarrow R'\circ T
+\end{equation*}
+defined by setting
+\begin{equation*}
+	\rho\circ\tau(A,B)=\rho(T(A,B)) R(\tau(A,B)).
+\end{equation*}
+Because $\rho$ is natural, $\rho\circ\tau$ could equally well be defined as
+\begin{equation*}
+	\rho\circ\tau(A,B)= R'(\tau(A,B))\rho(T'(A,B)).
+\end{equation*}
+This alternative means that the passage from $R\circ T'(A,B)$ to $R'\circ T(A,B)$
+can be made either through  $R\circ T(A,B)$ or through  $R'\circ T'(A,B)$, without
+altering the final result. The resulting \emph{composite transformation} $\rho\circ\tau$
+has all the usual formal properties appropriate to the mapping function of the ``functor''
+$R\circ T(A,B)$; specifically,
+\begin{equation*}
+	(\rho_2\rho_1)\circ (\tau_1\tau_2) = (\rho_2\circ \tau_2)(\rho_1\circ\tau_1),
+\end{equation*}
+as may be verified by a suitable $3\times 3$ diagram.
+
+These properties show that the functions $R\circ T$ and $\rho\circ\tau$ determine a functor
+$C$, defined on the categories $\mathbf{R}$ and $\mathbf{T}$ of functors, with values in
+a category $\mathbf{S}$ of functors, covariant in $\mathbf{R}$ and contravariant in $\mathbf{T}$
+(because of the contravariance of $R$). Here $\mathbf{R}$ is the category of all contravariant
+functors $R$ on $\mathbf{C}$ to $\mathbf{E}$, while $\mathbf{S}$ and $\mathbf{T}$ are the
+categories of all functors $S$ and $T$, of appropriate variances, respectively. In each case, the
+mappings of the category of functors are natural transformations, as described in the previous
+section. To be more explicit, the mapping function $C(\rho,\tau)$ of this functor is not the 
+simple composite $\rho\circ\tau$, but the triple $[\rho\circ\tau, R\circ T', R'\circ T]$.
+
+Since $\rho\circ\tau$ is essentially the mapping function of a functor, we know by \autoref{thm:nat_eq}
+that if $\rho$ and $\tau$ are natural equivalences, then $\rho\circ\tau$ is an equivalence. Consequently,
+if he pairs $R$ and $R'$, $T$ and $T'$ are naturally equivalent, so is the pair of composite $R\circ T$
+and $R'\circ T'$.
+
+It is easy to verify that the composition of functors and natural transformations is associative, so that
+symbols like $R\circ T\circ S$ may be written without parentheses.
+
+If in the definition of $\rho\circ\tau$ above it occurs that $T=T'$ and that $\tau$ is the identity
+transformation $T\rightarrow T$ we shall write $\rho\circ T$ instead of $\rho\circ\tau$. Similarly
+we shall write $R\circ\tau$ in the case when $R=R'$ and $\rho$ is the identity transformation on
+$R\rightarrow R$.
+
+\section{Examples of transformations}\label{sec:trans_ex}
+The associative and commutative laws for the direct and cartesian products are isomorphisms which can
+be regarded as equivalences between functors. For example, let $X$, $Y$ and $Z$ be three topological
+spaces, and let the homeomorphism
+\begin{equation}\label{eq:ass_prod}
+	(X\times Y)\times Z \cong X\times (Y\times Z)
+\end{equation}
+be established by the usual correspondence $\tau=\tau(X,Y,Z)$, defined for any point $((x,y),z)$ in the
+iterated cartesian product $(X\times Y)\times Z$ by
+\begin{equation*}
+	\tau(X,Y,Z)((x,y),z) =  (x,(y,z)).
+\end{equation*}
+Each $\tau(X,Y,Z)$ is then an equivalence mapping in the category $\mathbf{X}$ of spaces.
+Furthermore each side of \cref{eq:ass_prod} may be considered as the object function of a covariant functor 
+obtained by composition of the cartesian product functor with itself. The corresponding mapping function
+are obtained by parallel composition as $(\xi\times\eta)\times\zeta$ and $\xi\times(\eta\times\zeta)$.
+To show that $\tau(X,Y,Z)$ is indeed a natural equivalence, we consider three mappings $\xi:X_1\rightarrow X_2$,
+$\eta:Y_1\rightarrow Y_2$ and $\zeta:Z_1\rightarrow Z_2$, and show that
+\begin{equation*}
+	\tau(X_2,Y_2,Z_2)[(\xi\times\eta)\times\zeta] = [\xi\times(\eta\times\zeta)]\tau(X_1,Y_1,Z_1).
+\end{equation*}
+This identity may be verified by applying each side to an arbitrary point $((x_1,y_1),z_1)$ in the space
+$(X_1\times Y_1)\times Z_1$; each transforms it into the point $(\xi x_1,(\eta y_1, \zeta z_1))$ in
+$X_2\times(Y_2\times Z_2)$.
+
+In similar fashion the homeomorphism $X\times Y\cong Y\times X$ may be interpreted as a natural equivalence,
+defined as $\tau(X,Y)(x,y)= (y,x)$. In particular, if $X$, $Y$ and $Z$ are discrete spaces (that is, are simply
+sets), there remarks show that the associative and commutative laws for the (cardinal) product of two sets
+are natural equivalences between functors.
+
+For similar reasons, the associative and commutative laws for the direct product of groups are natural
+equivalences (or \emph{natural isomorphisms}) between functors of groups. The same laws for Banach spaces, with
+a fixed convention as to the construction of the norm in the cartesian product of two such spaces, are natural 
+equivalences between functors.
+
+If $\mathbb{Z}$ is the (fixed) additive group of integers, $H$ any topological abelian group, there is an
+isomorphism
+\begin{equation}\label{eq:grp_hom}
+	\hm(\mathbb{Z},H)\cong H
+\end{equation}
+in which both sides may be regarded as covariant functors of a single argument $H$. This isomorphism
+$\tau=\tau(H)$ is defined for any homomorphism $\phi\in\hm(\mathbb{Z},H)$ by setting $\tau(H)\phi=\phi(1)\in H$.
+One observes that $\tau(H)$ is indeed a (bicontinuous) isomorphism, that is, an equivalence in the category
+of topological abelian groups. That $\tau(H)$ actually is a natural equivalence between functors is shown by 
+proving, for any $\eta:H_1\rightarrow H_2$, that
+\begin{equation*}
+	\tau(H_2)\hm(e_J,\eta)=\eta\tau(H_1).
+\end{equation*}
+There is also a second natural equivalence between the functors indicated in \cref{eq:grp_hom}, obtained by
+setting $\tau'(H)\phi=\phi(-1)$.
+
+With the fixed Banach space $\R$ of real numbers there is a similar formula
+\begin{equation}\label{eq:ban_hom}
+	\lin(\R,B)\cong B
+\end{equation}
+for any Banach space $B$. This gives a natural equivalence $\tau=\tau(B)$ between two covariant functors of
+one argument in the category $\mathbf{B}$ of all Banach spaces. Here $\tau(B)$ is defined by setting
+$\tau(B)l= l(1)$ for each linear transformation $l\in\lin(\R,B)$; another choice of $\tau$ would set
+$\tau(B)l= l(-1)$.
+
+For topological spaces there is a distributive law for the functors ``Map'' and the direct product functor,
+which may be written as a natural equivalence
+\begin{equation}\label{eq:top_eq}
+	\map(Z,X)\times\map(Z,Y)\cong\map(Z,X\times Y)
+\end{equation}
+between two composite functors, each contravariant in the first argument $Z$ and covariant in the other two
+arguments $X$ and $Y$. To define this natural equivalence
+\begin{equation*}
+	\tau(X,Y,Z): \map(Z,X)\times\map(Z,Y)\rightleftarrows \map(Z,X\times Y)
+\end{equation*}
+consider any pair of mappings $f\in\map(Z,X)$ and $g\in\map(Z,Y)$ and set, for each $z\in Z$,
+\begin{equation*}
+	[\tau(f,g)](z) = (f(z),g(z)).
+\end{equation*}
+It can be shown that this definition does indeed give the homeomorphism \labelcref{eq:top_eq}. It is furthermore
+natural, which means that, for mappings $\xi:X_1\rightarrow X_2$, $\eta:Y_1\rightarrow Y_2$ and $\zeta:Z_1
+\rightarrow Z_2$,
+\begin{equation*}
+	\tau(X_2,Y_2,Z_1)[\map(\zeta,\xi)\times\map(\zeta,\eta)]=\map(\zeta,\xi\times\eta)\tau(X_1,Y_1,Z_2).
+\end{equation*}
+The proof of this statement is a straightforward application of the various definitions involved. Both sides
+are mappings carrying $\map(Z_2,X_1)\times\map(Z_2,Y_1)$ into $\map(Z_1,X_2\times Y_2)$. They will be equal
+if they give identical results when applied to an arbitrary element $(f_2,g_2)$ in the first space.
+These applications give, by the definition of the mapping functions of the functors ``Map'' and ``$\times$'',
+the respective elements
+\begin{equation*}
+	\tau(X_2,Y_2,Z_1)(\xi f_2\zeta, \eta g_2\zeta), \qquad (\xi\times\eta)\tau(X_1,Y_1,Z_2)(f_2,g_2)\zeta.
+\end{equation*}
+Both are in $\map(Z_1,X_2\times Y_2)$. Applied to an arbitrary $z\in Z_1$, we obtain in both cases, by the
+definition of $\tau$, the same element $(\xi f_2\zeta(z), \eta g_2\zeta(z))\in X_2\times Y_2$.
+
+For groups and Banach spaces there are analogous natural equivalences
+\begin{equation}\label{eq:grp_eq}
+	\hm(G,H)\times\hm(G,K)\cong\hm(G,H\times K),
+\end{equation}
+\begin{equation}\label{eq:ban_eq}
+	\lin(B,C)\times\lin(B,D)\cong\lin(B,C\times D).
+\end{equation}
+In each case the equivalence is given by a transformation defined exactly as before. In the formula for Banach
+spaces we assume that the direct product is normed by the maximum formula. In the case of any other formula for
+the norm in a direct product, we can assert only that $\tau$ is a one\hyp{}to\hyp{}one linear transformation of
+norm one, but not necessarily a transformation preserving the norm. In such a case $\tau$ then gives merely a
+natural transformation of the functor on the left to the functor on the right.
+
+For groups there is another type of distributive law, which is an equivalence transformation,
+\begin{equation*}
+	\hm(G,K)\times\hm(H,K)\cong\hm(G\times H, K),
+\end{equation*}
+The transformation $\tau(G,H,K)$ is defined for each pair $(\phi,\psi)\in\hm(G,K)\times\hm(H,K)$ by setting
+\begin{equation*}
+	[\tau(G,H,K)(\phi,\psi)](g,h)= \phi g + \psi h
+\end{equation*}
+for every element $(g,h)$ in the direct product $G\times H$. The properties of $\tau$ are proved as before.
+
+It is well known that a function $g(x,y)$ of two variables $x$ and $y$ may be regarded as a function $\tau g$
+of the first variable $x$ for which the values are in turn functions of the second variable $y$. In other
+words, $\tau g$ is defined by
+\begin{equation*}
+	[[\tau g](x)](y)= g(x,y).
+\end{equation*}
+It may be shown that the correspondence $g\rightarrow\tau g$ does establish a homeomorphism between the spaces
+\begin{equation*}
+	Z^{X\times Y}\cong {(Z^Y)}^X,
+\end{equation*}
+where $Z$ is any topological space and $X$ and $Y$ are locally compact Hausdorff spaces. This is a ``natural''
+homeomorphism, because the correspondence $\tau=\tau(X,Y,Z)$ defined above is actually a natural equivalence
+\begin{equation*}
+	\tau(X,Y,Z):\map(X\times Y, Z)\rightleftarrows\map(X,\map(Y,Z))
+\end{equation*}
+between the two composite functors whose object functions are displayed here.
+
+To prove that $\tau$ is natural, we consider any mappings $\xi:X_1\rightarrow X_2$, $\eta:Y_1\rightarrow Y_2$,
+$\zeta:Z_1\rightarrow Z_2$, and show that
+\begin{equation}\label{eq:top_map}
+	\tau(X_1,Y_1,Z_2)\map(\xi\times\eta,\zeta)=\map(\xi,\map(\eta,\zeta))\tau(X_2,Y_2,Z_1).
+\end{equation}
+Each side of this equation is a mapping which applies to any element $g_2\in\map(X_2\times Y_2,Z_1)$ to give
+an element of $\map(X_1,\map(Y_1,Z_2))$. The resulting elements may be applied to an $x_1\in X_1$ to give an
+element of $\map(Y_1,Z_2)$, which in turn may be applied to any $y_1\in Y_1$. If each side of \cref{eq:top_map}
+is applied in this fashion, and simplified by the definitions of $\tau$ and of the mapping functions of the
+functors involved, one obtains in both cases the same element $\zeta g_2(\xi x_1,\eta y_1)\in Z_2$.
+Hence \cref{eq:top_map} holds, and $\tau$ is natural.
+
+Incidentally, the analogous formula for groups uses the tensor product $G\otimes H$ of two groups, and gives
+an equivalence transformation
+\begin{equation*}
+	\hm(G\otimes H, k)\cong\hm(G,\hm(H,K)).
+\end{equation*}
+The proof appears in our Proceedings note~\footcite{groups42} quoted in the introduction.
+
+Let $D$ be a fixed Banach space, while $B$ and $C$ are two (variable) Banach spaces. To each pair of linear
+transformations $\lambda$ and $\mu$, with $\|\lambda\|\le 1$ and $\|\mu\|\le 1$, and with
+\begin{equation*}
+	B\xlongrightarrow{\lambda} C \xlongrightarrow{\mu} D,
+\end{equation*}
+there is associated a composite linear transformation $\mu\lambda$, with $\mu\lambda:B\rightarrow D$.
+Thus there is a correspondence $\tau=\tau(B,C)$ which associates to each $\lambda\in\lin(B,C)$ a
+linear transformation $\tau\lambda$ with
+\begin{equation*}
+	[\tau\lambda](\mu)=\mu\lambda\in\lin(B,D).
+\end{equation*}
+Each  $\tau\lambda$ is a linear transformation of $\lin(C,D)$ into $\lin(B,D)$ with norm at most one;
+consequently $\tau$ establishes a correspondence
+\begin{equation}\label{eq:ban_nat}
+	\tau(B,C):\lin(B,C)\rightarrow\lin(\lin(C,D),\lin(B,D)).
+\end{equation}
+It can be readily shown that $\tau$ itself is a linear transformation, and that $\|\tau(\lambda)\|=\|\lambda\|$,
+so that $\tau$ is an isometric mapping.
+This mapping $\tau$ actually gives a transformation between the functors in \cref{eq:top_map}.
+If the space $D$ is kept fixed\footnote{We keep the space $D$ fixed because in one of these functors it appears twice, once as a
+covariant argument and once as a contravariant one.}, the functions $\lin(B,C)$ and $\lin(\lin(C,D),\lin(B,D))$
+are object functions of functors contravariant in $B$ and covariant in $C$, with values in the category $\mathbf{B}$
+of Banach spaces. Each $\tau=\tau(B,C)$ is a mapping of this category; thus $\tau$ is a natural transformation
+of the first functor in the second provided that, whenever $\beta:B_1\rightarrow B_2$ and $\gamma:C_1\rightarrow C_2$,
+\begin{equation}\label{eq:ban_nat2}
+	\tau(B_1,C_2)\lin(\beta,\gamma) = \lin(\lin(\gamma,e),\lin(\beta,e))\tau(B_2,C_1),
+\end{equation}
+where $e=e_D$ is the identity mapping of $D$ into itself. Each side of \cref{eq:ban_nat2} is a mapping of
+$\lin(B_2,C_1)$ into $\lin(\lin(C_2,D),\lin(B_1,D))$. Apply each side to any $\lambda\in\lin(B_2,C_1)$, and
+let the result act on any $\mu\in\lin(C_2,D)$. On the left side, the result of these applications simplifies
+as follows (in each step the definition used is cited at the right):
+\begin{align*}
+	\{[\tau(& B_1, C_2)]\lin(\beta,\gamma)\lambda\}\mu &&\\ 
+	&= \{[\tau(B_1,C_2)](\gamma\lambda\beta)\}\mu &&\text{(Definition of $\lin(\beta,\gamma))$}\\
+	&=\mu\gamma\lambda\beta &&\text{(Definition of $\tau(B_1,C_2))$}.\\
+	\text{The } & \text{right side similarly becomes}\\
+	\{&\lin(\lin(\gamma,e),\lin(\beta,e))[\tau(B_2,C_1)\lambda]\}\tau &&\\
+	&= \{\lin(\beta,e)[\tau(B_2,C_1)\lambda]\lin(\gamma,e)\}\tau &&\text{(Definition of $\lin(-,-))$}\\
+	&= \lin(\beta,e)\{[\tau(B_2,C_1)\lambda](\mu\gamma)\} &&\text{(Definition of $\lin(\gamma,e))$}\\
+	&= \lin(\beta,e)(\mu\gamma\lambda) &&\text{(Definition of $\tau(B_2,C_1))$}\\
+	&=\mu\gamma\lambda\beta &&\text{(Definition of $\lin(\beta,e)$)}.
+\end{align*}
+The identity of these two results shows that $\tau$ is indeed a natural transformation of functors.
+
+In the special case when $D$ is the space of real numbers, $\lin(C,D)$ is simply the conjugate space
+$\dual(C)$. Thus we have the natural transformation
+\begin{equation}\label{eq:ban_dual}
+	\tau(B,C):\lin(B,C)\rightarrow\lin(\dual(C),\dual(B)).
+\end{equation}
+
+A similar argument for locally compact abelian groups $G$ and $H$ yields a natural transformation
+\begin{equation}\label{eq:grp_char}
+	\tau(G,H):\hm(G,M)\rightarrow\hm(\ch(H),\ch(G)).
+\end{equation}
+In the theory of character groups it is shown that each $\tau(G,H)$ is an isomorphism, so \cref{eq:grp_char}
+is actually a natural isomorphism. The well known isomorphism between a locally compact abelian group $G$ and
+its twice iterated character group is also a natural isomorphism
+\begin{equation*}
+	\tau(G):G\rightleftarrows\ch(\ch(G))
+\end{equation*}
+between functors.\footnote{The proof of naturality appears in the note quoted in \cref{ft:groups42}.}
+The analogous natural transformation
+\begin{equation*}
+	\tau(B):B\rightarrow\dual(\dual(B))
+\end{equation*}
+for Banach spaces is an equivalence only when $B$ is restricted to the category of reflexive Banach spaces.
+
+\section{Groups as categories}\label{sec:groups_as_cat}
+Any group $G$ may be regarded as a category $\mathbf{G}_G$ in which there is only one object. This object may
+either be the set $G$ or, if $G$ is a transformation group, the space on which $G$ acts. The mappings of the 
+category are to be the elements $\gamma$ of the group $G$, and the product of two elements in the group is to
+be their product as mappings in the category. In this category every mapping is an equivalence, and there is
+only one identity mapping (the unit element of $G$). A covariant functor $T$ with one argument in $\mathbf{G}_G$
+and with values in (the category of) the group $H$ is just a homomorphic mapping $\eta=T(\gamma)$ of $G$ into $H$.
+A natural transformation $\tau$ of one such functor $T_1$ into another one, $T_2$, is defined by a single element
+$\tau(G)= \eta_0\in H$. Since $\eta_0$ has an inverse, every natural transformation is automatically an equivalence.
+The naturality condition \labelcref{eq:nat_eq} for $\tau$ becomes simply $\eta_0 T_1(\gamma)\eta_0^{-1}=T_2(\gamma)$.
+Thus the functors $T_1$ and $T_2$ are naturally equivalent if and only if $T_1$ and $T_2$, considered as
+homomorphisms, are conjugate.
+
+Similarly, a contravariant functor $T$ on a group $G$, considered as a category, is simply a ``dual'' or ``counter''
+homomorphism $(T(\gamma_2\gamma_1)=T(\gamma_1)T(\gamma_2))$.
+
+A ring $R$ with unity also gives a category, in which the mappings are the elements of $R$, under the operation of
+multiplication in $R$. The unity of the ring is the only identity of the category, and the units of the ring are
+the equivalences of the category.
+
+\section{Construction of functors as transformations}\label{sec:func_trans}
+
+Under suitable conditions a mapping\hyp{}function $\tau(A,B)$ acting on a given functor $T(A,B)$ can be used to 
+construct a new functor $S$ such that $\tau:T\rightarrow S$. The case in which each $\tau$ is an equivalence
+mapping is the simplest, so will be stated first.
+\begin{theorem}\label{thm:func_trans1}
+	Let $T$ be a functor covariant in $\mathbf{A}$, contravariant in $\mathbf{B}$, with values in
+	$\mathbf{C}$. Let $S$ and $\tau$ be functions which determine for each pair of objects $A\in\mathbf{A},
+	B\in\mathbf{B}$ an object $S(A,B)\in\mathbf{C}$ and an equivalence mapping
+	\begin{equation*}
+		\tau(A,B):T(A,B)\rightarrow S(A,B)\text{ in }\mathbf{C}.
+	\end{equation*}
+	Then $S$ is the object function of a uniquely determined functor $S$, concordant with $T$ and such that
+	$\tau$ is a natural equivalence $\tau:T\rightleftarrows S$.
+\end{theorem}
+\begin{proof}
+	One may readily show that the mapping function appropriate to $S$ is uniquely determined for each
+	$\alpha:A_1\rightarrow A_2$ in $\mathbf{A}$ and $\beta:B_1\rightarrow B_2$ in $\mathbf{B}$ by the
+	formula
+	\begin{equation*}
+		S(\alpha,\beta)=\tau(A_2,B_1)T(\alpha,\beta){[\tau(A_1,B_2)]}^{-1}.
+	\end{equation*}
+\end{proof}
+
+The companion theorem for the case of a transformation which is not necessarily an equivalence is somewhat more
+complicated. We first define mappings cancellable from the right. A mapping $\alpha\in\mathbf{A}$ will be
+called cancellable from the right if $\beta\alpha=\gamma\alpha$ always implies $\beta=\gamma$. To illustrate,
+if each ``formal'' mapping is an actual many\hyp{}to\hyp{}one mapping of one set into another, and if the 
+composition of formal mappings is the usual composition of correspondences, it can be shown that every mapping
+$\alpha$ of one set \emph{onto} another is cancellable from the right.
+\begin{theorem}\label{thm:func_comp}
+	Let $T$ be a functor covariant in $\mathbf{A}$ and contravariant in $\mathbf{B}$, with values in
+	$\mathbf{C}$. Let $S(A,B)$ and $S(\alpha,\beta)$ be two functions on the objects (and mappings) of
+	$\mathbf{A}$ and $\mathbf{B}$, for which it is assumed only, when $\alpha:A_1\rightarrow A_2
+	\in\mathbf{A}$ and $\beta:B_1\rightarrow B_2\in\mathbf{B}$, that
+	\begin{equation*}
+		S(\alpha,\beta):S(A_1,B_2)\rightarrow S(A_2,B_1)\in\mathbf{C}.
+	\end{equation*}
+	If a function $\tau$ on the objects of $\mathbf{A,B}$ to the mappings of $\mathbf{C}$ satisfies the
+	usual conditions for a natural transformation $\tau:T\rightarrow S$; namely that
+	\begin{align}
+		\tau(A,B):T(A,B)&\rightarrow S(A,B)\in\mathbf{C},\label{eq:functor_comp1}\\
+		\tau(A_2,B_1)T(\alpha,\beta)&=S(\alpha,\beta)\tau(A_1,B_2),\label{eq:functor_comp2}
+	\end{align}
+	and if in addition each $\tau(A,B)$ is cancellable from the right, then the functions $S(\alpha,\beta)$
+	and $S(A,B)$ form a functor $S$, concordant with $T$, and $\tau$ is a transformation $\tau:T\rightarrow S$.
+\end{theorem}
+\begin{proof}
+	We need to show that
+	\begin{align}
+		S(e_A,e_B)&=e_{S(A,B)},\label{eq:func_id}\\
+		S(\alpha_2\alpha_1,\beta_2\beta_1)&=S(\alpha_2,\beta_1)S(\alpha_1,\beta_2).\label{eq:func_nat}
+	\end{align}
+	Since $T$ is a functor, $T(e_A,e_B)$ is an identity, so that the condition \labelcref{eq:functor_comp2} with
+	$A_1=A_2$, $B_1=B_2$ becomes
+	\begin{equation*}
+		\tau(A,B)=S(e_A,e_B)\tau(A,B).
+	\end{equation*}
+	Because $\tau(A,B)$ is cancellable from the right, it follows that $S(e_A,e_B)$ must be the identity
+	mapping of $S(A,B)$, as desired.
+
+	To consider the second condition, let $\alpha:A_1\rightarrow A_2$, $\alpha_2:A_2\rightarrow A_3$,
+	$\beta_1:B_1\rightarrow B_2$ and $\beta_2:B_2\rightarrow B_3$, so that $\alpha_2\alpha_1$ and
+	$\beta_2\beta_1$ are defined. By condition \labelcref{eq:functor_comp2} and the properties of the
+	functor $T$
+	\begin{align*}
+		S(\alpha_2\alpha_1,\beta_2\beta_1)\tau(A_1,B_3) & = \tau(A_3,B_1)T(\alpha_2\alpha_1,\beta_2\beta_1)\\
+				& = \tau(A_3,B_1)T(\alpha_2,\beta_1)T(\alpha_1,\beta_2)\\
+				& = S(\alpha_2,\beta_1)\tau(A_2,B_2)T(\alpha_1,\beta_2)\\
+				& = S(\alpha_2,\beta_1)S(\alpha_1,\beta_2)\tau(A_1,B_3)
+	\end{align*}
+	Again because $\tau(A_1,B_3)$ may be cancelled on the right, \cref{eq:func_nat} follows.
+\end{proof}
+
+\section{Combination of the arguments of functors}\label{sec:func_comb}
+For $n$ given categories $\mathbf{A}_1,\dotsc,\mathbf{A}_n$, the cartesian product category
+\begin{equation}\label{eq:prod_cat}
+	\mathbf{A}=\prod_i\mathbf{A}_i=\mathbf{A}_1\times\mathbf{A}_2\times\dotsm\times\mathbf{A}_n
+\end{equation}
+is defined as a category in which the objects are the $n$-tuples of objects $[A_1,\dotsc,A_n]$, with
+$A_i\in\mathbf{A}_i$, the mappings are the $n$-tuples $[\alpha_1,\dotsc,\alpha_n]$ of mappings
+$\alpha_i\in\mathbf{A}_i$. The product
+\begin{equation*}
+	[\alpha_1,\dotsc,\alpha_n][\beta_1,\dotsc,\beta_n]=[\alpha_1\beta_1,\dotsc,\alpha_n\beta_n]
+\end{equation*}
+is defined if and only if each individual product $\alpha_i\beta_i$ is defined in $\mathbf{A}_i$, for
+$i\in\{1,\dotsc,n\}$. The identity corresponding to the object $[A_1,\dotsc,A_n]$ in the product category
+is to be the mapping $[e(A_1),\dotsc,e(A_n)]$. The axioms which assert that the product $\mathbf{A}$
+is a category follow at once. The natural correspondence
+\begin{align}
+	P(A_1,\dotsc,A_n) &= [A_1,\dotsc,A_n]\label{eq:prod_cat1}\\
+	P(\alpha_1,\dotsc,\alpha_n) &= [\alpha_1,\dotsc,\alpha_n]\label{eq:prod_cat2}
+\end{align}
+is a covariant functor on the $n$ categories $\mathbf{A}_1,\dotsc,\mathbf{A}_n$ to the product category.
+Conversely, the correspondences given by ``projection'' into the $i$th coordinate,
+\begin{equation}\label{eq:prod_proj}
+	Q_i([A_1,\dotsc,A_n])=A_i,\qquad Q_i([\alpha_1,\dotsc,\alpha_n])=\alpha_i,
+\end{equation}
+is a covariant functor in one argument, on $\mathbf{A}$ to $\mathbf{A}_i$.
+
+It is now possible to represent a functor covariant in any number of arguments as a functor in one argument.
+Let $T$ be a functor on the categories $\mathbf{A}_1,\dotsc,\mathbf{A}_n,\mathbf{B}$, with the same variance
+in $\mathbf{A}_i$, as in $\mathbf{A}_1$; define a new functor $T^\ast$ by setting
+\begin{align*}
+	T^\ast\left([A_1,\dotsc,A_n],B\right) &= T(A_1,\dotsc,A_n,B),\\
+	T^\ast\left([\alpha_1,\dotsc,\alpha_n],\beta\right) &= T(\alpha_1,\dotsc,\alpha_n,\beta).
+\end{align*}
+This is a functor, since it is a composite of $T$ and the projections $Q_i$ of \cref{eq:prod_proj};
+its variance in the first argument is that of $T$ in any $A_i$. Conversely, each functor $S$ with arguments in
+$\mathbf{A}_i\times\dotsm\times\mathbf{A}_n$ and $\mathbf{B}$ can be represented as $S=T^\ast$, for a $T$ with
+$n+1$ arguments in $\mathbf{A}_i,\dotsc,\mathbf{A}_n,\mathbf{B}$, defined by
+\begin{align*}
+	T(A_1,\dotsc,A_n,B) &=   S([A_1,\dotsc,A_n],B) = S(P(A_1,\dotsc,A_n),B),\\
+	T(\alpha_1,\dotsc,\alpha_n,\beta) &=   S([\alpha_1,\dotsc,\alpha_n],\beta) = S(P(\alpha_1,\dotsc,\alpha_n),\beta).
+\end{align*}
+Again $T$ is a composite functor. These reduction arguments combine to give the following theorem.
+\begin{theorem}
+	For given categories $\mathbf{A}_1,\dotsc,\mathbf{A}_n,\mathbf{B}_1,\dotsc,\mathbf{B}_m,\mathbf{C}$,
+	there is a one\hyp{}to\hyp{}one correspondence between the functors $T$ covariant in $\mathbf{A}_1,\dotsc,\mathbf{A}_n$,
+	contravariant in $\mathbf{B}_1,\dotsc,\mathbf{B}_m$, with values in $\mathbf{C}$, and the functors $S$ in two arguments,
+	covariant in $\mathbf{A}_1\times\dotsm\times\mathbf{A}_n$ and $\mathbf{B}_1\times\dotsm\times\mathbf{B}_m$, with values
+	in the same category $\mathbf{C}$. Under this correspondence, equivalent functors $T$ correspond to equivalent functors
+	$S$, and a natural transformation $\tau:T_1\rightarrow T_2$ gives rise to a natural transformation $\sigma:S_1\rightarrow S_2$
+	between the functors $S_1$ and $S_2$ corresponding to $T_1$ and $T_2$ respectively.
+\end{theorem}
+
+By this theorem, all functors can be reduced to functors in two arguments. To carry this reduction further, we introduce the concept
+of ``dual'' category.
+
+Given a category $\mathbf{A}$, the dual category $\mathbf{A}^\text{op}$ is defined as follows. The objects of $\mathbf{A}^\text{op}$ are those
+of $\mathbf{A}$; the mappings $\alpha^\text{op}$ of $\mathbf{A}^\text{op}$ are in one\hyp{}to\hyp{}one correspondence $\alpha\rightleftarrows\alpha^\text{op}$
+with the mappings of $\mathbf{A}$. If $\alpha:A_1\rightarrow A_2$ in $\mathbf{A}$, then $\alpha^\text{op}:A_2\rightarrow A_1$ in $\mathbf{A}^\text{op}$.
+The composition law is defined by the equation
+\begin{equation*}
+	\alpha_2^\text{op}\alpha_1^\text{op}= {(\alpha_1\alpha_2)}^\text{op},
+\end{equation*}
+if $\alpha_1\alpha_2$ is defined in $\mathbf{A}$. We verify that $\mathbf{A}^\text{op}$ is a category and that there are equivalences
+\begin{equation*}
+	{(\mathbf{A}^\text{op})}^\text{op}\cong\mathbf{A},\qquad \prod_i\mathbf{A}_i^\text{op}\cong{\left(\prod\mathbf{A}_i\right)}^\text{op}.
+\end{equation*}
+The mapping
+\begin{equation*}
+	D(A)= A,\qquad D(\alpha)= \alpha^\text{op}
+\end{equation*}
+is a contravariant functor on $\mathbf{A}$ to $\mathbf{A}^\text{op}$, while $D^{-1}$ is contravariant on $\mathbf{A}^\text{op}$ to $\mathbf{A}$.
+
+Any contravariant functor $T$ on $\mathbf{A}$ to $\mathbf{C}$ can be regarded as a covariant functor $T^\text{op}$ on $\mathbf{A}^\text{op}$ to
+$\mathbf{C}$, and vice versa. Explicitly, $T^\text{op}$ is defined as a composite
+\begin{equation*}
+	T^\text{op}(A)= T(D^{-1}(A)),\qquad  T^\text{op}(\alpha^\text{op})= T(D^{-1}(\alpha^\text{op})).
+\end{equation*}
+\begin{theorem}
+	Every functor $T$ covariant on $\mathbf{A}_1,\dotsc,\mathbf{A}_n$ and contravariant on $\mathbf{B}_1,\dotsc,\mathbf{B}_m$ with
+	values in $\mathbf{C}$ may be regarded as a covariant functor $T'$ on
+	\begin{equation*}
+		\left(\prod_i\mathbf{A}_i\right)\times\left(\prod_j\mathbf{B}_j^\text{op}\right)
+	\end{equation*}
+	with values in $\mathbf{C}$, and vice versa. Each natural transformation (or equivalence) $\tau:T_1\rightarrow T_2$ yields a
+	corresponding transformation (or equivalence) $\tau':T_1'\rightarrow T_2'$.
+\end{theorem}
+
+\chapter{Functors and groups}\label{ch:funct_groups}
+\section{Subfunctors}\label{sec:subfun}
+This chapter will develop the fashion in which various particular properties of groups are reflected by properties of functors with
+values in a category of groups. The simplest such case is the fact that subgroups can give rise to ``subfunctors''. The concept of
+subfunctor thus developed applies with equal force to functors whose values are in the category of rings, spaces, and so on.
+
+In the category $\mathbf{G}$ of all topological groups we say that a mapping $\gamma':G_1'\rightarrow G_2'$ is a \emph{submapping}
+of a mapping $\gamma:G_1\rightarrow G_2$ (notation: $\gamma'\subset\gamma$) whenever $G_1'\subset G_1$, $G_2'\subset G_2$ and
+$\gamma'(g_1)=\gamma(g_1)$ for each $g_1\in G_1'$. Here $G_1'\subset G_1$ means of course that $G_1'$ is a subgroup (not just a
+subset) of $G_1$.
+
+Given two concordant functors $T'$ and $T$ on $\mathbf{A}$ and $\mathbf{B}$ to $\mathbf{C}$, we say that $T'$ is a subfunctor
+of $T$ (notation: $T'\subset T$) provided $T'(A,B)\subset T(A,B)$ for each pair of objects $A\in\mathbf{A}$, $B\in\mathbf{B}$ and
+$T'(\alpha,\beta)\subset T(\alpha,\beta)$ for each pair of mapping $\alpha\in\mathbf{A}$, $\beta\in\mathbf{B}$. Clearly $T'\subset
+T$ and $T\subset T'$ imply $T=T'$; furthermore this inclusion satisfies the transitive law. If $T'$ and $T''$ are both subfunctors of
+the same functor $T$, then in order to prove that $T'\subset T''$ it is sufficient to verify that $T'(A,B)\subset T''(A,B)$ for all
+$A$ and $B$.
+
+A subfunctor can be completely determined by giving its object function alone. The requisite properties for this object function may
+be specified as:
+\begin{theorem}\label{thm:subfunc}
+	Let the functor $T$ covariant in $\mathbf{A}$ and contravariant in $\mathbf{B}$ have values in the category $\mathbf{G}$
+	of groups, while $T'$ is a function which assigns to each pair of objects $A\in\mathbf{A}$ and $B\in\mathbf{B}$ a subgroup
+	$T'(A,B)$ of $T(A,B)$. Then $T'$ is the object function of a subfunctor of $T$ if and only if for each $\alpha:A_1\rightarrow
+	A_2\in\mathbf{A}$ and each $\beta: B_1\rightarrow B_2\in\mathbf{B}$ the mapping $T(\alpha,\beta)$ carries the subgroup
+	$T'(A_1,B_2)$ into part of $T'(A_2,B_1)$. If $T'$ satisfies this condition, the corresponding mapping function is uniquely
+	determined.
+\end{theorem}
+\begin{proof}
+	The necessity of this condition is immediate. Conversely, to prove the sufficiency, we define for each $\alpha$ and $\beta$ a
+	homomorphism $T'(\alpha,\beta)$ of $T'(A_1,B_2)$ into $T'(A_2,B_1)$ by setting $T'(\alpha,\beta)g=T(\alpha,\beta)g$, for each
+	$g\in T'(A_1,B_2)$. The fact that $T'$ satisfies the requisite conditions for the mapping function of a functor is then
+	immediate, since $T'$ is obtained by ``cutting down'' $T$.
+\end{proof}
+
+The concept of a subtransformation may also be defined. If $T,S,T',S'$ are concordant functors on $\mathbf{A,B}$ to $\mathbf{C}$,
+and if $\tau:T\rightarrow S$ and $\tau':T'\rightarrow S'$ are natural transformations, we say that $\tau'$ is a
+\emph{subtransformation} of $\tau$ (notation: $\tau'\subset\tau$) if $T'\subset T$, $S'\subset S$ and if, for each pair of
+arguments $A,B,\tau'(A,B)$ is a submapping of $\tau(A,B)$. Any such subtransformation of $\tau$ may be obtained by suitably
+restricting both the domain and the range of $\tau$. Explicitly, let $\tau:T\rightarrow S$, let $T'\subset T$ and $S'\subset S$
+be such that for each $A,B,\tau(A,B)$ maps the subgroup $T'(A,B)$ of $T(A,B)$ into the subgroup $S'(A,B)$ of $S(A,B)$.
+If then $\tau'(A,B)$ is defined as the homomorphism $\tau(A,B)$ with its domain restricted to the subgroup $T'(A,B)$ and its
+range to the subgroup $S'(A,B)$, it follows readily that $\tau'$ is indeed a natural transformation  $\tau':T'\rightarrow S'$.
+
+Let $\tau$ be a natural transformation $\tau:T\rightarrow S$ of concordant functors $T$ and $S$ on $\mathbf{A}$ and $\mathbf{B}$
+to the category $\mathbf{G}$ of groups. If $T'$ is a subfunctor of $T$, then the map of each $T'(A,B)$ under $\tau(A,B)$ is a
+subgroup of $S(A,B)$, so that we may define an object function
+\begin{equation*}
+	S'(A,B)= \tau(A,B)[T'(A,B)],\qquad A\in\mathbf{A},B\in\mathbf{B}.
+\end{equation*}
+The naturality condition on $\tau$ shows that the function $S'$ satisfies the condition of \cref{thm:subfunc}; hence $S'=\tau T'$
+gives a subfunctor of $S$, called the $\tau$-transformation of $T'$. Furthermore there is a natural transformation
+$\tau':T'\rightarrow S'$ obtained by restricting $\tau$. In particular, if $\tau$ is a natural equivalence, so is $\tau'$.
+
+Conversely, for a given $\tau:T\rightarrow S$ let $S''$ be a subfunctor of $S$. The inverse image of each subgroup $S''(A,B)$
+under the homomorphism $\tau(A,B)$ is then a subgroup of $T(A,B)$, hence gives an object function
+\begin{equation*}
+	T''(A,B)=\tau{(A,B)}^{-1}[S''(A,B)],\qquad A\in\mathbf{A},B\in\mathbf{B}.
+\end{equation*}
+As before this is the object function of a subfunctor $T''\subset T$ which may be called the inverse transform
+$\tau^{-1}S''=T''$ of $S''$. Again, $\tau$ ma be restricted to give a natural transformation $\tau'':T''\rightarrow S''$.
+In case each $\tau(A,B)$ is homomorphism of $T(A,B)$ \emph{onto} $S(A,B)$, we may assert that $\tau(\tau^{-1}) S''=S''$.
+
+Lattice operations on subgroups can be applied to functors. If $T'$ and $T''$ are two subfunctors of a functor $T$ with
+values in $G$, we define their meet $T'\wedge T''$ and their join $T'\vee T''$ by giving object functions,
+\begin{align*}
+	[T'\wedge T''](A,B) & =  T'(A,B)\wedge T''(A,B),\\
+	[T'\vee T''](A,B) & =  T'(A,B)\vee T''(A,B).
+\end{align*}
+We verify that the condition of \cref{thm:subfunc} is satisfied here, so that these object functions do uniquely determine
+corresponding subfunctors of $T$. Any lattice identity for groups may then be written directly as an identity for the 
+subfunctors of a fixed functor $T$ with values in $\mathbf{G}$.
+
+\section{Quotient functors}\label{sec:quot_funct}
+The operation of forming a quotient group leads to an analogous operation of taking the ``quotient functor'' of a
+functor $T$ by a ``normal'' subfunctor $T'$. If $T$ is a functor covariant in $\mathbf{A}$ and contravariant in
+$\mathbf{B}$, with values in $\mathbf{G}$, a \emph{normal functor} $T'$ will mean a subfunctor $T'\subset T$
+such that each $T'(A,B)$ is a normal subgroup of $T(A,B)$, while a \emph{closed} subfunctor $T'$ will be one
+in which each $T'(A,B)$ is a closed subgroup of the topological group $T(A,B)$. If $T'$ is a normal subfunctor
+of $T$, the quotient functor $Q= T/T'$ has an object function given as the factor group,
+\begin{equation*}
+	Q(A,B)= T(A,B)/T'(A,B).
+\end{equation*}
+For homomorphisms $\alpha:A_1\rightarrow A_2$ and $\beta:B_1\rightarrow B_2$ the corresponding mapping function
+$Q(\alpha,\beta)$ is defined for each coset\footnote{For convenience of notation we write the group operations 
+(commutative or not) with a plus sign.} $x+T'(A_1,B_2)$ as
+\begin{equation*}
+	Q(\alpha,\beta)[x+T'(A_1,B_2)]= [T(\alpha,\beta)x]+T'(A_2,B_1).
+\end{equation*}
+
+Before we prove that $Q$ is actually a functor, we introduce for each $A\in\mathbf{A}$ and $B\in\mathbf{B}$
+the homomorphism
+\begin{equation*}
+	\nu(A,B):T(A,B)\rightarrow Q(A,B)
+\end{equation*}
+defined for each $x\in T(A,B)$ by the formula
+\begin{equation*}
+	\nu(A,B)(x) = x + T'(A,B).
+\end{equation*}
+When $\alpha:A_1\rightarrow A_2$ and $\beta:B_1\rightarrow B_2$ we now show that
+\begin{equation*}
+	Q(\alpha,\beta)\nu(A_1,B_2) = \nu(A_2,B_1)T(\alpha,\beta).
+\end{equation*}
+For, given any $x\in T(A_1,B_2)$, the definitions of $\nu$ and $Q$ give at once
+\begin{align*}
+	Q(\alpha,\beta)[\nu(A_1,B_2)(x)] & = Q(\alpha,\beta)[x+T'(A_1,B_2)]\\
+	&= [T(\alpha,\beta)(x)]+T'(A_2,B_1)\\
+	&= \nu(A_2,B_1)[T(\alpha,\beta)(x)].
+\end{align*}
+Notice also that $\nu(A,B)$ maps $T(A,B)$ \emph{onto} the factor group $Q(A,B)$, hence is cancellable from the right.
+Therefore, \cref{thm:subfunc} shows that $Q=T/T'$ is a functor, and that $\nu$ is a natural transformation of $T$
+onto $T/T'$.
+
+In particular, if the functor $T$ has its values in the category of regular topological groups, while $T'$ is a 
+\emph{closed} normal subfunctor of $T$, the quotient functor $T/T'$ has its values in the same category of groups,
+since a quotient of a regular topological group by a \emph{closed} subgroup is again regular.
+
+To consider the behavior of quotient functors under natural transformations we first recall some properties of
+homomorphisms. Let $\alpha:G\rightarrow H$ be a homomorphism of the group $G$ into $H$, while $\alpha':G'\rightarrow H'$
+is a submapping of $\alpha$, with $G'$ and $H'$ normal subgroups of $G$ and $H$, respectively, and $\nu$ and $\mu$ are
+the natural homomorphisms $\nu:G\rightarrow G/G'$, $\mu:H\rightarrow H/H'$. Then we may define a homomorphism 
+$\beta:G/G'\rightarrow H/H'$ be setting $\beta(x+G')=\alpha x + H'$ for each $x\in G$. This homomorphism is the only
+mapping of $G/G'$ into $H/H'$ with the property that $\beta\nu=\mu\alpha$, as indicated in the figure
+\begin{equation*}
+	\begin{tikzpicture}
+		\node (a) at (0,0)
+		{ \begin{tikzcd}[sep=huge]
+		G \arrow[r,"\alpha"] \arrow[d, "\nu"] & H\arrow[d,"\mu"]\\
+		G/G' \arrow[r,"\beta"] & H/H'
+		\end{tikzcd}};
+	\end{tikzpicture}
+\end{equation*}
+We may write $\beta=\alpha/\alpha'$. The corresponding statement for functors is as follows:
+\begin{theorem}\label{thm:grp_mod}
+	Let $\tau:T\rightarrow S$ be a natural transformation between functors with values in $\mathbf{G}$;
+	and let $\tau':T'\rightarrow S'$ be a subtransformation of $\tau$ such that $T'$ and $S'$ are normal
+	subfunctors of $T$ and $S$ respectively. Then the definition of $\rho(A,B)=\tau(A,B)/\tau'(A,B)$
+	gives a natural transformation $\rho=\tau/\tau'$,
+	\begin{equation*}
+		\rho:T/T'\rightarrow S/S'.
+	\end{equation*}
+	Furthermore, $\rho\nu=\mu\tau$, where $\nu$ is the natural transformation $\nu:T\rightarrow T/T'$ and
+	$\mu$ is the natural transformation $\mu:S\rightarrow S/S'$.
+\end{theorem}
+\begin{proof}
+	This requires only the verification of the naturality condition for $\rho$, which follows at once from
+	the relevant definitions.
+\end{proof}
+
+The ``kernel'' of a transformation appears as a special case of this theorem. Let $\tau:T\rightarrow S$ be
+given, and take $S'$ be the identity\hyp{}element subfunctor of $S$; that is, let each $S'(A,B)$ be the
+subgroup consisting only of the identity (zero) element of $S(A,B)$. Then the inverse transformation 
+$T'=\tau^{-1}S'$ is by \cref{sec:subfun} a (normal) subfunctor of $T$, and $\tau$ may be restricted to give
+the natural transformation $\tau':T'\rightarrow S'$. We may call $T'$ the kernel functor of the transformation
+$\tau$. \Cref{thm:grp_mod} applied in this case shows that there is then a natural transformation $\rho:T/T'
+\rightarrow S$ such that $\rho=\tau\nu$. Furthermore each $\rho(A,B)$ is a one\hyp{}to\hyp{}one mapping of the
+quotient group $T(A,B)/T'(A,B)$ into $S(A,B)$. If in addition we assume that each $\tau(A,B)$ is an open mapping
+of $T(A,B)$ \emph{onto} $S(A,B)$, we may conclude, exactly as in group theory, that $\rho$ is a natural equivalence.
+
+\section{Examples of subfunctors}\label{sec:ex_funct}
+Many characteristic subgroups of a group may be written as subfunctors of the identity functor. The (covariant)
+identity functor $I$ on $\mathbf{G}$ to $\mathbf{G}$ is defined by setting
+\begin{equation*}
+	I(G)= G,\qquad I(\gamma)= \gamma.
+\end{equation*}
+Any subfunctor of $I$, is by \cref{thm:subfunc}, determined by an object function
+\begin{equation*}
+	T(G)\subset G
+\end{equation*}
+such that whenever $\gamma$ maps $G_1$ homomorphically into $G_2$, then $\gamma[T(G_1)]\subset T(G_2)$.
+Furthermore, if each $T(G)$ is a normal subgroup of $G$, we can form the quotient functor $I/T$.
+
+For example, the commutator subgroup $C(G)$ of the group $G$ determines in this fashion a normal subfunctor
+of $I$. The corresponding quotient functor $(I/C)(G)$ is the functor determining for each $G$ the factor 
+commutator group of $G$ (the group $G$ made abelian).
+
+The center $Z(G)$ does no determine in this fashion a subfunctor of $I$, because a homomorphism of $G_1$
+\emph{into} $G_2$ ma carry central elements of $G_1$ into non\hyp{}central elements of $G_2$. However, we
+may choose to restrict the category $\mathbf{G}$ by using as mappings only homomorphisms of one group
+\emph{onto} another. For \emph{this} category, $Z$ is a subfunctor of $I$, and we may form a quotient 
+functor $I/Z$.
+
+Thus various types of subgroups of $G$ may be classified in terms of the degree of invariance of the
+``subfunctors'' of the identity which they generate. This classification is similar to, but not 
+identical with, the known distinction between normal subgroups, characteristic subgroups, and strictly
+characteristic subgroups of a single group.\footnote{A subgroup $S$ of $G$ is characteristic if 
+$\sigma_1(S)\subset S$ for every automorphism $\sigma_1$ of $G$, and strictly (or ``strongly'') characteristic
+if $\sigma_2(S)\subset S$ for every endomorphism $\sigma_2$ of $G$.} The present distinction by functors
+refers not to the subgroups of an individual group, but to a definition yielding a subgroup for each
+of the groups in a suitable category. It includes the standard distinction, in the sense that one may
+consider functors on the category with only one object (a single group $G$) and with mappings which are
+the inner automorphisms of $G$ (the subfunctors of $I=\text{normal subgroups}$), the automorphisms of
+$G$ ($\text{subfunctors}=\text{characteristic subgroups}$), or the endomorphisms of $G$ ($\text{subfunctors}
+=\text{strictly characteristic subgroups}$).
+
+Still another example of the degree of invariance is given by the automorphism group $A(G)$ of a group $G$.
+This is a functor $A$ defined on the category $\mathbf{G}$ of groups with the mappings restricted to the
+isomorphisms $\gamma:G_1\rightarrow G_2$ of one group onto another. The mapping function $A(\gamma)$ for any
+automorphism $\sigma_1$ of $G_1$ is then defined by setting
+\begin{equation*}
+	[A(\gamma)\sigma_1]g_2 =  \gamma\sigma_1\gamma^{-1}g_2,\qquad g_2\in G_2.
+\end{equation*}
+
+The types of invariance for functors on $\mathbf{G}$ may thus be indicated by a table, showing how the mappings
+of the category must be restricted in order to make the indicated set function a functor:
+\begin{center}
+	\begin{tabular}{l l}
+	\textit{Functor} & \textit{Mappings} $\gamma:G_1\rightarrow G_2$\\
+	$C(G)$	& Homomorphisms into,\\
+	$Z(G)$	& Homomorphisms onto,\\
+	$A(G)$	& Isomorphisms onto.\\
+	\end{tabular}
+\end{center}
+
+For the subcategory of $\mathbf{G}$ consisting of all (additive) abelian groups there are similar subfunctors
+\begin{enumerate}
+	\item $G_0$, the set of all elements of finite order in $G$;
+	\item $G_m$, the set of all elements of $G$ of order dividing the integer $m$;
+	\item $mG$, the set of all elements of the form $m g\in G$.
+\end{enumerate}
+The corresponding quotient functors will have object functions $G/G_0$ (the ``Betti group'' of $G$), $G/G_m$
+and $G/mG$ (the group $G$ reduced modulo $m$).
+
+\section{The isomorphism theorems}\label{sec:iso_thm}
+The isomorphism theorems of group theory can be formulated for functors; from this it will follow that these
+isomorphisms between groups are ``natural''.
+
+The ``first isomorphism theorem'' asserts that if $G$ has two normal subgroups $G_1$ and
+$G_2$ with $G_2 \subset G_1$, then $G_1/G_2$ is a normal subgroup of $G/G_2$, and there is an 
+isomorphisms $\tau:(G/G_2)/(G_1/G_2)\rightarrow G/G_1$. The elements of the first group (in additive notation)
+are coset of coset, of the form $(x+G_2)+G_1/G_2$, and the isomorphism $\tau$ is defined as
+\begin{equation}\label{eq:first_iso}
+	\tau[(x+G_2)+G_1/G_2]= x+G_1.
+\end{equation}
+This may be stated in terms of functors as follows.
+\begin{theorem}\label{thm:first_iso_fun}
+	Let $T_1$ and $T_2$ be two normal subfunctors of a functor $T$ with values in the category of groups
+	$\mathbf{G}$. If $T_2\subset T_1$, then $T_1/T_2$ is a normal subfunctor of $T/T_2$ and the functors
+	\begin{equation}\label{eq:grp_nateq}
+		T/T_1\quad\text{and}\quad (T/T_2)/(T_1/T_2)
+	\end{equation}
+	are naturally equivalent.
+\end{theorem}
+\begin{proof}
+	We assume that the given functor $T$ depends on the usual typical arguments $A$ and $B$. Since
+	$(T_1/T_2)(A,B)$ is clearly a normal subgroup of $(T/T_2)(A,B)$, a proof that $T_1/T_2$ is a normal
+	subfunctor of $T/T_2$ requires only a proof that each $(T_1/T_2)(\alpha,\beta)$, is a submapping of
+	the corresponding $(T/T_2)(\alpha,\beta)$ for any $\alpha:A_1\rightarrow A_2$ and $\beta:B_1\rightarrow B_2$.
+	To show this, apply $(T_1/T_2)(\alpha,\beta)$ to a typical coset $x+T_2(A_1,B_2)$. Applying the
+	definitions, one has
+	\begin{align*}
+		(T_1/T_2)(\alpha,\beta)[x+T_2(A_1,B_2) &=(T_1)(\alpha,\beta)(x)+T_2(A_2,B_1)\\
+						&=(T)(\alpha,\beta)(x)+T_2(A_2,B_1)\\
+						&=(T/T_2)(\alpha,\beta)[x+T_2(A_2,B_1)],
+	\end{align*}
+	for  $T_1(\alpha,\beta)$ was assumed to be a submapping of $T(\alpha,\beta)$.
+	The asserted equivalence \labelcref{eq:grp_nateq} is established by setting, as in \cref{eq:first_iso},
+	\begin{equation*}
+		\tau(A,B)\{[x+T_2(A,B)]+(T_1/T_2)(A,B)\}=x+T_1(A,B).
+	\end{equation*}
+	The naturality proof then requires that, for any mappings $\alpha:A_1\rightarrow A_2$ and 
+	$\beta:B_1\rightarrow B_2$
+	\begin{equation*}
+		\tau(A_2,B_1)S(\alpha,\beta)=(T/T_1)(\alpha,\beta)\tau(A_1,B_2),
+	\end{equation*}
+	where $S=(T/T_2)/(T_1/T_2)$. This equality may be verified mechanically by applying each side to a
+	general element $[x+T_2(A_1,B_2)]+(T_1/T_2)(A_1,B_2)$ in the group $S(A,B)$.
+\end{proof}
+
+The theorem may also be stated and proved in the following equivalent form:
+\begin{theorem}
+	Let $T'$ and $T''$ be two normal subfunctors of a functor $T$ with values in the category $\mathbf{G}$ of groups.
+	Then $T'\wedge T''$ is a normal subfunctor of $T'$ and of $T$, $T'/T'\wedge T''$ is a normal subfunctor of
+	$T/T'\wedge T''$, and the functors
+	\begin{equation}\label{eq:grp-lattice}
+		T/T'\qquad \text{and}\qquad (T/T'\wedge T'')/(T'/T'\wedge T'')
+	\end{equation}
+	are naturally equivalent.
+\end{theorem}
+\begin{proof}
+	Set $T_1=T'$, $T_2=T'\wedge T''$.
+\end{proof}
+
+The second isomorphism theorem for groups is fundamental in the proof of the Jordan\hyp{}H{\"o}lder Theorem. It states
+that if $G$ has normal subgroups $G_1$ and $G_2$, then $G_1\wedge G_2$ is a normal subgroup of $G_1$, $G_2$ is a normal 
+subgroup of $G_1\vee G_2$, and there is an isomorphism $\mu$ of $G_1/(G_1\wedge G_2)$ to $(G_1\vee G_2)/G_2$. (Because
+$G_1$ and $G_2$ are normal subgroups, the join $G_1\vee G_2$ consists of all ``sums'' $g_1+g_2$, for $g_i\in G_i$, so
+is often written as $G_1\vee G_2= G_1+G_2$.) For any $x\in G_1$, this isomorphism is defined as
+\begin{equation}\label{eq:second-iso}
+	\mu[x+(G_1\wedge G_2)]= x + G_2.
+\end{equation}
+The corresponding theorem for functors reads:
+\begin{theorem}
+	If $T_1,T_2$ are normal subfunctors of a functor $T$ with values in $\mathbf{G}$, then $T_1\wedge T_2$ is a normal
+	subfunctor of $T_1$, and $T_2$ is a normal subfunctor of $T_1\vee T_2$, and the quotient functors
+	\begin{equation}\label{eq:func-lattice}
+		T_1/(T_1\wedge T_2)\qquad\text{and}\qquad (T_1\vee T_2)/T_2
+	\end{equation}
+	are naturally equivalent.
+\end{theorem}
+\begin{proof}
+	It is clear that both quotients in \cref{eq:func-lattice} are functors. The requisite equivalence $\mu(A,B)$ is given,
+	as in \cref{eq:second-iso}, by  the definition
+	\begin{equation*}
+		\mu(A,B)[x+(T_1(A,B)\wedge T_2(A,B))] = x + T_2(A,B),
+	\end{equation*}
+	for any $x\in T_1(A,B)$. The naturality may be verified as before.
+\end{proof}
+
+From these theorems we may deduce that the first and second isomorphism theorems yield natural isomorphisms between groups
+in another and more specific way. To this end we introduce an appropriate category $\mathbf{G}^\ast$. An object of 
+$\mathbf{G}^\ast$ is to be a triple $G^\ast=[G,G',G'']$ consisting of a group $G$ and two of its normal subgroups. A mapping
+$\gamma:[G_1,G_1',G_1'']\rightarrow [G_2,G_2',G_2'']\in\mathbf{G}^\ast$ is to be a homomorphism $\gamma:G_1\rightarrow G_2$
+with the special properties that $\gamma(G_1')\triangleleft G_2'$ and  $\gamma(G_1'')\triangleleft G_2''$. It is clear that 
+these definitions do yield a category $\mathbf{G}^\ast$. on this category $\mathbf{G}^\ast$ we may defined three (covariant)
+functors with values in the category $\mathbf{G}$ of groups. The first is a ``projection'' functor
+\begin{equation*}
+	P([G,G',G''])= G\qquad P(\gamma)= \gamma;
+\end{equation*}
+the others are two normal subfunctors of $P$, which may be specified by their object functions as
+\begin{equation*}
+	P'([G,G',G''])= G',\qquad P''([G,G',G''])= G''.
+\end{equation*}
+
+Consider now the first isomorphism theorem, in the second form,
+\begin{equation}\label{eq:second-iso2}
+	G/G'\cong (G/(G'\wedge G''))/(G'/(G'\wedge G'')).
+\end{equation}
+If we set $G^\ast=[G,G',G'']$, the left side here is a value of the object function of the functor, $P/P'$, and the right
+side is similarly a value of $(P/(P'\wedge P''))/(P'/(P'\wedge P''))$. \Cref{thm:first_iso_fun} asserts that these two functors
+are indeed naturally equivalent. Therefore, the isomorphism \labelcref{eq:second-iso2} is itself natural, in that it can be
+regarded as natural isomorphism between the object functions of suitable functors on the category $\mathbf{G}^\ast$.
+
+The second isomorphism theorem
+\begin{equation*}
+	(G'\vee G'')/G''\cong G'/(G'\wedge G'')
+\end{equation*}
+is natural in a similar sense, for both sides can be regarded as object functions of suitable (covariant) functors on $\mathbf{G}^\ast$.
+
+It is clear that this technique of constructing a suitable category $\mathbf{G}^\ast$ could be used to establish the naturality of
+even more complicated ``isomorphism'' theorems.
+
+\section{Direct product of functors}\label{sec:funct_prod}
+We recall that there are essentially two different ways of defining the direct product of two groups $G$ and $H$. The ``external''
+direct product $G\times H$ is the group of all pairs $(g,h)$ with $g\in G, h\in H$, with the usual multiplication. This product
+$G\times H$ contains a subgroup $G'$, of all pairs $(g,0)$, which is isomorphic to $G$, and a subgroup $H'$ isomorphic to $H$.
+Alternatively, a group $L$ with subgroups $G$ and $H$ is said to be the ``internal'' direct product $L=G\boxtimes H$ of its subgroup
+$G$ and $H$ if $gh=hg$ for every $g\in G, h\in H$ and if every element in $L$ can be written uniquely as a product $gh$ with
+$g\in G,h\in H$. The intimate connection between the two types of direct products is provided by the isomorphisms $G\times H\cong
+G\boxtimes H$ and by the equality $G\times H=G'\boxtimes H'$, where $G'\cong G,H'\cong H$. 
+
+As in \cref{sec:funct_examples}, the \emph{external} direct product can be regarded as a covariant functor on $\mathbf{G}$,
+and $\mathbf{G}$ to $\mathbf{G}$, with object function $G\times H$, and mapping function $\gamma\times\eta$, defined as in
+\cref{sec:funct_examples}.
+
+Direct products of functors may also be defined, with the same distinction between ``external'' and ``internal'' products. We
+consider throughout functors covariant in a category $\mathbf{A}$, contravariant in $\mathbf{B}$, with values in the category
+$\mathbf{G}_0$ of discrete groups. If $T_1$ and $T_2$ are two such functors, the external direct product is a functor $T_1\times T_2$
+for which the object and mapping functions are respectively
+\begin{align}
+	(T_1\times T_2)(A,B) &= T_1(A,B)\times T_2(A,B),\label{eq:func_ext1}\\
+	(T_1\times T_2)(\alpha,\beta) &= T_1(\alpha,\beta)\times T_2(\alpha,\beta),\label{eq:func_ext2}
+\end{align}
+If $T_1'(A,B)$  denotes the set of all pairs $(g,0)$ in the direct product $T_1(A,B)\times T_2(A,B)$, $T_1'$ is a subfunctor of
+$T_1\times T_2$, and the correspondence $g\rightarrow (g,0)$ provides a natural isomorphism of $T_1$ to $T_1'$. Similarly $T_2$
+is naturally isomorphic to a subfunctor $T_2'$ of $T_1\times T_2$.
+
+On the other hand, let $S$ be a functor on $\mathbf{A,B}$ to $\mathbf{G}_0$ with subfunctors $S_1$ and $S_2$. We call $S$ the
+\emph{internal} direct product $S_1\boxtimes S_2$ if, for each $A\in\mathbf{A}$ and $B\in\mathbf{B}$, $S(A,B)$ is the internal
+direct product $S_1(A,B)\boxtimes S_2(A,B)$. From this definition it follows that, whenever $\alpha:A_1\rightarrow A_2$ and
+$\beta:B_1\rightarrow B_2$ are given mappings and $g_i\in S_i(A_1,B_2)$ are given elements (for $i\in\{1,2\}$), then, since
+$S_i(\alpha,\beta)\subset S(\alpha,\beta)$
+\begin{equation*}
+	S(\alpha,\beta)g_1 g_2 = [S_1(\alpha,\beta)g_1][S_2(\alpha,\beta)g_2].
+\end{equation*}
+This means that the correspondence $\tau$ defined by setting $[\tau(A_1,B_2)](g_1 g_2)= g_2$ is a natural transformation 
+$\tau:S\rightarrow S_2$. Furthermore this transformation is idempotent, for $\tau(A_1,B_2)\tau(A_1,B_2)=\tau(A_1,B_2)$.
+
+The connection between the two definitions is immediate; there is a natural isomorphism of the internal direct product
+$S_1\boxtimes S_2$ to the external direct product $S_1\times S_2$; furthermore any external product $T_1\times T_2$ is the
+internal product $T_1'\boxtimes T_2'$ of its subfunctors $T_1'\cong T_1, T_2'\cong T_2$.
+
+There are in group theory various theorems giving direct product decompositions. These decompositions can now be classified
+as to ``naturality''. Consider for example the theorem that every finite abelian group $G$ can be represented as the 
+(internal) direct product of its Sylow subgroups. This decomposition is ``natural''; specifically, we may regard the Sylow
+subgroup $S_p(G)$ (the subgroup consisting of all elements in $G$ of order some power of the prime $p$) as the object function
+of a subfunctor $S_p$ of the identity. The theorem in question then asserts in effect that the identity functor $I$ is the
+internal direct product of (a finite number of) the functors $S_p$. This representation of the direct factors by functors
+is the underlying reason for the possibility of extending the decomposition theorem in question to infinite groups in which
+every element has finite order.
+
+On the other hand consider the theorem which asserts that every finite abelian group is the direct product of cyclic
+subgroups. It is clear here that the subgroups cannot be given as the values of functors, and we observe that in this
+case the theorem does not extend to infinite abelian groups.
+
+As another example of non\hyp{}naturality, consider the theorem which asserts that any abelian group $G$ with a finite
+number of generators can be represented as a direct product of a free abelian group by the subgroup $T(G)$ of all 
+elements of finite order in $G$. Let us consider the category $\mathbf{G}_\text{af}$ of all discrete abelian groups
+with a finite number of generators. In this category the ``torsion'' subgroup $T(G)$ does determine the object function
+of a subfunctor $T\subset I$. However, there is no such functor giving the complementary direct factor of $G$.
+\begin{theorem}
+	In the category $\mathbf{G}_\textrm{af}$ there is no subfunctor $F\subset I$ such that $I=F\boxtimes T$, that is 
+	such that, for all $G$
+	\begin{equation}\label{eq:grp-af}
+		G=F(G)\boxtimes T(G).
+	\end{equation}
+\end{theorem}
+\begin{proof}
+	It suffices to consider just one group, such as the group $G$ which is the (external) direct product of the additive
+	group if integers and the additive group of integers mod $m$, for $m\neq 0$. Then no matter which free subgroup 
+	$F(G)$ may be chosen so that \cref{eq:grp-af} holds for this $G$, there clearly is an isomorphism of $G$ to $G$
+	which does not carry $F$ into itself. Hence $F$ cannot be a functor.
+\end{proof}
+
+This result could also be formulated in the statement that, for any $G$ with $G\neq T(G)\neq\{0\}$, there is no decomposition
+\labelcref{eq:grp-af} with $F(G)$ a (strongly) characteristic subgroup of $G$. In order to have a situation which cannot be
+reformulated in this way, consider the closely related (and weaker) group theoretic theorem which asserts that for each
+$G\in\mathbf{G}_\text{af}$ there is an isomorphism of $G/T(G)$ into $G$. This isomorphism cannot be natural.
+\begin{theorem}\label{thm:not-nat}
+	For the category $\mathbf{G}_\text{af}$ there is no natural transformation, $\tau:I/T\rightarrow I$, which gives for
+	each $G$ an isomorphism $\tau(G)$ of $G/T(G)$ into a subgroup of $G$.
+\end{theorem}
+\begin{proof}
+	This proof will require consideration of an infinite class of groups, such as the groups $G_m=\mathbb{Z}\times
+	\mathbb{Z}_m$ where $\mathbb{Z}$ is the additive group of integers and $\mathbb{Z}_m$ the additive group of
+	integers, modulo $m$. Suppose that $\tau(G): G/T(G)\rightarrow G$ existed. If $\mu(G):G\rightarrow G/T(G)$ is the
+	natural transformation of $G$ into $G/T(G)$ the product $\sigma(G)=\tau(G)\mu(G)$ would be a natural transformation
+	of $G$ into $G$ with kernel $T(G)$. For each of the groups $G_m$ with elements $(a,b_m)$ for $a\in \mathbb{Z}$ and 
+	$b_m\in \mathbb{Z}_m$, this transformation $\sigma_m=\sigma(G_m)$
+	must be a homomorphism with kernel $\mathbb{Z}_m$, hence must have the form
+	\begin{equation*}
+		\sigma_m(a,b_m)=(r_m a,{(s_m a)}_m),
+	\end{equation*}
+	where $r_m$ and $s_m$ are integers. Now consider the homomorphism $\gamma:G_m\rightarrow G_m$ defined by setting
+	$\gamma(a,b_m)= (0,b_m)$. Since $\sigma_m$ is natural, we must have $\sigma_m\gamma=\gamma\sigma_m$. Applying this
+	equality to an arbitrary element we conclude that $s_m\equiv 0 \pmod{m}$. Next consider $\delta(a,b_m)=(0,a_m)$.
+	the condition $\sigma_m\delta=\delta\sigma_m$ here gives $r_m\equiv 0\pmod{m}$, so that we can write $r_m=mt_m$.
+	Therefore for each $m$
+	\begin{equation*}
+		\sigma_m(a,b_m)=(mt_m a,0).
+	\end{equation*}
+	Now consider two groups $G_m,G_n$ with a homomorphism $\beta:G_m\rightarrow G_n$ defined by setting
+	$\beta(a,b_m)= (a,0_n)$. The naturality condition $\sigma_n\beta=\beta\sigma_m$ now gives $mt_m=nt_n$.
+	If we hold $m$ fixed and allow $n$ to increase indefinitely, this contradicts the fact that $m t_m$ is a finite
+	integer.
+\end{proof}
+
+It may be observed that the use of an infinite number of distinct groups is essential to the proof of this theorem.
+For any subcategory of $\mathbf{G}_\text{af}$ containing only a finite number of groups, \cref{thm:not-nat} would be
+false, for it would be possible to define a natural transformation $\tau(G)$ bye setting $[\tau(G)]g=kg$ for
+every $g$, where the integer $k$ is chosen as any multiple of the order of all the subgroups $T(G)$ for $G$ in the 
+given category.
+
+The examples of ``non\hyp{}natural'' direct products adduced here are all examples which mathematicians would usually
+recognize as not in fact natural. What we have done is merely to show that our definition of naturality does indeed
+properly apply to cases of intuitively clear non\hyp{}naturality.
+
+\section[Characters]{Characters\footnote{General references:~\cite[chap.1]{weil1938};~\cite[chap.2]{lef1942}}}\label{sec:char}
+The character group of a group may be regarded as a contravariant functor on the category $\mathbf{G}_\text{lca}$ of 
+locally compact regular abelian groups, with values in the same category. Specifically, this functor ``Char'' may be
+defined by ``slicing'' (see \cref{sec:funct_slice} the functor Hom of \cref{sec:funct_examples} as follows.
+Let $P$ be the (fixed) topological group of real numbers modulo 1, define ``Char'' by setting
+\begin{equation}\label{eq:character}
+	\chr G =\hm(G,P),\qquad \chr\gamma=\hm(\gamma,e_P).
+\end{equation}
+
+Given $g\in G$ and $\chi\in\chr G$ it will be convenient to denote the element $\chi(g)$ of $P$ by $(\chi,g)$. Using
+this terminology and the definition of Hom we obtain for $\gamma:G_1\rightarrow G_2, \chi\in\chr G_2$ and $g\in G_1$
+\begin{equation}\label{eq:character2}
+	(\chr(\gamma)\chi,g)=(\chi,\gamma g).
+\end{equation}
+As mentioned before (\cref{sec:trans_ex}) the familiar isomorphism $\chr(\chr G)\cong G$ is a natural equivalence.
+
+The functor ``Char'' can be compounded with other functors. Let $T$ be any functor covariant in $\mathbf{A}$,
+contravariant in $\mathbf{B}$, with values in $\mathbf{G}_\text{lca}$. The composite functor $\chr T$ is then
+defined on the same categories $\mathbf{A}$ and $\mathbf{B}$ but is contravariant in $\mathbf{A}$ and 
+covariant in $\mathbf{B}$. Let $S$ be any closed subfunctor of $T$. Then for each pair of objects $A\in\mathbf{A},
+B\in\mathbf{B}$, the closed subgroup $S(A,B)\subset T(A,B)$ determines a corresponding subgroup $\an S(A,B)$ in 
+$\chr T(A,B)$; this annihilator is defined as the set of all those characters $\chi\in\chr T(A,B)$ with $(\chi,g)=0$
+for each $g\in S(A,B)$. This leads to a closed subfunctor $\an(S;T)$ of the functor $\chr T$ determined by the object
+function
+\begin{equation*}
+	[\an(S;T)](A,B)=\an S(A,B)\text{ in } \chr T(A,B).
+\end{equation*}
+It is well known that
+\begin{gather*}
+	\chr [T(A,B)/S(A,B)]=\an S(A,B),\\
+	\chr S(A,B)=\chr T(A,B)/\an S(A,B).
+\end{gather*}
+These isomorphisms in fact yield natural equivalences
+\begin{align}
+	\sigma &: \an(S;T)\rightleftarrows\chr (T/S),\label{eq:nat_an}\\
+	\tau &: \chr T/\an (S;T)\rightleftarrows\chr S.\label{eq:nat_an2}
+\end{align}
+
+For example, to prove \cref{eq:nat_an2} one observes that each $\chi\in\chr T(A,B)$ may be restricted to give
+a character $\tau_0(A,B)\chi$ of $S(A,B)$ by setting
+\begin{equation}\label{eq:nat_an3}
+	(\tau_0(A,B)\chi,h)= (\chi,h),\qquad h\in S(A,B).
+\end{equation}
+This gives a homomorphism
+\begin{equation*}
+	\tau_0(A,B):\chr T(A,B)\rightarrow\chr S(A,B)
+\end{equation*}
+with kernel $\an S(A,B)$. This homomorphism $\tau_0$ will yield the required isomorphism $\tau$ of \cref{eq:nat_an2};
+by \cref{thm:grp_mod} a proof that $\tau_0$ is natural will imply that $\tau$ is natural.
+
+To show that $\tau_0$ is natural, consider any mappings $\alpha:A_1\rightarrow A_2$ and $\beta:B_1\rightarrow B_2$ in
+the argument categories of $T$. Then $\gamma=T(\alpha,\beta)$ maps $T(A_1,B_2)$ into $T(A_2,B_1)$, while $\delta = 
+S(\alpha,\beta)$ is a submapping of $\gamma$. The naturality requirements for $\tau_0$ is
+\begin{equation}\label{eq:char-nat}
+	(\chr\gamma)\tau_0(A_2,B_1)=\tau_0 (A_1,B_2)\chr\gamma.
+\end{equation}
+Each side is a homomorphism of $\chr T(A_2,B_1)$ into  $\chr S(A_1,B_2)$. If the left\hyp{}hand side is applied to an
+element $\chi\in\chr T(A_2,B_1)$, and the resulting character of $S(A_1,B_2)$ is then applied to an element $h$ in
+the latter group, we obtain
+\begin{equation*}
+	(\chr\gamma(\tau_0(A_2,B_1)\chi),h) = (\tau(A_2,B_1)\chi,\delta h) = (\chi,\delta h)
+\end{equation*}
+by using the definition \labelcref{eq:character2} of $\chr\delta$ and the definition \labelcref{eq:nat_an3} of $\tau_0$. If the 
+right\hyp{}hand side of \cref{eq:char-nat} be similarly applied to $\chi$ and then to $h$, the result is
+\begin{equation*}
+	(\tau_0(A_1,B_2)((\chr\gamma)\chi),h)=((\chr\gamma)\chi,h)=(\chi,\gamma h).
+\end{equation*}
+Since $\delta\subset\gamma$, these two results are equal, and both $\tau_0$ and $\tau$ are therefore natural.
+
+The proof of naturality for \cref{eq:nat_an} is analogous.
+
+if $R$ is a closed subfunctor of $S$ which is in turn a closed subfunctor of $T$, both of these natural isomorphisms may be
+combined to give a single natural isomorphism
+\begin{equation}\label{eq:ann_comp}
+	\rho:\chr(S/R)\rightleftarrows\an(S;T)/\an(R;T).
+\end{equation}
+
+\chapter{Partially ordered sets and projective limits}\label{ch:poset}
+\section{Quasi-ordered sets}\label{sec:quasi-ord}
+The notions of functors and their natural equivalences apply to partially ordered sets, to lattices, and to related
+mathematical systems. The category $\mathbf{P}$ of all quasi\hyp{}ordered sets\footnote{A \emph{quasi\hyp{}ordered sets $P$}
+is a set of elements $p_1,p_2\dotsc$ with a reflexive and transitive binary relation $p_1 \le  p_2$ between the elements. If,
+in addition, the antisymmetric law ($p_1 \le  p_2$ and $p_2 \le  p_1 \implies p_1 = p_2$) holds, $P$ is a \emph{partially ordered set}.}
+has as its objects the quasi\hyp{}ordered sets $P$ and its mappings $\pi:P_1\rightarrow P_2$ the order preserving transformations
+of one quasi\hyp{}ordered sets, $P$, into another. An equivalence in this category is thus an isomorphism in the sense of order.
+
+An important subcategory of $\mathbf{P}$ is the category $\mathbf{P}_\text{d}$ of all directed sets.\footnote{A quasi\hyp{}ordered
+set $P$ is \emph{directed} if for each pair of elements $p_1,p_2\in P$ there exist a $p_3\in P$ with $p_1 \le p_2 \le p_3$.} One may also
+consider subcategories which are obtained by restricting both the quasi\hyp{}ordered sets and their mappings. For example, the
+category of lattices has as objects all those partially ordered sets which are lattices and as mappings those correspondences which
+preserve both joins and meets. Alternatively, by using these mappings which preserve only joins, or those which preserve only
+meets, we obtain two other categories of lattices.
+
+The category $\mathbf{S}$ of sets may be regarded as a subcategory of $\mathbf{P}$, if each set $S$ is considered as a (trivially)
+quasi\hyp{}ordered set in which $p_1\le p_2$ in $S$ means that $p_1=p_2$. The category $\mathbf{W}$ of well\hyp{}ordered sets in
+another subcategory of $\mathbf{P}$. These categories provide a basis for applying the study of functors to cardinal and ordinal
+arithmetic. Specifically, the general theory of arithmetic of partially ordered sets, as developed recently by Birkhoff,\footcite{birk42}
+can be viewed as the construction of a large number of functors (cardinal power, ordinal power, and so no) defined on suitable
+subcategories of $\mathbf{P}$, together with a collection of natural equivalences and transformations between these functors.\footnote{Note,
+however, that the ordinal cardinal sum of two sets $A$ and $B$ does not give rise to a functor, because the definition
+applies only when the sets $A$ and $B$ are disjoint.}
+
+The construction of the category $\mathbf{P}$ of all quasi\hyp{}ordered sets is not the only such interpretation of a partial
+order. It is also possible to regard the elements of a \emph{single} quasi\hyp{}ordered set $P$ as the objects of a category;
+with this device, one can represent an inverse or a direct system of groups (or of spaces) as a functor on $P$.
+
+If a quasi\hyp{}ordered set $P$ be regarded as a category $\mathbf{C}_P$, the objects of the category are all the elements $p\in P$ and
+the mappings are the pairs $\pi=(p_2,p_1)$ of elements $p_i\in P$ such that $p_1\le p_2$. To each object $p$ we assign 
+the pair $e_p=(p,p)$ as the corresponding identity mapping, while the product $(p_3,p_2')(p_2,p_1)$ of two mappings of
+$\mathbf{C}_P$ is defined if and only if $p_2'=p_2$ and is in this case the mapping $(p_3,p_1)$. The \crefrange{ax:c1}{ax:c5} for a
+category are readily verified, and it develops that the only identities are the pairs $(p,p)$, that the equivalence mappings of 
+$\mathbf{C}_P$ are the pairs $(p_2,p_1)$ with $p_1\le p_2$ and $p_2\le p_1$ and that any pair $(p_2,p_1)$ with $p_1\le p_2$
+is a mapping $(p_2,p_1):p_1\rightarrow p_2$. It further follows that any two mappings $\pi_1:p_1\rightarrow p_2$ and 
+$\pi_2:p_1\rightarrow p_2$ of this category which have the same range and the same domain are necessarily equal. Conversely
+any given category $\mathbf{C}$ which has the property that any two mappings $\pi_1$ and $\pi_2$ of $\mathbf{C}$ with the same
+range and the same domain are equal is isomorphic to the category $\mathbf{C}_P$ for a suitable quasi\hyp{}ordered set $P$.
+In fact, $P$ can be defined to be the set of all objects $C\in\mathbf{C}$ with $C_1\le C_2$ if and only if there is in $\mathbf{C}$
+a mapping $\gamma:C_1\rightarrow C_2$.
+
+Consider now two quasi\hyp{}ordered sets $P$ and $Q$, with their corresponding categories $\mathbf{C}_P$ and $\mathbf{C}_Q$. A
+covariant (contravariant) functor $T$ on $\mathbf{C}_P$ with values in $\mathbf{C}_Q$ is determined uniquely by and order
+preserving (reversing) mapping $t:P\rightarrow Q$. Specifically, each such correspondence $t$ is the object function $t(p)=q$
+of a functor $T$, for which the corresponding mapping function is defined as $T(p_2,p_1)= (t p_2, t p_1)$ (or, in case
+$t$ is order\hyp{}reversing, as $(t p_1, t p_2)$). Each functor $T$ of one variable can be obtained in this way.
+
+\section{Direct systems as functors}\label{sec:dir-func}
+Let $D$ be a directed set. If for every $d\in D$ a discrete group $G_d$ is defined and for every pair $d_1\le d_2$ in $D$ a
+homomorphism
+\begin{equation}\label{eq:dir-func}
+	\phi_{d_2,d_1}:G_{d_1}\rightarrow G_{d_2}
+\end{equation}
+is given such that $\phi_{d,d}$ is the identity and that
+\begin{equation}\label{eq:dir-func-def}
+	\phi_{d_3,d_1} =  \phi_{d_3,d_2} \phi_{d_2,d_1}\text{ for } d_1\le d_2\le d_3
+\end{equation}
+then we say that the groups $\{G_d\}$ and the homomorphisms $\{\phi_{d_2,d_1}\}$ constitute a direct systems of groups indexed
+by $D$.
+
+Let us now regard the directed set $D$ as a category. For every object $d\in D$ define
+\begin{equation*}
+	T(d)= G_d.
+\end{equation*}
+For every mapping $\delta=(d_2,d_1)$ in $D$ define
+\begin{equation*}
+	T(\delta)=T(d_2,d_1)= \phi_{d_2,d_1}.
+\end{equation*}
+\Cref{eq:dir-func,eq:dir-func-def} imply that $T$ is a contravariant functor on $D$ with values in the category $\mathbf{G}_0$ of discrete
+groups. Conversely any such functor give rise to a unique direct system. Consequently the terms ``direct system of groups indexed by
+directed set $D$'' and ``covariant functor on $D$ to $\mathbf{G}_0$'' may be regarded as synonyms.
+
+With each direct system groups $T$ there is associated a discrete limit group $G=\Lim_{\rightarrow} T$ defined as follows.
+The elements of the limit group $G$ are pairs $(g,d)$ for $g\in T(d)$; two elements $(g_1,d_1)$ and $(g_2,d_2)$ are considered equal
+if and only if there is an index $d_3$ with $d_1\le d_3, d_2\le d_3$ and with $T(d_3,d_1)g_1 = T(d_3,d_2)g_2$. The sum is defined
+by setting $(g_1,d)+(g_2,d)= (g_1+g_2,d)$; since the set $D$ is directed, this provides for the addition of any two pairs in
+$G$. For a fixed $d\in D$ one may also consider the homomorphisms, called projections, $\lambda(d):T(d)\rightarrow G$ defined by
+setting
+\begin{equation}\label{eq:dir-proj}
+	\lambda(d)g= (g,d)
+\end{equation}
+for $g\in T(d)$. Clearly
+\begin{equation}\label{eq:dir-proj2}
+	\lambda(d_1) = \lambda(d_2)T(d_2,d_1)\text{ for } d_1\le d_2.
+\end{equation}
+To treat this limit group, we enlarge the given directed set $D$ by adjoining one new element $\top$, ordered by the specification 
+that $d\le\top,\forall d\in D$. This enlarge directed set $\overline{D}$ also determines a category containing $D$ as a subcategory, with
+new mappings $(\top,d)$ for each $d\in D$. Let now $T$ be any covariant functor on $D$ to $\mathbf{G}_0$ (that is, any direct system
+of groups indexed by $D$). We define an extension $\overline{T}$ of the object function $T$ by setting
+\begin{equation}\label{eq:dir-ext}
+	\overline{T}(\top)=\Lim_{\rightarrow} T = G,
+\end{equation}
+the limit group of the given directed system $T$, and we similarly extend the mapping function of $T$ by letting $\overline{T}$, for a new
+mapping $(\top,d)$, be the corresponding projection of $T(d)$ into the limit group
+\begin{equation}\label{eq:dir-ext2}
+	\overline{T}(\top,d)=\lambda(d).
+\end{equation}
+\Cref{eq:dir-ext} implies that $\overline{T}$ is indeed a covariant function on $\overline{D}$ with values in $\mathbf{G}_0$. The properties of
+the limit group may be described in terms of this extended functor $\overline{T}$.
+\begin{theorem}\label{thm:dir-uniq}
+	Let $D$ be a directed set and $T$ a covariant functor on $D$ (regarded as a category) to $\mathbf{G}_0$. Then the limit group $G$
+	of the direct system $T$ and the projections of each group $T(d)$ into this limit determine as in \cref{eq:dir-ext,eq:dir-ext2}
+	an extension of $T$ to a covariant functor $\overline{T}$ on $\overline{D}$ to $\mathbf{G}_0$. If $\overline{S}$ is any other
+	extension of $T$ to a covariant functor on $\overline{D}$ to $\mathbf{G}_0$, there is a unique natural transformation
+	$\sigma:\overline{T}\rightarrow\overline{S}$ such that each $\sigma(d)$ with $d\ne\top$ is the identity.
+\end{theorem}
+\begin{proof}
+	We have already seen that $\overline{T}$ is a covariant functor on $\overline{D}$ to $\mathbf{G}_0$, extending $T$. Let now
+	$\overline{S}$ be any other functor extending $T$. Since $S(d_2,d_1)=T(d_2,d_1)$ for $d_2\le d_1$ in $D$, it follows from 
+	the functor condition on $\overline{S}$ that
+	\begin{equation}\label{eq:dir-uniq}
+		\overline{S}(\top,d_2)T(d_2,d_1) = \overline{S}(\top,d_1).
+	\end{equation}
+	We define a homomorphism
+	\begin{equation*}
+		\sigma(\top):\overline{T}(\top)\rightarrow\overline{S}(\top)
+	\end{equation*}
+	by setting  $\sigma(\top)(g,d)=\overline{S}(\top,d)g$ for every element $(g,d)\in\overline{T}(\top)=\Lim_{\rightarrow} T$.
+	\Cref{eq:dir-uniq} implies that $\sigma(\top)$ is single\hyp{}valued. If we now set $\sigma(d)$ to be the identity mapping
+	$\overline{T}(d)\rightarrow\overline{S}(d)$ for $d\ne\top$, we have the desired transformation $\sigma:\overline{T}\rightarrow\overline{S}$.
+\end{proof}
+
+The extension $\overline{T}$ and hence the limit group $G=\overline{T}(\top)$ of the given direct system is completely determined by
+the property given in the last sentence of the theorem. In fact if $\hat{T}$ is any other extension of $T$ with the same
+property as $\overline{T}$, there will exist transformations $\sigma:\overline{T}\rightarrow\hat{T}$ and
+$\tau:\hat{T}\rightarrow\overline{T}$. Then $\rho=\tau\sigma:\overline{T}\rightarrow\overline{T}$ with $\rho(d)$
+the identity whenever $d\ne\top$. It follows that
+\begin{equation*}
+	\rho(\top)(g,d)=\rho(\top)\lambda(d) g =\lambda(d) g = (g,d).
+\end{equation*}
+Hence $\rho(\top)$ is the identity and $\sigma$ a natural equivalence $\sigma:\overline{T}\rightarrow\hat{T}$. In this way a limit
+group of a direct system of groups can be defined up to an isomorphism by means of such extensions of functors. This indicates that
+the concept (but not necessarily the existence) of direct ``limits'' could be set up not only for groups, but also for objects of
+any category.
+\begin{theorem}\label{thm:dir-nat}
+	If $T_1$ and $T_2$ are two covariant functors on the directed category $D$ with values in $\mathbf{G}_0$ and $\tau$ is a 
+	natural transformation $\tau:T_1\rightarrow T_2$, there is only one extension $\overline{\tau}$ of $\tau$ which is a 
+	natural transformation $\overline{\tau}:\overline{T_1}\rightarrow\overline{T_2}$ between the extended functors on 
+	$\overline{D}$. When $\tau$ is a natural equivalence so is $\overline{\tau}$.
+\end{theorem}
+\begin{proof}
+	The naturality condition for $\tau$, when applied to any mapping $(d_2,d_1)$ with $d_1\le d_2$ in the directed set $D$ reads
+	\begin{equation}\label{eq:dir-nat}
+		\tau(d_2)T_1(d_2,d_1)=T_2(d_2,d_1)\tau(d_1).
+	\end{equation}
+	Given any element $(g_1,d)$ of the limit group $\overline{T_1}(\top)=\Lim_{\rightarrow} T_1$ we define
+	\begin{equation}\label{eq:dir-nat-def}
+		\omega(g_1,d)=(\tau(d) g_1, d)\in \Lim_{\rightarrow} T_2 = \overline{T_2}(\top).
+	\end{equation}
+	\Cref{eq:dir-nat} implies that this definition of $\omega$ gives a result independent of the special representation $(g_1,d)$
+	chosen for the limit element. Hence we get a homomorphism
+	\begin{equation*}
+		\omega:\overline{T_1}\rightarrow\overline{T_2}.
+	\end{equation*}
+	In virtue of \cref{eq:dir-ext2,eq:dir-proj}, the definition \labelcref{eq:dir-nat-def} becomes
+	\begin{equation}\label{eq:dir-nat-def2}
+		\omega\overline{T_1}(\top,d)=\overline{(T_2)}(\top,d)\tau(d).
+	\end{equation}
+	This means simply that by setting $\overline{\tau}(d)=\tau(d)$, $\overline{\tau}(\top)=\omega$ we get an extension of $\tau$
+	which is still natural and which gives a transformation $\overline{\tau}:\overline{T_1}\rightarrow\overline{T_2}$. Since
+	the naturality condition \labelcref{eq:dir-nat-def2} is equivalent with \cref{eq:dir-nat-def} which completely determines the
+	value of $\overline{\tau}(\top)$, the requisite uniqueness follows.
+\end{proof}
+In particular, if $\tau$ is an equivalence, each $\tau(d)$ is an isomorphism ``onto'', hence it follows that
+$\omega=\overline{\tau}(\top)$ is also an isomorphism onto, and is an equivalence. This is just a restatement of the known
+theorem that ``isomorphic'' direct systems determine isomorphic limit groups.
+\begin{theorem}\label{thm:dir-const}
+	If $T$ is a direct system of groups indexed by a directed set $D$, while $H$ is a fixed discrete group, regarded as a
+	(constant) covariant functor on $D$ to $\mathbf{G}_0$, then for each natural transformation $\tau:T\rightarrow H$ there
+	is a unique homomorphism $\tau_0$ of the limit group $\Lim_{\rightarrow} T$ into $H$ with the property that $\tau(d)=\tau_0\lambda(d)$
+	for each $d\in D$, where $\lambda(d)$ is the projection of $T(d)$ into $\Lim_{\rightarrow} T$.
+\end{theorem}
+\begin{proof}
+	This follows from the preceding theorem and from the remark that $\overline{H}$ is also a constant functor from $\overline{D}$
+	to $\mathbf{G}_0$.
+\end{proof}
+
+\section{Inverse limits as functors}\label{sec:inv_lim}
+Let $D$ be a directed set. If for every $d\in D$ a topological group $G_d$ is defined and for every pair $d_1\le d_2$ in $D$ a
+homomorphism
+\begin{equation}\label{eq:inv-lim1}
+	\phi(d_2,d_1):G_{d_2}\rightarrow G_{d_1}
+\end{equation}
+is given such that $\phi(d,d)$ is the identity and that
+\begin{equation}\label{eq:inv-lim2}
+	\phi(d_3,d_3)=\phi(d_2,d_1)\phi(d_3,d_2)\quad\text{for } d_1\le d_2\le d_3
+\end{equation}
+then we say that the groups $\{G_d\}$ and the homomorphisms $\{\phi(d_2,d_1)\}$ constitute an inverse systems of groups indexed by $D$.
+
+If we now regard $D$ as a category, and define as before
+\begin{equation}\label{eq:inv-func}
+	T(d)= G_d
+\end{equation}
+for every object $d\in D$, and
+\begin{equation}\label{eq:inv-func2}
+	T(\delta)=T(d_2,d_1)=\phi(d_2,d_1)
+\end{equation}
+for every mapping $\delta=(d_2,d_1)\in D$, it is clear that $T$ is a contravariant functor on $D$ with values in the category $\mathbf{G}$
+of topological groups. Conversely any such functor may be regarded as an inverse system of groups.
+
+With each inverse system of groups $T$ there is associated a limit group $G=\Lim_{\leftarrow} T$ defined as follows. An element of $G$
+is a function $g(d)$ which assigns to each element $d\in D$ an element $g(d)\in T(d)$, in such way that these elements ``match'' under
+mappings; that is, such that $T(d_2,d_1)g(d_2)=g(d_1)$ whenever $d_1\le d_2$. The sum of $g_1+g_2$ is defined as $(g_1+g_2)(d)=
+g_1(d)+g_2(d)$. This limit group $G$ is assigned a topology, in known fashion, by treating $G$ as a subgroup of the direct product of the
+groups $T(d)$, with the usual direct product topology. For fixed $d$, the (continuous) projection $\mu(d)$ of the limit group $G$ into
+$T(d)$ is defined by setting $[\mu(d)]g= g(d)$, for $g\in G$.
+
+Again we may consider the extended category $\overline{D}$ and define the extension $\overline{T}$ of $T$ by setting
+\begin{equation}\label{eq:inv-ext}
+	\overline{T}(\top)=G\qquad \overline{T}(\top,d)=\mu(d).
+\end{equation}
+As before the following theorem can be established:
+\begin{theorem}\label{thm:inv-lim1}
+	Let $D$ be a directed set and $T$ a contravariant functor on $D$ (regarded as a category) to $\mathbf{G}$. Then the limit
+	group $G$ of the inverse system $T$ and the projections of this limit group into each group $T(d)$ determine as in
+	\cref{eq:inv-ext} an extension of $T$ to a contravariant functor $\overline{T}$ on $\overline{D}$ to $\mathbf{G}$. If
+	$\overline{S}$ is any other extension of $T$ to a contravariant functor on $\overline{D}$ to $\mathbf{G}$, there is an
+	unique natural transformation $\sigma:\overline{S}\rightarrow\overline{T}$ such that each $\sigma(d)$ with $d\ne\top$
+	is the identity.
+\end{theorem}
+As before we can also verify that the second half of the theorem determines the extended functor $\overline{T}$ to within a 
+natural equivalence, and therefore it determines the limit group to within an isomorphism.
+The following two theorems may also be proved as in the preceding section.
+\begin{theorem}\label{thm:inv-uniq1}
+	If $T_1$ and $T_2$ are two contravariant functors on the directed category $D$ with values in $\mathbf{G}$, and $\tau$
+	is a natural transformation $\tau:T_1\rightarrow T_2$, there is only one extension $\overline{\tau}$ of $\tau$ which is
+	a natural transformation $\overline{\tau}:\overline{T_1}\rightarrow \overline{T_2}$, between the the extended functors
+	on $\overline{D}$. When $\tau$ is a natural equivalence so is $\overline{\tau}$.
+\end{theorem}
+\begin{theorem}\label{thm:inv-uniq2}
+	If $T$ is an inverse system of groups indexed by the directed set $D$, while $K$ is a fixed topological group regarded
+	as a (constant) contravariant functor on $D$ to $\mathbf{G}$, then for each natural transformation $\tau:T\rightarrow K$
+	there is a unique homomorphism $\tau_0:\Lim_{\leftarrow} T\rightarrow K$ such that $\tau_0=\tau(d)\lambda(d),\forall d\in D$.
+\end{theorem}
+
+The preceding discussion carries over to inverse systems of spaces, by a mere replacement of the category of topological groups
+$\mathbf{G}$ by the category of topological spaces $\mathbf{X}$.
+
+\section{The categories ``\textbf{Dir}'' and ``\textbf{Inv}''}\label{sec:dir-inv}
+The process of forming a direct or inverse limit of a system of groups can be treated as a functor ``$\Lim_{\rightarrow}$'' or
+``$\Lim_{\leftarrow}$'' which operates on an appropriately defined category. Thus, the functor `$\Lim_{\rightarrow}$'' will
+operate on any direct system $T$ defined on any directed set $D$. Consequently we define a category ``\textbf{Dir}'' of
+directed systems whose objects are such pairs $(D,T)$. Here we may regard $D$ itself as a category and $T$ as a covariant
+functor on $D$ to $\mathbf{G}_0$. To introduce the mappings of this category, observe first that each order preserving transformation
+$R$ of a directed set $D_1$ into another such set $D_2$ will give for each direct system $T_2$ of groups indexed by $D_2$ an induced
+direct system indexed by $D_1$. Specifically, the induced direct system is just the composite $T_2\circ R$ of the (covariant) functor
+$R$ on $D_1$ to $D_2$ and the (covariant) functor $T_2$ on $D_2$ to $\mathbf{G}_0$. Given two objects $(D_1,T_1)$ and $(D_2,T_2)$
+of \textbf{Dir}, a mapping
+\begin{equation*}
+	(R,\rho):(D_1,T_1)\rightarrow (D_2,T_2)
+\end{equation*}
+of the category \textbf{Dir} is a pair $(R,\rho)$ composed of a covariant functor $R$ on $D_1$ to $D_2$ and a natural transformation
+\begin{equation*}
+	\rho:T_1\rightarrow T_2\circ R
+\end{equation*}
+of $T_1$ into the composite functor $T_2\circ R$.
+
+To form the product of two such mappings
+\begin{equation}\label{eq:dir_comp}
+	(R_1,\rho_1):(D_1,T_1)\rightarrow (D_2,T_2),\qquad (R_2,\rho_2):(D_2,T_2)\rightarrow (D_3,T_3)
+\end{equation}
+observe first that the functors $T_2$ and $T_3\circ R_2$ on $D_2$ to $\mathbf{G}_0$ can be compounded with the functor $R_1$ on $D_1$
+to $D_2$, and hence that the given transformation $\rho_2:T_2\rightarrow T_3\circ R_2$ can be compounded with the identity transformation
+of $R_1$ into itself, just as in \cref{sec:funct_comp}.
+
+The result is a composite transformation
+\begin{equation}\label{eq:dir_comp2}
+	\rho_2\circ R_1:T_2\circ R_1\rightarrow T_3\circ R_2\circ R_1
+\end{equation}
+which assigns to each object $d_1\in D_1$ the mapping $[\rho_2\circ R_1](d_1)=\rho_2(R_1 d)$ of $T_2(R_1 d)$ into $T_3\circ R_2(R_1 d_1)$.
+The transformation \labelcref{eq:dir_comp2} and $\rho_1:T_1\rightarrow T_2\circ R_1$ yield as in \cref{sec:funct_comp}
+a composite transformation $\rho_2\circ R_1\circ\rho_1: T_1\rightarrow (T_3\circ R_2\circ R_1)$.
+We may now define the product of two mappings given by \cref{eq:dir_comp} to be
+\begin{equation*}
+	(R_2,\rho_2)(R_1,\rho_1)= (R_2\circ R_1,\rho_2\circ R_1\circ\rho_1).
+\end{equation*}
+With these conventions, we verify that \textbf{Dir} is a category. Its identities are the pairs $(R,\rho)$ in which both $R$ and $\rho$ are
+identities; its equivalences are the pairs $(R,\rho)$ in which $R$ is an isomorphism and $\rho$ a natural equivalence.
+
+The effect of fixing the directed set $D$ in the objects $(D,T)$ of the category \textbf{Dir} is to restrict \textbf{Dir} to the subcategory
+which consist of all direct systems of groups indexed by $D$ (that is, the category of all covariant functors on $D$ to $\mathbf{G}_0$, as
+defined in \cref{sec:funct_cat}).
+
+We shall now define $\Lim_{\rightarrow}$ as a covariant functor on \textbf{Dir} with values in $\mathbf{G}_0$. For each object
+$(D,T)$ of \textbf{Dir} we define $\Lim_{\rightarrow}(D,T)$ to be the group obtained as the direct limit of the direct system
+of groups $T$ indexed by the directed set $D$. Given a mapping
+\begin{equation}\label{eq:dir_map}
+	(R,\rho):(D_1,T_1)\rightarrow (D_2,T_2)\quad\text{in \textbf{Dir}}
+\end{equation}
+we define the mapping function of $\Lim_{\rightarrow}$,
+\begin{equation}\label{eq:dir_map2}
+	\Lim_{\rightarrow}(R,\rho):\Lim_{\rightarrow}(D_1,T_1)\rightarrow\Lim_{\rightarrow}(D_2,T_2),
+\end{equation}
+as follows. An element in the limit group $\Lim_{\rightarrow}(D_1,T_1)$ is a pair $(g_1,d_1)$ with $d_1\in D_1, g_1\in T_1(d_1)$.
+For each such element define $\phi(g_1,d_1)$ to be the pair $(\rho(d_1)g_1,R d_1)$. Since $\rho(d_1)$ maps $T_1(d_1)$ into
+$T_2(R d_1)$ we have $\rho(d_1)g_1\in T_2(R d_1)$, so that the resulting pair is indeed in the limit group $\Lim_{\rightarrow}(D_2,T_2)$.
+The mapping $\rho$ carries equal pairs into equal pairs, and yields the requisite homomorphism \labelcref{eq:dir_map2}.
+We verify that $\Lim_{\rightarrow}$, defined in this manner, is a covariant functor on \textbf{Dir} to $\mathbf{G}_0$.
+
+Alternatively, the mapping function of this functor ``$\Lim_{\rightarrow}$'' can be obtained by extensions of mappings to the
+directed sets $\overline{D_1},\overline{D_2}$ (with $\top$ added), defined as in \cref{sec:dir-func}. Given the mapping $(R,\rho)$
+of \cref{eq:dir_map}, first extend the given object of \textbf{Dir} to obtain new objects $(\overline{D_1},\overline{T_1})$ and
+$(\overline{D_2},\overline{T_2})$. The given functor $R$ on $D_1$ to $D_2$ can also be extended by setting
+$\overline{R}(\top)=\top$; this gives a functor $\overline{R}$ on $\overline{D_1}$ to $\overline{D_2}$. Furthermore, 
+\cref{thm:dir-uniq} asserts that the transformation $\rho:T_1\rightarrow T_2\circ R$ has then a unique extension
+$\overline{\rho}:\overline{T_1}\rightarrow \overline{T_2}\circ \overline{R}$.
+All told, we have a new mapping
+\begin{equation*}
+	(\overline{R},\overline{\rho}):(\overline{D_1},\overline{T_1})\rightarrow (\overline{D_2},\overline{T_2})\quad\text{in \textbf{Dir}}
+\end{equation*}
+In particular, when $\overline{\rho}$ is applied to the new element $\top\in\overline{D_1}$, it yields a homomorphism of the limit group
+of $T_1$ into the limit group of $T_2\circ R$. On the other hand, $R$ determines a homomorphism $\hat{R}$ of the limit group of
+$T_2\circ R$ into the limit group of $T_2$; explicitly, for $(g_1,d_1)$ in the first limit group, the image $\hat{R}(g_1,d_1)$ is the
+element $(g_1,R d_1)$ in the second limit group. The requisite mapping function of the functor ``$\Lim_{\rightarrow}$'' is now defined by
+setting
+\begin{equation*}
+	\Lim_{\rightarrow}(R,\rho)=\hat{R}(\overline{\rho}(\top)).
+\end{equation*}
+
+In a similar way we define the category \textbf{Inv}. The objects of \textbf{Inv} are pairs $(D,T)$ where $D$ is a directed set and $T$
+is an inverse system of topological groups indexed by $D$ (that is, $T$ is a contravariant functor on $D$ to $\mathbf{G}$). The mappings
+in \textbf{Inv} are pairs $(R,\rho)$
+\begin{equation*}
+	(R,\rho):(D_1,T_1)\rightarrow (D_2,T_2)
+\end{equation*}
+where $R$ is a covariant functor on $D_2$ to $D_1$ (that is, an order preserving transformation of $D_2$ into $D_1$) and $\rho$ is a 
+natural transformation of the functors
+\begin{equation*}
+	\rho:T_1\circ R\rightarrow T_2
+\end{equation*}
+both contravariant on $D_2$ to $\mathbf{G}$. The product of two mappings
+\begin{equation*}
+	(R_1,\rho_1):(D_1,T_1)\rightarrow (D_2,T_2),\qquad (R_2,\rho_2):(D_2,T_2)\rightarrow (D_3,T_3)
+\end{equation*}
+is defined as
+\begin{equation*}
+	(R_2,\rho_2)(R_1,\rho_1)= (R_1\circ R_2, \rho_2\circ\rho_1\circ R_2)
+\end{equation*}
+where $\rho_1\circ R_2$ is the transformation
+\begin{equation*}
+	\rho_1\circ R_2:T_1\circ R_1\circ R_2\rightarrow T_2\circ R_2
+\end{equation*}
+induced (as in \cref{sec:funct_comp}) by
+\begin{equation*}
+	\rho_1:T_1\circ R_1\rightarrow T_2.
+\end{equation*}
+With these conventions, we verify that \textbf{Inv} is a category.
+
+We shall now define $\Lim_{\leftarrow}$ as a covariant functor on \textbf{Inv} with values in $\mathbf{G}$. For each object
+$(D,T)$ in  \textbf{Inv} we define $\Lim_{\leftarrow}(D,T)$ to be the inverse limit of the inverse system of groups $T$
+indexed by the directed set $D$. Given a mapping
+\begin{equation}\label{eq:inv_map}
+	(R,\rho):(D_1,T_1)\rightarrow (D_2,T_2)\in\text{\textbf{Inv}}
+\end{equation}
+we define the mapping function of $\Lim_{\leftarrow}$
+\begin{equation}\label{eq:inv_map2}
+	\Lim_{\leftarrow}(R,\rho):\Lim_{\leftarrow}(D_1,T_1)\rightarrow \Lim_{\leftarrow}(D_2,T_2)
+\end{equation}
+as follows. Each element of $\Lim_{\leftarrow}(D_1,T_1)$ is a function $g(d_1)$ with values $g(d_1)\in T_1(d_1)$, for
+$d_1\in D_1$, which match properly under the projections in $T_1$. Now we define a new function $h$, with
+\begin{equation*}
+	h(d_2)= \rho(_d2)g(R d_2),\quad d_2\in D_2;
+\end{equation*}
+it is easy to verify that $h$ is an element of the limit group $\Lim_{\leftarrow}(D_2,T_2)$. The correspondence $g\rightarrow h$
+is the homomorphism \labelcref{eq:inv_map2} required for the definition of the mapping function of $\Lim_{\leftarrow}$. One may
+verify that this definition does yield a covariant functor $\Lim_{\leftarrow}$ on the category \textbf{Inv} to $\mathbf{G}$.
+
+The mapping function of $\Lim_{\leftarrow}$ may again be obtained by first extending the given mapping \labelcref{eq:inv_map} to
+\begin{equation*}
+	(\overline{R},\overline{\rho}):(\overline{D_1},\overline{T_1})\rightarrow (\overline{D_2},\overline{T_2})\in\text{\textbf{Inv}}.
+\end{equation*}
+In particular, when the extended transformation $\overline{\rho}$ is applied to the element $\top$ of $\overline{D_1}$, we obtain
+a homomorphism of the limit group of $T_1\circ R$ into the limit group $T_2$. On the other hand, the covariant functor
+$R:D_2\rightarrow D_1$ determines a morphism $\breve{R}$ of the limit group $(D_1,T_1)$ into the limit group of $(D_2,T_1\circ R)$;
+explicitly, for each function $g(d_1)$ in the first limit group, the image $h=\breve{R} g$ in the second limit group is defined
+by setting $h(d_2)= g(R d_2),\,\forall d_2\in D_2$. The mapping function of the functor ``$\Lim_{\leftarrow}$'' is now 
+$\Lim_{\leftarrow}(R,\rho)=\overline{\rho}(\top)\breve{R}$.
+
+\section{The lifting principle}\label{sec:lift}
+Let $Q$ be a functor whose arguments and values are groups, while $T$ is any direct or inverse system of groups. If the object
+function of $Q$ is applied to each group $T(d)$ of the given system, while the mapping function of $Q$ is applied to each
+projection $T(d_1,d_2)$ of the given system, we obtain a new system of groups, which may be called $Q\circ T$. If $Q$ is
+covariant, $T$ and $Q\circ T$ are both direct or inverse, while if $Q$ is contravariant, $Q\circ T$ is inverse when $T$ is 
+direct, and vice versa.
+
+Actually this new system $Q\circ T$ is simply the composite of the functor $T$ with the functor $Q$ (see \cref{sec:funct_comp}).
+We may regard this composition as a process which ``lifts'' a functor $Q$ whose arguments and values are groups to a functor
+$Q_L$ whose arguments and values are direct (or inverse) systems of groups. We may then regard the lifted functor as one acting
+on the categories \textbf{Dir} and \textbf{Inv}, as the case may be. In every case, the lifted functor has its object and mapping
+functions given formally by the equations (in the ``$\circ$-notation'' for composites)
+\begin{align}
+	Q_L(D,T)&=(D,Q\circ T)\label{eq:func_lift1}\\
+	Q_L(R,\rho)&=(R,Q\circ\rho)\label{eq:func_lift2}.
+\end{align}
+
+These formulas includes the following four cases:
+\begin{enumerate}
+	\item $Q$ covariant on $\mathbf{G}_0$ to $\mathbf{G}_0$; $Q_L$ covariant on \textbf{Dir} to \textbf{Dir}.\label[case]{cond1}
+	\item $Q$ contravariant on $\mathbf{G}_0$ to $\mathbf{G}$; $Q_L$ contravariant on \textbf{Dir} to \textbf{Inv}.\label[case]{cond2}
+	\item $Q$ covariant on $\mathbf{G}$ to $\mathbf{G}$; $Q_L$ covariant on \textbf{Inv} to \textbf{Inv}.\label[case]{cond3}
+	\item $Q$ contravariant on $\mathbf{G}$ to $\mathbf{G}_0$; $Q_L$ contravariant on \textbf{Inv} to \textbf{Dir}.\label[case]{cond4}
+\end{enumerate}
+
+For illustration, we discuss \cref{cond2}, in which $Q$ is given contravariant on $\mathbf{G}_0$ to $\mathbf{G}$. The object
+function of $Q_L$, as defined in \cref{eq:func_lift1}, assigns to each object $(D,T)$ of the category
+\textbf{Dir} a pair $(D,Q\circ T)$. Since  $T$ is covariant on $D$ to $\mathbf{G}_0$ and $Q$ contravariant on $\mathbf{G}_0$
+to $\mathbf{G}$, the composite $Q\circ T$ is contravariant on $D$ to $\mathbf{G}$, so that $Q\circ T$ is an inverse system
+of groups, and the pair $(D,Q\circ T)$ is an object of \textbf{Inv}. On the other hand, given a mapping
+\begin{equation*}
+	(R,\rho):(D_1,T_1)\rightarrow (D_2,T_2)\in\mathbf{Dir},
+\end{equation*}
+with $\rho:T_1\rightarrow (T_2\circ R)$, the composite transformation $Q\circ\rho$ is obtained by applying the mapping function
+of $Q$ to each homomorphism $\rho(d_1):T_1(d_1)\rightarrow(T_2\circ R(d_1))$, and this gives a transformation
+$Q\circ\rho:(Q\circ T_2\circ R)\rightarrow (Q\circ T_1)$. Thus the mapping function of $Q_L$, as defined in \cref{eq:func_lift2},
+does give a mapping $(R,Q\circ\rho):(D_2,Q\circ T_2)\rightarrow (D_1,Q\circ T_1)$ in the category \textbf{Inv}. We verify that
+$Q_L$ is a contravariant functor on \textbf{Dir} to \textbf{Inv}.
+
+Any natural transformation $k_1:Q\rightarrow P$ induces a transformation on the lifted functors, $k_L:Q_L\rightarrow P_L$, obtained
+by composition of the transformation $k$ with the identity transformation of each $T$, as
+\begin{equation*}
+	k_L(D,T)=(D,k\circ T).
+\end{equation*}
+If $k$ is an equivalence, so is this ``lifted'' transformation.
+
+Just as in the case of composition, the operation of ``lifting'' can itself be regarded as a functor ``Lift'', defined on a 
+suitable category of functors $Q$. In all four \cref{cond1,cond2,cond3,cond4}, this functor ``Lift'' is covariant.
+
+In all these cases the functor $Q$ may originally contain any number of additional variables. The lifted functor $Q_L$ will
+then involve the same extra variables with the same variance. With proper caution the lifting process may also be applied 
+simultaneously to a functor $Q$ with two variables, both of which are groups.
+
+\section{Functors which commute with limits}\label{sec:func_comm_lim}
+Certain operations, such as the formation of the character groups of discrete or compact groups, are known to ``commute''
+with the passage to a limit. Using the lifting operation, this can be formulated exactly.
+
+To illustrate, let $Q$ be a covariant functor on $\mathbf{G}_0$ to $\mathbf{G}_0$, and $Q_L$ the corresponding
+covariant lifted functor on \textbf{Dir} to \textbf{Dir}, as in \cref{cond1} of \cref{sec:lift}. Since $\Lim_{\rightarrow}$
+is a covariant functor on \textbf{Dir} to $\mathbf{G}_0$, we have two composite functors
+\begin{equation*}
+	\Lim_{\rightarrow}\circ\,Q_L\text{ and } Q\circ \Lim_{\rightarrow},
+\end{equation*}
+both covariant on \textbf{Dir} to $\mathbf{G}_0$. There is also an explicit natural transformation
+\begin{equation}\label{eq:lim_nat}
+	\omega_1:(\Lim_{\rightarrow}\circ\,Q_L)\rightarrow (Q\circ \Lim_{\rightarrow}),
+\end{equation}
+defined as follows. Let the pair $(D,T)$ be a direct system of groups in the category \textbf{Dir}, and let $\lambda(d)$ be
+the projection
+\begin{equation*}
+	\lambda(d):T(d)\rightarrow \Lim_{\rightarrow}T,\,d\in D.
+\end{equation*}
+Then, on applying the mapping function of $Q$ to $\lambda$, we obtain the natural transformation
+\begin{equation*}
+	Q\lambda(d): Q T(d)\rightarrow Q[\Lim_{\rightarrow}T].
+\end{equation*}
+\Cref{thm:dir-const} now gives a homomorphism
+\begin{equation*}
+	\omega_1(T):\Lim_{\rightarrow}[Q\circ T]\rightarrow Q[\Lim_{\rightarrow} T],
+\end{equation*}
+or, exhibiting $D$ explicitly, a homomorphism
+\begin{equation*}
+	\omega_1(D,T):\Lim_{\rightarrow}Q_L(D,T)\rightarrow Q[\Lim_{\rightarrow} (D,T)].
+\end{equation*}
+We verify that $\omega_1$, so defined, satisfies the naturality condition.
+
+Similarly, to treat \cref{cond2}, consider a contravariant functor $Q$ on $\mathbf{G}_0$ to $\mathbf{G}$ and the lifted functor
+$Q_L$ on \textbf{Dir} to \textbf{Inv}. We then construct an explicit natural transformation
+\begin{equation}\label{eq:nat_case2}
+	\omega_2:(Q\circ\Lim_{\rightarrow})\rightarrow(\Lim_{\leftarrow}\circ\, Q_L)
+\end{equation}
+(note the order!), defined as follows. Let the pair $(D,T)$ be in \textbf{Dir}, and let $\lambda(d)$ be the projection
+\begin{equation*}
+	\lambda(d):T(d)\rightarrow \Lim_{\rightarrow}T,\,d\in D.
+\end{equation*}
+On applying $Q$, we get
+\begin{equation*}
+	Q\lambda(d):Q[\Lim_{\rightarrow}T]\rightarrow QT(d).
+\end{equation*}
+\Cref{thm:inv-uniq2} for inverse systems now gives a homomorphism
+\begin{equation*}
+	\omega_2(D,T):Q[\Lim_{\rightarrow}(D,T)]\rightarrow Q[\Lim_{\leftarrow}Q_L(D,T)].
+\end{equation*}
+
+In the remaining \cref{cond3,cond4} similar arguments give natural transformation
+\begin{align}
+	\omega_3 &:(Q\circ\Lim_{\leftarrow})\rightarrow(\Lim_{\leftarrow}\circ\, Q_L),\label{eq:nat_case3}\\
+	\omega_4 &:(\Lim_{\rightarrow}\circ\, Q_L)\rightarrow (Q\circ\Lim_{\leftarrow}).\label{eq:nat_case4}
+\end{align}
+\begin{thdef}
+	The functor $Q$ defined on groups to groups is said to commute (more precisely to $\omega$-commute) 
+	with $\Lim_{\leftrightarrows}$ if the appropriate one of the four natural transformations $\omega$
+	above is an equivalence.
+\end{thdef}
+
+In other words, the proof that a functor $Q$ commutes with $\Lim_{\rightarrow}$ requires only the verification that the 
+homomorphisms defined above are isomorphisms. The naturality condition holds in general!
+
+To illustrate these concepts, consider the functor $C$ which assigns to each discrete group $G$ its commutator
+subgroup $C(G)$, and consider a direct system $T$ of groups, indexed by $D$. Then the lifted functor $Q$
+(case 1 of \cref{sec:lift}) applied to the pair $(D,T)$ in \textbf{Dir} gives a new direct system of groups,
+still indexed by $D$, with the groups $T(d)$ of the original system replaced by their commutator
+subgroups $CT(d)$, and with the projections correspondingly cut down. It may be readily verified that
+this functor does commute with $\Lim_{\rightarrow}$.
+
+Another functor $Q$ is the subfunctor of the identity which assigns to each discrete abelian group $G$ the subgroup
+$Q(G)$ consisting of those elements $g\in G$ such that there is for each integer $m$ an $x\in G$ with $mx=g$ 
+(that is, of those elements of $G$ which are divisible by every integer), $Q$ is a covariant functor with arguments
+and values in the subcategory $\mathbf{G}_{0a}$ of discrete abelian groups. This functor $Q$ clearly does not
+commute with $\Lim_{\rightarrow}$, since one may represent the additive group of rational numbers as a direct limit
+cyclic group $\mathbb{Z}$ for which each subgroup $Q(\mathbb{Z})$ is the group consisting of zero alone.
+
+The formation of character groups gives further examples. If we consider the functor $\chr$ as a contravariant
+functor on the category $\mathbf{G}_{0a}$ of compact abelian groups, the lifted functor $\chr_L$ will be covariant
+on the appropriate subcategory of \textbf{Dir} to \textbf{Inv} as in \cref{cond2} of \cref{sec:lift}. This lifted functor
+$\chr_L$ applied to any direct system $(D,T)$ of discrete abelian groups will yield an inverse system of compact
+abelian group, indexed by the same set $D$. Each group of the inverse system is the character group of the
+corresponding group of the direct system, and the projections of the inverse system are the induced mappings.
+
+On the other hand, there is a contravariant functor $\chr$ on $\mathbf{G}_{ca}$ to $\mathbf{G}_{0a}$. In this case
+the lifted functor $\chr_L$ will be contravariant on a suitable subcategory of \textbf{Inv} with values in 
+\textbf{Dir}, just as in \cref{cond3} of \cref{sec:lift}. Both these functors $\chr$ commute with $\Lim$.
+
+\chapter[Applications to topology]{Applications to topology\footnote{General reference:~\cite{lef1942}.}}\label{ch:topology}
+\section{Complexes}\label{sec:comp}
+An abstract complex $K$ (in the sense of W.~Mayer) is a collection
+\begin{equation*}
+	\{C^q(K)\},\quad q\in\mathbb{Z},
+\end{equation*}
+of free abelian discrete groups, together with a collection of homomorphisms
+\begin{equation*}
+	\partial^q:C^q(K)\rightarrow C^{q-1}(K)
+\end{equation*}
+called \emph{boundary homomorphism}, such that
+\begin{equation*}
+	\partial^q\partial^{q+1}=0.
+\end{equation*}
+
+By selecting for each of the free groups $C^q$ a fixed basis $\{\sigma_i^q\}$ we obtain a complex which is substantially
+an abstract complex in the sense of A. W. Tucker. The $\sigma_i^q$ will be called $q$-dimensional cells. The boundary
+operator $\partial$ can be written as a finite sum
+\begin{equation*}
+	\partial\sigma^q=\sum_{\sigma^{q-1}}[\sigma^q : \sigma^{q-1}]\sigma^{q-1}.
+\end{equation*}
+The integers $[\sigma^q : \sigma^{q-1}]$ are called incidence numbers, and satisfy the following conditions:
+\begin{enumerate}
+	\item Given $\sigma^q, [\sigma^q : \sigma^{q-1}]\ne 0$ only for a finite number of $(q-1)$-cells $\sigma^{q-1}$.\label[cond]{inc1}
+	\item Given $\sigma^{q+1}$ and $\sigma^{q-1}, \sum_{\sigma^q}[\sigma^{q+1} : \sigma^{q}][\sigma^q : \sigma^{q-1}]=0$.\label[cond]{inc2}
+\end{enumerate}
+\Cref{inc1} indicates that we are confronted with an abstract complex of the closure finite type. Consequently we shall define
+(in \cref{sec:hom-grp}) homology based on finite chains and cohomologies based on infinite cochains.
+
+Our preferences for complexes \`{a} la W.~Mayer is due to the fact that they seem to be best adapted for the exposition of the homology
+theory in terms of functors.
+
+Given two abstract complexes $K_1$ and $K_2$, a chain transformation
+\begin{equation*}
+	k:K_1\rightarrow K_2
+\end{equation*}
+will mean a collection $k=\{k^q\}$ of homomorphisms,
+\begin{equation*}
+	k^q:C^q(K_1)\rightarrow C^q(K_2),
+\end{equation*}
+such that
+\begin{equation*}
+	k^{q-1}\partial^{q} = \partial^q k^q.
+\end{equation*}
+
+In this way we are led to the category $\mathbf{K}$ whose objects are the abstract complexes (in the sense of W.~Mayer) and whose
+mappings are the chain transformations with obvious definition of the composition of chain transformations.
+
+The consideration of simplicial complexes and of simplicial transformations leads to a category $\mathbf{K}_s$. As is well known,
+every simplicial complex uniquely determines an abstract complex, and every simplicial transformation a chain transformation.
+This leads to a covariant functor on $\mathbf{K}_s$ to $\mathbf{K}$.
+
+\section{Homology and cohomology groups}\label{sec:hom-grp}
+For every complex $K$ in the category $\mathbf{K}$ and every group $G$ in the category $\mathbf{G}_{0a}$ of discrete abelian groups
+we define the groups $C^q(K,G)$ of the $q$-dimensional chains of $K$ over $G$ as the tensor product
+\begin{equation*}
+	C^q(K,G)= G\otimes C^q(K),
+\end{equation*}
+that is, $C^q(K,G)$ is the group with the symbols
+\begin{equation*}
+	g c^q,\text{ for } g\in G, c^q\in C^q(K)
+\end{equation*}
+as generators, and
+\begin{equation*}
+	(g_1 + g_2)c^q = g_1 c^q + g_2 c^q, \qquad g(c_1^q+c_2^q) = g_1 c^q + g_2 c^q
+\end{equation*}
+as relations.
+
+For every chain transformation $k:K_1\rightarrow K_2$ and for every homomorphism $\gamma:G_1\rightarrow G_2$ we define a homomorphism
+\begin{equation*}
+	C^q(k,\gamma):C^q(K_1,G_1)\rightarrow C^q(K_2,G_2)
+\end{equation*}
+by setting
+\begin{equation*}
+	C^q(k,\gamma)(g_1 c_1^q)= \gamma(g_1)k^q(c_1^q)
+\end{equation*}
+for each generator $g_1 c_1^q \in C^q(K_1,G_1)$.
+
+These definitions of $C^q(K,G)$ and of $C^q(k,\gamma)$ yield a functor $C^q$ covariant in $\mathbf{K}$ and in $\mathbf{G}_{0a}$ with
+values in $\mathbf{G}_{0a}$. This functor will be called the $q$-chain functor.
+
+We define an homomorphism
+\begin{equation*}
+	\partial^q(K,G):C^q(K,G)\rightarrow C^{q-1}(K,G)
+\end{equation*}
+by setting
+\begin{equation*}
+	\partial^q(K,G)(gc^q)= g\partial c^q
+\end{equation*}
+for each generator $gc^q$ of $C^q(K,G)$. Thus the boundary operator becomes a natural transformation of the functor $C^q$ into
+the functor $C^{q-1}$
+\begin{equation*}
+	\partial^q:C^q\rightarrow C^{q-1}.
+\end{equation*}
+The kernel of this transformation will be denoted by $Z^q$ and will be called the $q$-cycle functor. Its object function is
+the group $Z^q(K,G)$ of the $q$-dimensional cycles of the complex $K$ over $G$.
+
+The image of $C^q$ under the transformation $\partial^q$ is a subfunctor $B^{q-1}=\partial^q(C^q)$ of $C^{q-1}$.
+Its object function is the group $B^{q-1}(K,G)$ of the of the $(q-1)$-dimensional boundaries in $K$ over $G$.
+
+The fact that $\partial^q\partial^{q+1}=0$ implies that $B^q(K,G)$ is a subgroup of $Z^q(K,G)$. Consequently $B^q$
+is a subfunctor of $Z^q$. The quotient functor
+\begin{equation*}
+	H^q= Z^q/B^q
+\end{equation*}
+is called the $q$th homology functor. Its object function associates with each complex $K$ and with each discrete
+abelian coefficient group $G$ the $q$th homology group $H^q(K,G)$ of $K$ over $G$. The functor $H^q$ is covariant
+in $\mathbf{K}$ and $\mathbf{G}_{0a}$ and has values in $\mathbf{G}_{0a}$.
+
+In order to define the cohomology groups as functors we consider the category $\mathbf{K}$ as before and the
+category $\mathbf{G}_a$ of topological abelian groups. Given a complex $K\in\mathbf{K}$ and a group $G\in\mathbf{G}$
+we define the group $C_q(K,G)$ of the $q$-dimensional cochains of $K$ over $G$ as
+\begin{equation*}
+	C_q(K,G)=\hm(C^q(K),G).
+\end{equation*}
+Given a chain transformation $k:K_1\rightarrow K_2$ and a homomorphism $\gamma:G_1\rightarrow G_2$ we define
+a homomorphism
+\begin{equation*}
+	C_q(k,\gamma):C_q(K_2,G_1)\rightarrow C_q(K_1,G_2)
+\end{equation*}
+by associating with each homomorphism $f\in C_q(K_2,G_1)$ the homomorphism $\bar{f}=C_q(k,\gamma)f$, defined as
+follows:
+\begin{equation*}
+	\bar{f}(c_1^q)= \gamma[f(k^q c_1^q)],\qquad c_1^q\in C^q(K_1).
+\end{equation*}
+By comparing this definition with the definition of the functor $\hm$, we observe that $C_q(k,\gamma)$ is in fact
+just $\hm(k^q,\gamma)$.
+
+The definition of $C_q(K,G)$ and $C_q(k,\gamma)$ yield a functor $C_q$ contravariant in $\mathbf{K}$, covariant in
+$\mathbf{G}_a$, and with values in $\mathbf{G}_a$. This functor will be called the $q$th cochain functor.
+
+The coboundary homomorphism
+\begin{equation*}
+	\delta_q(K,G):C_q(K,G)\rightarrow C_{q+1}(K,G)
+\end{equation*}
+is defined by setting, for each cochain $f\in C_q(K,G)$,
+\begin{equation*}
+	(\delta_q f)(c^{q+1})= f(\partial^{q+1} c^{q+1}).
+\end{equation*}
+This leads to a natural transformation of functors
+\begin{equation*}
+	\delta_q:C_q\rightarrow C_{q+1}.
+\end{equation*}
+We may observe that in terms of the functor ``$\hm$'' we have $\delta_q(K,G)=\hm(\partial^{q+1},e_G)$.
+
+The kernel of the transformation $\delta_q$ is denoted by $Z_q$ and is called the $q$-cocycle functor. The image
+functor of $\delta_q$ is denoted by $B_{q+1}$ and is called the $(q+1)$-coboundary functor. Since
+$\partial^q\partial^{q+1}=0$, we may easily deduce that $B_q$ is a subfunctor of $Z_q$.
+The quotient\hyp{}functor
+\begin{equation*}
+	H_q=Z_q/B_q
+\end{equation*}
+is, by definition, the $q$th cohomology functor. $H_q$ is contravariant in $\mathbf{K}$, covariant in
+$\mathbf{G}_a$, and has values in $\mathbf{G}_a$. Its object function associates with each complex $K$
+and each topological abelian group $G$ the (topological abelian) $q$th cohomology group $H_q(K,G)$.
+
+The fact the the homology groups are discrete and have discrete coefficient groups, while the cohomology
+groups are topologized and have topological coefficient groups, is due to the circumstance that
+the complexes considered are closure finite. In a star finite complex the relation would be reversed.
+
+For ``finite'' complexes both homology and cohomology groups may be topological. Let $\mathbf{K}_f$
+denote the subcategory of $\mathbf{K}$ determined by all those complexes $K$ such that all the groups
+$C^q(K)$ have finite rank. If $K\in \mathbf{K}_f$ and $G$ is a topological group, then the group
+$C^q(K,G)=G\otimes C^q(K)$ can be topologized in a natural fashion and consequently $H^q(K,G)$ will
+be topological. Hence both $H^q$ and $H_q$ may be regarded as functors on $\mathbf{K}_f$ and
+$\mathbf{G}_a$ with values in $\mathbf{G}_a$. The first one is covariant in both  $\mathbf{K}_f$
+and $\mathbf{G}_a$, while the second one is contravariant in $\mathbf{K}_f$ and covariant in
+$\mathbf{G}_a$.
+
+\section{Duality}\label{sec:duality}
+Let $G$ be a discrete abelian group and $\chr(G)$ be its (compact) character group (see \cref{sec:char}).
+
+Given a chain
+\begin{gather*}
+	c^q\in C^q(K,G)
+	\shortintertext{where}
+	c^q=\sum_i g_i c^q_i,\quad g_i\in G, c^q_i\in C^q(K),
+\end{gather*}
+and given a cochain 
+\begin{equation*}
+	f\in C_q(K,\chr G),
+\end{equation*}
+we may define the Kronecker index
+\begin{equation}
+	\ki(f,c^q)=\sum_i(f(c^q_i),g_i).
+\end{equation}
+Since $(c^q_i)$ is an element of $\chr G$, its application to $g_i$ gives an element of the group $P$
+of reals reduced$\mod{1}$. The continuity of $\ki(f,c^q)$ as a function of $f$ follows from the definition
+of the topology in $\chr G$ and in $C_q(K,\chr G)$.
+
+As a preliminary to the duality theorem, we define an isomorphism
+\begin{equation}\label{eq:dual_iso}
+	\tau^q(K,G):C_q(K,\chr G)\rightleftarrows \chr C^q(K,G),
+\end{equation}
+by defining for each cochain $f\in C_q(K,\chr G)$ a character
+\begin{gather*}
+	\tau^q(K,G)f:C^q(K,G)\rightarrow P
+	\shortintertext{as follows:}
+	(\tau^q f,c^q)=\ki(f,c^q).
+\end{gather*}
+
+The fact that $\tau^q(K,G)$ is an isomorphism is a direct consequence of the character theory. In \cref{eq:dual_iso}
+both sides should be interpreted as object functions of functors (contravariant in both $K$ and $G$), suitably
+compounded from the functors $C^q,C_q$ and $\chr$. In order to prove that \cref{eq:dual_iso} is natural, 
+consider
+\begin{equation*}
+	k:K_1\rightarrow K_2\in\mathbf{K},\qquad\gamma:G_1\rightarrow G_2\in\mathbf{G}_{0a}.
+\end{equation*}
+We must prove that
+\begin{equation}\label{eq:dual_nat}
+	\tau^q(K_1,G_1)C_q(k,\chr\gamma)=[\chr C^q(k,\gamma)]\tau^q(K_2,G_2).
+\end{equation}
+If now
+\begin{equation*}
+	f\in C_q(K,_2G_2),\qquad c^q\in C^q(K_1,G_1),
+\end{equation*}
+then the definition of $\tau^q$ shows that \cref{eq:dual_nat} is equivalent to the identity
+\begin{equation}\label{eq:dual_eq}
+	\ki(C_q(k,\chr\gamma)f,c^q) = \ki(f,C^q(k,\gamma)c^q).
+\end{equation}
+It will be sufficient to establish \cref{eq:dual_eq} in the case when $c^q$ is a generator of $C^q(K_1,G_1)$,
+\begin{equation*}
+	c^q=g_1c^q_1,\qquad g_1\in G_1, c^q_1\in C^q(K_2).
+\end{equation*}
+\begin{proof}
+	Using the definitions of the terms involved in \cref{eq:dual_eq} we have on the one hand
+	\begin{align*}
+	\ki(C_q(k,\chr\gamma)f,g_1c^q_1) &= ([C_q(k,\chr\gamma)f]c^q_1,g_1)\\
+				&=(\chr\gamma[f(k c^q_1)]g_1\\ &=(f(k c^q_1,\gamma g_1),
+	\end{align*}
+	and on the other hand
+	\begin{equation*}
+		\ki(f,C^q(k,\gamma)g_1 c^q_1) = \ki(f,(\gamma g_1)(k c^q_1)) = (f(k c^q_1,\gamma g_1).
+	\end{equation*}
+	This completes the proof of the naturality of \cref{eq:dual_eq}.
+\end{proof}
+
+Using the well known property of the Kronecker index
+\begin{equation*}
+	\ki(f,\partial^{q+1} c^{q+1}) = \ki(\delta_q f,c^{q+1}),
+\end{equation*}
+one shows easily that under the isomorphisms $\tau^q$ of \cref{eq:dual_iso}
+\begin{align*}
+	\tau^q[Z_q(K,\chr G)]&= \an B^q(K,G),\\
+	\tau^q[B_q(K,\chr G)]&= \an Z^q(K,G)
+\end{align*}
+with ``$\an$'' defined as in \cref{sec:char}. Both $\an (B^q;C^q)$ and $\an (Z^q;C^q)$ are functors
+covariant in $K$ and $G$; the latter is a subfunctor of the former, so that $\tau^q$ induces a natural
+isomorphism
+\begin{equation*}
+	\sigma^q:Z_q(K,\chr G)/B_q(K,\chr G)\rightleftarrows\an B^q(K,G)/\an Z^q(K,G).
+\end{equation*}
+The group on the left is $H_q(K,\chr G)$. The group on the right is, according to \cref{eq:ann_comp}, 
+naturally isomorphic to $\chr Z^q(K,G)/B^q(K,G)$. All told we have a natural isomorphism:
+\begin{equation*}
+	\rho^q:H_q(K,\chr G)\rightleftarrows\chr H^q(K,G).
+\end{equation*}
+
+This is the customary Pontrjagin\hyp{}type duality between homology and cohomology. Thus we have 
+established the naturality of this duality.
+
+\section{Universal coefficient theorems}\label{sec:uni-coeff}
+The theorems of this name express the cohomology groups of a complex, for an arbitrary coefficient
+group, in terms of the integral homology groups and the coefficient group itself. A quite general
+form of such theorems can be stated in terms of certain groups of group extensions;\footcite[757--831]{eilenberg42}
+hence we first show that the basic constructions of group extensions may be regarded as functors.
+
+Let $G$ be a topological abelian group and $H$ a discrete abelian group. A factor set of $H$ in $G$ is a function
+$f(h,k)$ which assigns to each pair $(h,k)$ of elements in $H$ an element $f(h,k)\in G$ in such wise that
+\begin{equation*}
+	f(h,k)=f(k,h),\qquad f(h,k)+f(h+k,l)=f(h,k+l)+f(k,l)
+\end{equation*}
+for all $h$,$k$, and $l$ in $H$. With the natural addition and topology, the set of all factor set $f$ of $H$
+in $G$ constitute a topological abelian group $\fc(G,H)$. If $\gamma:G_1\rightarrow G_2$ and $\eta:H_1\rightarrow H_2$
+are homomorphisms, we can defined a corresponding mapping
+\begin{equation*}
+	\fc(\gamma,\eta):\fc(G_1,H_2)\rightarrow\fc(G_2,H_1)
+\end{equation*}
+by setting
+\begin{equation*}
+	[\fc(\gamma,\eta)f](h_1,k_1)= \gamma f(\eta h_1,\eta k_1)
+\end{equation*}
+for each factor set $f\in\fc(G_1,H_2)$. Thus it appears that $\fc$ is a functor, covariant on the
+category $\mathbf{G}_a$ of topological abelian groups and contravariant in the category $\mathbf{G}_{0a}$
+of discrete abelian groups.
+
+Given any function $g(h)$ with values in $G$, the combination
+\begin{equation*}
+	f(h,k)= g(h)+g(k)-g(h+k)
+\end{equation*}
+is always a factor set; the factor sets of this special form are said to be transformation sets,
+and the set of all transformation sets is a subgroup $\tra(G,H)$ of the group $\fc(G,H)$.
+Furthermore, this subgroup is the object function of a subfunctor. The corresponding quotient
+functor
+\begin{equation*}
+	\ex=\fc/\tra
+\end{equation*}
+is thus covariant in $\mathbf{G}_a$, contravariant in $\mathbf{G}_{0a}$, and has values in $\mathbf{G}_a$.
+Its object function assigns to the groups $G$ and $H$ the group $\ex(G,H)$ the so\hyp{}called abelian
+group extension of $G$ by $H$.
+
+Since $C_q(K,G)=\hm(C^q(K),G)$ and since $C^q(K,\mathbb{Z})= \mathbb{Z}\otimes C^q(K)=C^q(K)$ where 
+$\mathbb{Z}$ is the additive group of integers, we have
+\begin{equation*}
+	C_q(K,G)=\hm(C^q(K,\mathbb{Z}),G).
+\end{equation*}
+We, therefore, may define a subgroup
+\begin{equation*}
+	A_q(K,G)=\an Z^q(K,\mathbb{Z})
+\end{equation*}
+of $C_q(K,G)$ consisting of all homomorphisms $f$ such that $f(z^q)=0$ for $z^q\in Z^q(K,\mathbb{Z})$.
+Thus we get a subfunctor $A_q$ of $C_q$, and one may show that the coboundary functor $B_q$ is a subfunctor
+of $A_q$ which, in turn, is a subfunctor of the cocycle functor $Z_q$. Consequently, the quotient functor
+\begin{equation*}
+	Q_q= A_q/B_q
+\end{equation*}
+is a subfunctor of the cohomology functor $H_q$, and we may consider the quotient functor $H_q/Q_q$.
+The functors $Q_q$ and $H_q/Q_q$ have the following object functions
+\begin{align*}
+	Q_q(K,G) &= A_q(K,G)/B_q(K,G),\\
+	(H_q/Q_q)(K,G) &= H_q(K,G)/Q_q(K,G)\cong Z_q(K,G)/A_q(K,G).
+\end{align*}
+
+The universal coefficient theorem now consists of these three assertions:\footcite[808]{eilenberg42}
+\begin{gather}
+	Q_q(K,G)\text{ is a direct factor of } H_q(K,G).\label{eq:uni-coeff1}\\
+	Q_q(K,G)\cong\ex(G,H^{q+1}(K,\mathbb{Z})).\label{eq:uni-coeff2}\\
+	H_q(K,G)/Q_q(K,G)\cong\hm(H^q(K,\mathbb{Z}),G).\label{eq:uni-coeff3}
+\end{gather}
+
+Both the isomorphisms \labelcref{eq:uni-coeff2,eq:uni-coeff3} can be interpreted as equivalences of functors.
+The naturality of these equivalences with respect to $K$ has been explicitly verified,\footcite[815]{eilenberg42}
+while the naturality with respect to $G$ ca be verified without difficulty. We have not been able to prove and
+we doubt that the functor $Q_q$ is a direct factor of the functor $H_q$ (see \cref{sec:funct_prod}).
+
+\section{\u{C}ech homology groups}\label{sec:cech-hom}
+We shall present now a treatment of the \u{C}ech homology in terms of functors.
+
+By a covering $U$ of a topological space $X$ we shall understand a finite collection:
+\begin{equation*}
+	U = \{A_1,\dotsc,A_n\}
+\end{equation*}
+of open sets whose union is $X$. The sets $A_i$ may appear with repetitions, and some of
+them may be empty. If $U_1$ and $U_2$ are two such coverings, we write $U_1\prec U_2$
+whenever $U_2$ is a refinement of $U_1$, that is, whenever each set of the covering $U_2$
+is contained in some set of the covering $U_1$. With this definition the coverings $U$ of
+$X$ form a directed set which we denote by $C(X)$.
+
+Let $\xi:X_1\rightarrow X_2$ be a continuous mapping of the space $X_1$ into the space
+$X_2$. Given a covering
+\begin{equation*}
+	U= \{A_1,\dotsc,A_n\}\in C(X_2),
+\end{equation*}
+we define
+\begin{equation*}
+	C(\xi)U= \{\xi^{-1}(A_1),\dotsc,\xi^{-1}(A_n)\}\in C(X_1)
+\end{equation*}
+and we obtain an order preserving mapping
+\begin{equation*}
+	C(\xi): C(X_2)\rightarrow C(X_1).
+\end{equation*}
+We verify that the functions $C(X), C(\xi)$ define a contravariant functor $C$ on the category
+$\mathbf{X}$ of topological spaces to the category $\mathbf{D}$ of directed sets.
+
+Given a covering $U$ of $X$ we define, in the usual fashion, the nerve $N(U)$ of $U$. $N(U)$ is
+a finite simplicial complex; it will be treated, however, as an object of the category $K_f$ of
+\cref{sec:hom-grp}.
+
+If two coverings $U_1\prec U_2$ of $X$ are given, then we select for each set of the covering
+$U_2$ a set of the covering $U_1$ containing it. This leads to a simplicial mapping of the
+complex $N(U_2)$ into the complex $N(U_1)$ and therefore gives a chain transformation
+\begin{equation*}
+	k:N(U_2)\rightarrow N(U_1).
+\end{equation*}
+This transformation $k$ will be called a projection. The projection $k$ is not defined uniquely
+by $U_1$ and $U_2$, but it is known that any two projections $k_1$ and $k_2$ are chain homotopic
+and consequently the induced homomorphisms
+\begin{align}
+	H^q(k,e_G) &: H^q(N(U_2),G)\rightarrow H^q(N(U_1),G),\label{eq:cech-hom}\\
+	H_q(k,e_G) &: H_q(N(U_1),G)\rightarrow H_q(N(U_2),G)\label{eq:cech-cohom}
+\end{align}
+of the homology and cohomology groups do not depend upon the particular choice of the projection
+$k$.
+
+Given a topological group $G$ we consider the collection of the homology groups $H^q(N(U),G)$
+for $U\in C(X)$. These groups together with the mappings \cref{eq:cech-hom} form an inverse
+system of groups defined on the directed set $C(X)$. We denote the inverse system by $\overline{C}^q(X,G)$
+and treat it as an object of the category \textbf{Inv} (\cref{sec:dir-inv}).
+
+Similarly, for a discrete $G$ the cohomology groups $H_q(N(U),G)$ together with the mappings 
+\labelcref{eq:cech-cohom} form a direct system of groups $\overline{C}_q(X,G)$ likewise
+defined on the directed set $C(X)$. The system $\overline{C}_q(X,G)$ will be treated as an 
+object of the category \textbf{Dir}.
+
+The functions $\overline{C}^q(X,G)$ and $\overline{C}_q(X,G)$ will be object functions of 
+functors $\overline{C}^q$ and $\overline{C}_q$. In order to complete the definition we shall
+define the mapping functions  $\overline{C}^q(\xi,\gamma)$ and $\overline{C}_q(\xi,\gamma)$ for
+given mappings
+\begin{equation*}
+	\xi:X_1\rightarrow X_2,\qquad \gamma:G_1\rightarrow G_2.
+\end{equation*}
+We have the order preserving mapping
+\begin{equation}\label{eq:cech-map1}
+	C(\xi):C(X_2)\rightarrow C(X_1)
+\end{equation}
+which with each covering
+\begin{equation*}
+	U = \{A_1,\dotsc,A_n\}\in C(X_2)
+\end{equation*}
+associates the covering
+\begin{equation*}
+	V = C(\xi) = \{\xi^{-1}A_1,\dotsc,\xi^{-1}A_n\}\in C(X_1).
+\end{equation*}
+Thus to each set of the covering $V$ corresponds uniquely a set of covering $U$; this yields a 
+simplicial mapping
+\begin{equation*}
+	k:N(V)\rightarrow N(U),
+\end{equation*}
+which leads to the homomorphisms
+\begin{align}
+	H^q(k,\gamma) &: H^q(N(V),G_1)\rightarrow H^q(N(U),G_2),\label{eq:cech-map2}\\
+	H_q(k,\gamma) &: H_q(N(U),G_1)\rightarrow H_q(N(V),G_2)\label{eq:cech-map3}
+\end{align}
+\Crefrange{eq:cech-map1}{eq:cech-map3} define the transformations
+\begin{align*}
+	\overline{C}^q(\xi,\gamma) &:\overline{C}^q(X_1,G_1)\rightarrow \overline{C}^q(X_2,G_2)\in\mathbf{Inv},\\
+	\overline{C}_q(\xi,\gamma) &:\overline{C}_q(X_2,G_1)\rightarrow \overline{C}_q(X_1,G_2)\in\mathbf{Dir}.
+\end{align*}
+Hence we see that $\overline{C}^q$ is a functor covariant in $\mathbf{X}$ and in $\mathbf{G}_a$ with values in \textbf{Inv}
+while $\overline{C}_q$ is contravariant in $\mathbf{X}$, covariant in $\mathbf{G}_{0a}$ with values in \textbf{Dir}.
+
+The \u{C}ech homology and cohomology functors are now defined as
+\begin{equation*}
+	\overline{H}^q=\Lim_{\leftarrow}\overline{C}^q,\qquad \overline{H}_q=\Lim_{\rightarrow}\overline{C}_q.
+\end{equation*}
+$\overline{H}^q$ is covariant in $\mathbf{X}$ and in $\mathbf{G}_a$ with values in $\mathbf{G}_a$, while $\overline{H}_q$
+is contravariant in $\mathbf{X}$, covariant in $\mathbf{G}_{0a}$, and has values in $\mathbf{G}_{0a}$. The object functions
+$\overline{H}^q(X,G)$ and $\overline{H}_q(X,G)$ are the \u{C}ech homology and cohomology groups of the space $X$ with the
+group $G$ as coefficients.
+
+\section{Miscellaneous remarks}\label{sec:misc}
+The process of setting up the various topological invariants as functors will require the construction of many categories.
+For instance, if we wish to discuss the so\hyp{}called relative homology theory, we shall need the category $\mathbf{X}_S$
+whose objects are the pairs $(X,A)$, where $X$ is a topological space and $A$ is a subset of $X$. A mapping
+\begin{equation*}
+	\xi:(X,A)\rightarrow (Y,B)\in\mathbf{X}_S
+\end{equation*}
+is a continuous mapping $\xi:X\rightarrow Y$ such that $\xi(A)\subset B$. The category $\mathbf{X}$ may be regarded
+as the subcategory of $\mathbf{X}_S$ in the category $\mathbf{X}_b$ defined by the pairs $(X,A)$ in which the sets $A$
+consists of a single point, called the base point. This category $\mathbf{X}_b$ would be used in a functorial
+treatment of the fundamental group and of the homotopy groups.
+
+\addchap{Appendix}
+\addsec{Representations of Categories}\label{sec:rep-cat}
+The purpose of this appendix is to show that every category is isomorphic with a suitable subcategory of the
+category of sets $\mathbf{S}$.
+
+Let $\mathbf{A}$ be any category. A covariant functor $T$ on $\mathbf{A}$ with values in $\mathbf{S}$ will be
+called a representation of $\mathbf{A}$ in $\mathbf{S}$. A representation $T$ will be called \emph{faithful}
+if for every two mappings, $\alpha_1,\alpha_2\in\mathbf{A}$, we have $T(\alpha_1)=T(\alpha_2)$ only if
+$\alpha_1=\alpha_2$. This implies a similar proposition for the objects of $\mathbf{A}$. It is clear that a
+faithful representation is nothing but an isomorphic mappings of $\mathbf{A}$ onto some subcategory of $\mathbf{S}$.
+
+If the functor $T$ on $\mathbf{A}$ to $\mathbf{S}$ is contravariant, we shall say that $T$ is a dual representation.
+$T$ is then obviously a representation of the dual category $\mathbf{A}^\text{op}$, as defined in \cref{sec:func_comb}.
+
+Given a mapping $\alpha:A_1\rightarrow A_2$ in $\mathbf{A}$, we shall denote the domain $A_1$ of $\alpha$ by $d(\alpha)$
+and the range $A_2$ of $\alpha$ by $r(\alpha)$. In this fashion we have
+\begin{equation*}
+	\alpha:d(a)\rightarrow r(a).
+\end{equation*}
+
+Given an object $A\in\mathbf{A}$ we shall denote by $R(A)$ the set of $\alpha\in\mathbf{A}$, such that $A=r(\alpha)$.
+In symbols
+\begin{equation}\label{eq:rep_dom}
+	R(A)= \{\alpha | \alpha\in\mathbf{A}, r(\alpha)=A\}.
+\end{equation}
+For every mapping $\alpha\in\mathbf{A}$ we defined a mapping
+\begin{equation}\label{eq:rep_map}
+	R(\alpha):R(d(\alpha))\rightarrow R(r(\alpha))
+\end{equation}
+in the category $\mathbf{S}$ by setting
+\begin{equation}\label{eq:rep_nat}
+	[R(\alpha)]\xi=\alpha\xi,\qquad \forall\xi\in R(d(\alpha)).
+\end{equation}
+This mapping is well defined because if $\xi\in R(d(\alpha))$, then $r(\xi)=d(\alpha)$, so that $\alpha\xi$ is defined
+and $r(\alpha\xi)=r(\alpha)$ which implies $\alpha\xi\in R(r(\alpha))$.
+\begin{theorem}
+	For every category $\mathbf{A}$ the pair of functions $R(A),R(\alpha)$, defined above, establishes a faithful
+	representation $R$ of $\mathbf{A}$ in $\mathbf{S}$.
+\end{theorem}
+\begin{proof}
+	We first verify that $R$ is a functor. If $\alpha=e_A$ is an identity then the definition \labelcref{eq:rep_nat}
+	implies that $[R(\alpha)]\xi=\xi$, so that $R(\alpha)$ is the identity mapping of $R(A)$ into itself. Thus
+	$R$ satisfies \cref{eq:funct_id}. \Cref{eq:funct_prod1} has already been verified. In order to verify
+	\cref{eq:funct_prod2} let us consider the mappings
+	\begin{equation*}
+		\alpha_1:A_1\rightarrow A_2\qquad\alpha_2:A_2\rightarrow A_3.
+	\end{equation*}
+	We have for every $\xi\in R(A_1)$,
+	\begin{equation*}
+		[R(\alpha_2\alpha_1)]\xi=\alpha_2\alpha_1\xi=[R(\alpha_2)]\alpha_1\xi=[R(\alpha_2)R(\alpha_1)]\xi,
+	\end{equation*}
+	so that $R(\alpha_2\alpha_1)=R(\alpha_2)R(\alpha_1)$. This concludes the proof that $R$ is a representation.
+
+	In order to show that $R$ is faithful, let us consider two mappings $\alpha_1,\alpha_2\in\mathbf{A}$ and let
+	assume that $R(\alpha_1)=R(\alpha_2)$. It follows from \cref{eq:rep_map} that $R(d(\alpha_1))=R(d(\alpha_2))$,
+	and, therefore, according to \cref{eq:rep_dom}, $d(\alpha_1)=d(\alpha_2)$. Consider the identity mapping
+	$e=e_{d(\alpha_1)}=e_{d(\alpha_2)}$. Following \cref{eq:rep_nat} we have
+	\begin{equation*}
+		\alpha_1 =\alpha_1 e = [R(\alpha_1)]e = [R(\alpha_2)]e = \alpha_2 e = \alpha_2,
+	\end{equation*}
+	so that $\alpha_1=\alpha_2$. This concludes the proof of the theorem.
+\end{proof}
+
+In a similar fashion we could define a faithful dual representation $D$ of $\mathbf{A}$ by setting
+\begin{equation*}
+	D(A)= \{\alpha | \alpha\in\mathbf{A}, d(\alpha)=A\}.
+\end{equation*}
+and
+\begin{equation*}
+	[D(\alpha)]\xi= \xi\alpha
+\end{equation*}
+for every $\xi\in D(r(\alpha))$.
+
+The representations $R$ and $D$ are the analogues of the left and right regular representations in group theory.
+
+We shall conclude with some remarks concerning partial order in categories. Most of the categories which we have
+considered have an intrinsic partial order. For instance, in the categories $\mathbf{S,X}$, and $\mathbf{G}$ the
+concept of subset,subspace and subgroup furnish a partial order. In view of \cref{eq:rep_dom}, $A_1\ne A_2$ implies
+that $R(A_1)$ and $R(A_2)$ are disjoint, so that the representation $R$ destroys this order completely. The problem
+of getting ``order preserving representations'' would require probably a suitable formalization of the concept of
+a partially ordered category.
+
+As an illustration of the type of arguments which may be involved, let us consider the category $\mathbf{G}_0$ of
+discrete groups. With each group $G$ we can associate the set $R_1(G)$ which is the set of elements constituting
+the group $G$. With the obvious mappings function, $R_1$ becomes a covariant functor on $\mathbf{G}_0$ to
+$\mathbf{S}$, that is, $R_1$ is a representation of $\mathbf{G}_0$ in $\mathbf{S}$. This representation is not
+faithful, since the same set may carry two different group structures. The group structure of $G$ is entirely
+described by means of a ternary relation $g_1 g_2 = g$. This ternary relation is nothing by a subset
+$R_2(G)\subset R_1(G)\times R_1(G)\times R_1(G)$. All of the axioms of group theory can be formulated in terms
+of the subset $R_2(G)$. Moreover a homomorphism $\gamma:G_1\rightarrow G_2$ includes a mapping $R_2(\gamma):
+R_2(G_1)\rightarrow R_2(G_2)$. Consequently $R_2$ is a subfunctor of a suitably defined functor
+$R_1\times R_1\times R_1$. The two functors $R_1$ and $R_2$ together give a complete description of
+$\mathbf{G}_0$, preserving the partial order.
+\printbibliography
+\end{document}
