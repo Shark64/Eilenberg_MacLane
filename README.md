@@ -1,4 +1,4 @@
-# Eilenberg &amp;  MacLane _General Theory of Natural Equivalences_ typed in LaTeX
+# Eilenberg &amp;  MacLane _General Theory of Natural Equivalences_ typeset in LaTeX
 
 This repository contains the .tex source and .pdf version of Samuel Eilenberg and Saunders MacLane's
 landmark paper from 1945 that gave birth to category theory.
